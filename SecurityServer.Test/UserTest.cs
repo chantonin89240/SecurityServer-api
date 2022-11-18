@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace SecurityServer.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class UserTest
     {
         [TestMethod]
         public void TestMethod1()
