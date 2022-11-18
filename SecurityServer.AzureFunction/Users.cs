@@ -10,9 +10,9 @@ using Newtonsoft.Json;
 
 namespace SecurityServer.AzureFunction
 {
-    public static class Function1
+    public static class Users
     {
-        [FunctionName("Function1")]
+        [FunctionName("GetUsers")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
