@@ -12,4 +12,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.11" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SecurityServer.Data\SecurityServer.Data.csproj" />
+    <ProjectReference Include="..\SecurityServer.Entities\SecurityServer.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

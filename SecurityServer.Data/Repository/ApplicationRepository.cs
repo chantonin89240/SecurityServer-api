@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SecurityServer.Data;
-using SecurityServer.Data.Entities;
+using SecurityServer.Entities;
 
 namespace SecurityServer.Data.Repository
 {
@@ -19,7 +19,7 @@ namespace SecurityServer.Data.Repository
 
         public IEnumerable<ApplicationEntity> GetApplications()
         {
-            IEnumerable<ApplicationEntity> applications = this.context.Applications.ToList();
+            List<ApplicationEntity> applications = this.context.Applications.ToList();
             return applications;
         }
     }

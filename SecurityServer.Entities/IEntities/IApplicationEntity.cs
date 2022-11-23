@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SecurityServer.Data.Entities.IEntities
+namespace SecurityServer.Entities.IEntities
 {
-    public interface IApplicationEntity
+    public class IApplicationEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

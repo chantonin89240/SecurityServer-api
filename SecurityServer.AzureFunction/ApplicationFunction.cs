@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SecurityServer.Service;
+using SecurityServer.Entities;
 
 namespace SecurityServer.AzureFunction
 {
@@ -20,8 +21,13 @@ namespace SecurityServer.AzureFunction
     {
         private ApplicationService applicationService;
 
+        public ApplicationFunction(ApplicationService applicationService)
+        {
+            this.applicationService = applicationService;
+        }
+
         [FunctionName("GetApplications")]
-        public static async Task<IActionResult> Run(
+        public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "GetApplications")] HttpRequest req,
             ILogger log)
         {
@@ -33,9 +39,9 @@ namespace SecurityServer.AzureFunction
             dynamic data = JsonConvert.DeserializeObject(requestBody);
             name = name ?? data?.name;
 
-            
+            List<ApplicationEntity> appli = applicationService.GetApplications();
 
-            string responseMessage = string.IsNullOrEmpty(name)
+            string responseMessage = appli.Count > 0
                 ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
                 : $"Hello, {name}. This HTTP triggered function executed successfully.";
 
