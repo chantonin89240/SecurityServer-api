@@ -10,4 +10,8 @@
     <PackageReference Include="IoC.Di" Version="1.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SecurityServer.Data\SecurityServer.Data.csproj" />
+  </ItemGroup>
+
 </Project>
