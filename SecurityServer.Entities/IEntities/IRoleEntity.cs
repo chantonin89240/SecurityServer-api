@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SecurityServer.Data.Entities.IEntities
+namespace SecurityServer.Entities.IEntities
 {
     public interface IRoleEntity
     {

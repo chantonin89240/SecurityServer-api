@@ -1,7 +1,7 @@
 ﻿namespace SecurityServer.Data
 {
     using Microsoft.EntityFrameworkCore;
-    using Entities;
+    using SecurityServer.Entities;
     using System;
     using System.Collections.Generic;
     using System.Reflection.Metadata;
@@ -16,8 +16,8 @@
 
         public DbSet<UserEntity>? Users { get; set; }
 
-        public SecurityServerDbContext(DbContextOptions<SecurityServerDbContext> Options)
-            : base(Options)
+        public SecurityServerDbContext(DbContextOptions<SecurityServerDbContext> options)
+            : base(options)
         {
         }
     }

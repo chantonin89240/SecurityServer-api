@@ -11,41 +11,41 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using SecurityServer.Service;
-using SecurityServer.Service.Interface;
+using SecurityServer.Entities;
 
 namespace SecurityServer.AzureFunction
 {
     public class ApplicationFunction
     {
-        private readonly IApplicationService _applicationService;
-        private const string _route = "Applications";
+        private ApplicationService applicationService;
 
-        public ApplicationFunction(IApplicationService applicationService)
+        public ApplicationFunction(ApplicationService applicationService)
         {
-            _applicationService = applicationService;
+            this.applicationService = applicationService;
         }
 
-        [FunctionName("GetApplication")]
+        [FunctionName("GetApplications")]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = _route)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "GetApplications")] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
             string name = req.Query["name"];
 
-            //string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            //dynamic data = JsonConvert.DeserializeObject(requestBody);
-            //name = name ?? data?.name;
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            dynamic data = JsonConvert.DeserializeObject(requestBody);
+            name = name ?? data?.name;
 
-            //string responseMessage = string.IsNullOrEmpty(name)
-            //    ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-            //    : $"Hello, {name}. This HTTP triggered function executed successfully.";
+            List<ApplicationEntity> appli = applicationService.GetApplications();
 
-            var result = _applicationService.GetAll();
+            string responseMessage = appli.Count > 0
+                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
+                : $"Hello, {name}. This HTTP triggered function executed successfully.";
 
-            return new OkObjectResult(result);
+            return new OkObjectResult(responseMessage);
         }
     }
 }

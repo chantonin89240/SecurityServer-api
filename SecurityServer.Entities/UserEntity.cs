@@ -1,11 +1,11 @@
-﻿using SecurityServer.Data.Entities.IEntities;
+﻿using SecurityServer.Entities.IEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SecurityServer.Data.Entities
+namespace SecurityServer.Entities
 {
     public class UserEntity : IUserEntity
     {
@@ -21,16 +21,13 @@ namespace SecurityServer.Data.Entities
 
         public UserEntity(int id, int idrole, string firstname, string lastname, string email, string password, string avatar)
         {
-            this.Id = id;   
+            this.Id = id;
             this.IdRole = idrole;
-            this.FirstName = firstname; 
+            this.FirstName = firstname;
             this.LastName = lastname;
             this.Email = email;
             this.Password = password;
             this.avatar = avatar;
         }
-
-
-
     }
 }

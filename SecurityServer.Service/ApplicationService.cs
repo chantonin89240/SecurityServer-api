@@ -1,29 +1,27 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
-using SecurityServer.Data;
-using SecurityServer.Data.Entities;
-using SecurityServer.Data.UnitOfWork.Interface;
-using SecurityServer.Service.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SecurityServer.Entities;
+using SecurityServer.Data;
 
 namespace SecurityServer.Service
 {
-    public class ApplicationService : IApplicationService
+    public class ApplicationService
     {
-      private IApplicationUnitOfWork _applicationUnitOfWork;
+        private UnitOfWork? unitOfWork;
 
-        public ApplicationService(IApplicationUnitOfWork applicationUnitOfWork)
+        public ApplicationService(UnitOfWork unit) 
         {
-            _applicationUnitOfWork = applicationUnitOfWork;
+            this.unitOfWork = unit;
         }
 
-        public  List<ApplicationEntity> GetAll()
+        public List<ApplicationEntity> GetApplications()
         {
-            List<ApplicationEntity> applications = _applicationUnitOfWork.ApplicationRepository.findAll();
-            return applications;
+            List<ApplicationEntity> ListApplications = this.unitOfWork.Application.GetApplications().ToList();
+            return ListApplications;
         }
+
     }
 }

@@ -6,14 +6,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.11" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.11" />
-  </ItemGroup>
+
 
   <ItemGroup>
     <ProjectReference Include="..\SecurityServer.Entities\SecurityServer.Entities.csproj" />
     <ProjectReference Include="..\SecurityServer.Factory\SecurityServer.Factory.csproj" />
+    <PackageReference Include="IoC.Di" Version="1.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.11" />
   </ItemGroup>
+
 
 </Project>
