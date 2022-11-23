@@ -2,6 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SecurityServer.Data;
+using SecurityServer.Data.UnitOfWork;
+using SecurityServer.Data.UnitOfWork.Interface;
+using SecurityServer.Service;
+using SecurityServer.Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +23,8 @@ namespace SecurityServer.AzureFunction
             string connectionString = Environment.GetEnvironmentVariable("SqlConnectionString");
             builder.Services.AddDbContext<SecurityServerDbContext>(
               options => SqlServerDbContextOptionsExtensions.UseSqlServer(options, connectionString));
+            builder.Services.AddScoped<IApplicationUnitOfWork, ApplicationUnitOfWork>();
+            builder.Services.AddTransient(typeof(IApplicationService), typeof(ApplicationService));
         }
     }
 }
