@@ -5,13 +5,15 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecurityServer.AzureFunction", "SecurityServer.AzureFunction\SecurityServer.AzureFunction.csproj", "{7E463655-050D-4547-9860-2FAAB8A12DFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurityServer.Data", "SecurityServer.Data\SecurityServer.Data.csproj", "{4558F560-8227-4800-8A31-3A281E5C1025}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecurityServer.Data", "SecurityServer.Data\SecurityServer.Data.csproj", "{4558F560-8227-4800-8A31-3A281E5C1025}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurityServer.Service", "SecurityServer.Service\SecurityServer.Service.csproj", "{DA5BA7EE-7C3C-40F4-9B32-976E19F802D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecurityServer.Service", "SecurityServer.Service\SecurityServer.Service.csproj", "{DA5BA7EE-7C3C-40F4-9B32-976E19F802D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurityServer.Factory", "SecurityServer.Factory\SecurityServer.Factory.csproj", "{93E16D3B-9F8B-4D97-8A20-37FAE759B9F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecurityServer.Factory", "SecurityServer.Factory\SecurityServer.Factory.csproj", "{93E16D3B-9F8B-4D97-8A20-37FAE759B9F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurityServer.Test", "SecurityServer.Test\SecurityServer.Test.csproj", "{CA6030AB-B4A8-4B84-863F-BAA9CCACE965}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecurityServer.Test", "SecurityServer.Test\SecurityServer.Test.csproj", "{CA6030AB-B4A8-4B84-863F-BAA9CCACE965}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurityServer.Entities", "SecurityServer.Entities\SecurityServer.Entities.csproj", "{D726DEBC-FFAC-44BA-95D5-838F101427F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{CA6030AB-B4A8-4B84-863F-BAA9CCACE965}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA6030AB-B4A8-4B84-863F-BAA9CCACE965}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA6030AB-B4A8-4B84-863F-BAA9CCACE965}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D726DEBC-FFAC-44BA-95D5-838F101427F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D726DEBC-FFAC-44BA-95D5-838F101427F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D726DEBC-FFAC-44BA-95D5-838F101427F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D726DEBC-FFAC-44BA-95D5-838F101427F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
