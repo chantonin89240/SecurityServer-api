@@ -1,4 +1,6 @@
-﻿using SecurityServer.Data.Entities;
+﻿
+
+using SecurityServer.Entities;
 
 namespace SecurityServer.Factory
 {
