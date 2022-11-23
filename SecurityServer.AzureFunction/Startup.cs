@@ -2,8 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SecurityServer.Data;
-using SecurityServer.Data.UnitOfWork;
-using SecurityServer.Data.UnitOfWork.Interface;
 using SecurityServer.Service;
 using SecurityServer.Service.Interface;
 using SecurityServer.Data.Repository;

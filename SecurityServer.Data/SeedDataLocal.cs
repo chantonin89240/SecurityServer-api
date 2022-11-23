@@ -1,4 +1,4 @@
-﻿using SecurityServer.Data.Entities;
+﻿using SecurityServer.Entities;
 using SecurityServer.Factory;
 using System;
 using System.Collections.Generic;
