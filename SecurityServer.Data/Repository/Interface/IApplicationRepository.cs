@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace SecurityServer.Data.Repository.Interface
 {
-    public interface IApplicationRepository
+    public interface IApplicationRepository : IBaseRepository<ApplicationEntity>
     {
-        void addApplication(ApplicationEntity application);
-        void deleteApplication(ApplicationEntity application);
-        ApplicationEntity find(int id);
-        List<ApplicationEntity> findAll();
+        IEnumerable<ApplicationEntity> Get();
+        ApplicationEntity Get(int id);
+        void Post(ApplicationEntity application);
         void Update(ApplicationEntity application);
+        void Delete(int id);
     }
 }

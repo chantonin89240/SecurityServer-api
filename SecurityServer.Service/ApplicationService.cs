@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using SecurityServer.Entities;
 using SecurityServer.Data;
+using SecurityServer.Entities.IEntities;
+using SecurityServer.Service.Interface;
 
 namespace SecurityServer.Service
 {
-    public class ApplicationService
+    public class ApplicationService : IApplicationService
     {
         private UnitOfWork? unitOfWork;
 
@@ -19,7 +21,7 @@ namespace SecurityServer.Service
 
         public List<ApplicationEntity> GetApplications()
         {
-            List<ApplicationEntity> ListApplications = this.unitOfWork.Application.GetApplications().ToList();
+            List<ApplicationEntity> ListApplications = this.unitOfWork.Application.Get().ToList();
             return ListApplications;
         }
 

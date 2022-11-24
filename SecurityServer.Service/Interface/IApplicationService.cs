@@ -9,6 +9,6 @@ namespace SecurityServer.Service.Interface
 {
     public interface IApplicationService
     {
-        public List<ApplicationEntity> GetAll();
+        public List<ApplicationEntity> GetApplications();
     }
 }
