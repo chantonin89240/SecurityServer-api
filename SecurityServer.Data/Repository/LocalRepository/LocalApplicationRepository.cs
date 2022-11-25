@@ -43,7 +43,7 @@ namespace SecurityServer.Data.Repository.LocalRepository
 
         public List<ApplicationEntity> findAll()
         {
-            return _context.Applications.ToList();
+            return _context.Application.ToList();
         }
 
         public IEnumerable<ApplicationEntity> Get()

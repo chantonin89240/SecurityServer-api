@@ -14,7 +14,7 @@ namespace SecurityServer.Entities
         public string Description { get; set; }
         public string Url { get; set; }
         public string ClientSecret { get; set; }
-        public List<UserApplicationEntity> Applications {  get; set; }
+        //public List<UserApplicationEntity> Applications {  get; set; }
 
         public ApplicationEntity() { }
 
