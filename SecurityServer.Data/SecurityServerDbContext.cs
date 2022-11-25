@@ -8,13 +8,13 @@
 
     public class SecurityServerDbContext : DbContext
     {
-        public DbSet<ApplicationEntity>? Applications { get; set; }
+        public DbSet<ApplicationEntity>? Application { get; set; }
 
-        public DbSet<ClaimEntity>? Claims { get; set; }
+        public DbSet<ClaimEntity>? Claim { get; set; }
 
-        public DbSet<RoleEntity>? Roles { get; set; }
+        public DbSet<RoleEntity>? Role { get; set; }
 
-        public DbSet<UserEntity>? Users { get; set; }
+        public DbSet<UserEntity>? User { get; set; }
 
         public SecurityServerDbContext(DbContextOptions<SecurityServerDbContext> options)
             : base(options)

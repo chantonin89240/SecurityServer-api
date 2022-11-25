@@ -16,7 +16,17 @@ namespace SecurityServer.Data.Repository.LocalRepository
             _context = context;
         }
 
+        public ApplicationEntity Add(ApplicationEntity entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public void addApplication(ApplicationEntity application)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(int id)
         {
             throw new NotImplementedException();
         }
@@ -33,10 +43,35 @@ namespace SecurityServer.Data.Repository.LocalRepository
 
         public List<ApplicationEntity> findAll()
         {
-            return _context.Applications.ToList();
+            return _context.Application.ToList();
+        }
+
+        public IEnumerable<ApplicationEntity> Get()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ApplicationEntity Get(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ApplicationEntity> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Post(ApplicationEntity application)
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(ApplicationEntity application)
+        {
+            throw new NotImplementedException();
+        }
+
+        ApplicationEntity IBaseRepository<ApplicationEntity>.Update(ApplicationEntity entity)
         {
             throw new NotImplementedException();
         }
