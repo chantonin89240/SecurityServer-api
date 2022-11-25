@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SecurityServer.Data
 {
-    public interface IUnitOfWork<out Tcontext> where Tcontext : DbContext, new()
+    public interface IUnitOfWork<out Tcontext> where Tcontext : DbContext
     {
         Tcontext Context { get; }
         void CreateTransaction();
@@ -17,7 +17,7 @@ namespace SecurityServer.Data
         void Rollback();
         void Save();
 
-        //public IApplicationRepository Application { get; set; }
+        public IApplicationRepository ApplicationRepository { get; }
         //public ClaimRepository Claim { get; set; }
         //public RoleRepository Role { get; set; }
         //public UserRepository User { get; set; }

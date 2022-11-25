@@ -27,8 +27,7 @@ namespace SecurityServer.Data.Repository
         #region CREATE
         public Tentity Add(Tentity entity) 
         {
-            Tentity create = this._dbSet.Add(entity).Entity;
-            return create;
+            return this._dbSet.Add(entity).Entity;
         }
         #endregion
 
@@ -53,15 +52,14 @@ namespace SecurityServer.Data.Repository
         #region GETALL
         public IEnumerable<Tentity> GetAll()
         {
-            return this._dbSet;
+            return this._dbSet.ToList();
         }
         #endregion
 
         #region UPDATE
         public Tentity Update(Tentity entity)
         {
-            Tentity toUpdate = this._dbSet.Update(entity).Entity;
-            return toUpdate;
+            return this._dbSet.Update(entity).Entity;
         }
         #endregion
     }

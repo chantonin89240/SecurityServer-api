@@ -9,11 +9,12 @@ namespace SecurityServer.Entities
 {
     public class ApplicationEntity : IApplicationEntity
     {
-        public new int Id { get; set; }
-        public new string Name { get; set; }
-        public new string Description { get; set; }
-        public new string Url { get; set; }
-        public new string ClientSecret { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Url { get; set; }
+        public string ClientSecret { get; set; }
+        public List<UserApplicationEntity> Applications {  get; set; }
 
         public ApplicationEntity() { }
 

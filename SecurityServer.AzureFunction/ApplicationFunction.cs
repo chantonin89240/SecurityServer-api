@@ -14,14 +14,15 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SecurityServer.Service;
 using SecurityServer.Entities;
+using SecurityServer.Service.Interface;
 
 namespace SecurityServer.AzureFunction
 {
     public class ApplicationFunction
     {
-        private ApplicationService applicationService;
+        private IApplicationService applicationService;
 
-        public ApplicationFunction(ApplicationService applicationService)
+        public ApplicationFunction(IApplicationService applicationService)
         {
             this.applicationService = applicationService;
         }

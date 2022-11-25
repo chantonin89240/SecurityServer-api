@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using SecurityServer.Data.Repository;
 using SecurityServer.Data.Repository.Interface;
 using System;
@@ -9,44 +10,90 @@ using System.Threading.Tasks;
 
 namespace SecurityServer.Data
 {
-    public class UnitOfWork<Tcontext> : IUnitOfWork<Tcontext>, IDisposable where Tcontext : DbContext, new()
+    public class UnitOfWork<Tcontext> : IUnitOfWork<Tcontext>, IDisposable where Tcontext : SecurityServerDbContext
     {
-        public IApplicationRepository Application { get; set; }
-        public ClaimRepository Claim { get; set; }
-        public RoleRepository Role { get; set; }
-        public UserRepository User { get; set; }
+        private readonly Tcontext _context;
+        private bool _disposed;
+        private string _errorMessage = string.Empty;
+        // dictionnaire des repositories 
+        private Dictionary<string, object> _repositories;
+        // objet transaction
+        private IDbContextTransaction _objTran;
 
-        public Tcontext Context => throw new NotImplementedException();
-
-        public UnitOfWork()
+        // constructeur qui récupère et ajoute application repository dans le dictionnaire repositories
+        public IApplicationRepository ApplicationRepository
         {
-            
+            get {
+                if (!_repositories.ContainsKey(nameof(ApplicationRepository))) _repositories.Add(nameof(ApplicationRepository), new ApplicationRepository(_context));
+                return (ApplicationRepository)_repositories[nameof(ApplicationRepository)];
+            }
         }
 
-        public void CreateTransaction()
+        //public ClaimRepository Claim { get; set; }
+        //public RoleRepository Role { get; set; }
+        //public UserRepository User { get; set; }
+
+        // constructeur
+        public UnitOfWork(Tcontext tcontext)
         {
-            throw new NotImplementedException();
+            this._context = tcontext;
+            this._repositories= new Dictionary<string, object>();
         }
 
-        public void Commit()
+        // méthode qui renvoie l'objet DbContext
+        public Tcontext Context
         {
-            throw new NotImplementedException();
-        }
-
-        public void Rollback()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save()
-        {
-            throw new NotImplementedException();
+            get { return _context; }
         }
 
         // IDisposable est un mécanisme pour libérer des ressources non gérées.
+        // méthode pour libérer les ressources non gérées
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Dispose(_disposed: true);
+            // garbage collector récupère la mémoire utilisée par les objets managés
+            // supressFinalize demande de ne pas appeller le finaliseur pour l'objet spécifié
+            GC.SuppressFinalize(this);
         }
+
+        // 
+        protected void Dispose(bool _disposed)
+        {
+            if (!_disposed)
+                if (_disposed)
+                    _context.Dispose();
+            _disposed = true;
+        }
+
+        // méthode de création de transaction
+        public void CreateTransaction()
+        {
+            _objTran = _context.Database.BeginTransaction();
+        }
+
+        // méthode pour sauvegarder les changements de façon permanente dans la bdd, la méthode doit être appeller si les transaction sont terminées avec succées 
+        public void Commit()
+        {
+            _objTran.Commit();
+        }
+
+        // méthode d'annulation des changement, appeler si une transaction à échoué 
+        public void Rollback()
+        {
+            _objTran.Rollback();
+            _objTran.Dispose();
+        }
+
+        // méthode d'enregistrement qui implémente la méthode SaveChange du DbContext, la méthode doit être appelé à chaque fois qu'une transaction est effectué  
+        public void Save()
+        {
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch { }
+        }
+
+        
     }
 }

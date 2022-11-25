@@ -12,16 +12,17 @@ namespace SecurityServer.Service
 {
     public class ApplicationService : IApplicationService
     {
-        private UnitOfWork? unitOfWork;
+        private IUnitOfWork<SecurityServerDbContext>? unitOfWork;
 
-        public ApplicationService(UnitOfWork unit) 
+        public ApplicationService(IUnitOfWork<SecurityServerDbContext> unit) 
         {
             this.unitOfWork = unit;
         }
 
         public List<ApplicationEntity> GetApplications()
         {
-            List<ApplicationEntity> ListApplications = this.unitOfWork.Application.Get().ToList();
+            this.unitOfWork.CreateTransaction();
+            List<ApplicationEntity> ListApplications = this.unitOfWork.ApplicationRepository.GetAll().ToList();
             return ListApplications;
         }
 
