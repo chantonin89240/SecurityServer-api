@@ -5,11 +5,6 @@ using SecurityServer.Data;
 using SecurityServer.Service;
 using SecurityServer.Service.Interface;
 using SecurityServer.Data.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SecurityServer.Data.Repository.Interface;
 using Microsoft.Extensions.Configuration;
 using System.IO;
@@ -27,8 +22,6 @@ namespace SecurityServer.AzureFunction
                .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
                .AddEnvironmentVariables()
                .Build();
-
-            
 
             string connectionString = "Server=bdd-p2-g5.database.windows.net;Initial Catalog=BDD-DIIAGE-P2-G5;Persist Security Info=False;User ID=diiage2bg;Password=Diiage_G5_P2;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             builder.Services.AddDbContext<SecurityServerDbContext>(
