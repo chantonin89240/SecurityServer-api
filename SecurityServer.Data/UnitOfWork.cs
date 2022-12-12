@@ -29,9 +29,17 @@ namespace SecurityServer.Data
             }
         }
 
+        public IUserRepository UserRepository
+        {
+            get
+            {
+                if (!_repositories.ContainsKey(nameof(UserRepository))) _repositories.Add(nameof(UserRepository), new UserRepository(_context));
+                return (UserRepository)_repositories[nameof(UserRepository)];
+            }
+        }
+
         //public ClaimRepository Claim { get; set; }
         //public RoleRepository Role { get; set; }
-        //public UserRepository User { get; set; }
 
         // constructeur
         public UnitOfWork(Tcontext tcontext)

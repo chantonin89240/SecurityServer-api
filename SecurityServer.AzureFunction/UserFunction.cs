@@ -11,29 +11,37 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SecurityServer.Entities;
+using System.Runtime.CompilerServices;
+using SecurityServer.Service;
 
 namespace SecurityServer.AzureFunction
 {
     public static class UserFunction
-    {
-        [FunctionName("GetUsers")]
+    {       
+        [FunctionName("CreateUser")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "CreateUser")] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            string name = req.Query["name"];
-
+            // récupération du body 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
+            // deserialization du body 
+            var input = JsonConvert.DeserializeObject<UserEntity>(requestBody);
 
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
+            // génération d'un salt
+            var salt = Salt.saltGenerator();
+            // salt du password
+            var nicePassword = Salt.SaltPassword(salt, input.Password);
 
-            return new OkObjectResult(responseMessage);
+            // création de l'user entity
+            var user = new UserEntity() { FirstName = input.FirstName, LastName = input.LastName, Email = input.Email, Password = nicePassword, Salt = salt, avatar = input.avatar };
+            // appel du service de création du user 
+            //UserService.
+
+            return new OkObjectResult(user);
         }
     }
 }
