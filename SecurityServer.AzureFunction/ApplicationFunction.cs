@@ -28,9 +28,21 @@ namespace SecurityServer.AzureFunction
         }
 
         [FunctionName("GetApplications")]
-        public async Task<IActionResult> Run(
+        public async Task<IActionResult> GetApplications(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "GetApplications")] HttpRequest req,
             ILogger log)
+        {
+            log.LogInformation("C# HTTP trigger function processed a request.");
+
+            List<ApplicationEntity> appli = applicationService.GetApplications();
+
+            return new OkObjectResult(appli);
+        }
+
+        [FunctionName("CreteApplications")]
+        public async Task<IActionResult> CreateApplication(
+           [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "GetApplications")] HttpRequest req,
+           ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
