@@ -71,7 +71,27 @@ namespace SecurityServer.Data.Repository.LocalRepository
             throw new NotImplementedException();
         }
 
+        string IApplicationRepository.Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        string IBaseRepository<ApplicationEntity>.Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        ApplicationEntity IApplicationRepository.Post(ApplicationEntity application)
+        {
+            throw new NotImplementedException();
+        }
+
         ApplicationEntity IBaseRepository<ApplicationEntity>.Update(ApplicationEntity entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        ApplicationEntity IApplicationRepository.Update(ApplicationEntity application)
         {
             throw new NotImplementedException();
         }
