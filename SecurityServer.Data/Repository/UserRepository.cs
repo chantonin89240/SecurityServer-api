@@ -1,4 +1,5 @@
-﻿using SecurityServer.Data.Repository.Interface;
+﻿using Microsoft.EntityFrameworkCore;
+using SecurityServer.Data.Repository.Interface;
 using SecurityServer.Entities;
 using SecurityServer.Entities.IEntities;
 using System;
@@ -9,54 +10,51 @@ using System.Threading.Tasks;
 
 namespace SecurityServer.Data.Repository
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : BaseRepository<UserEntity>, IUserRepository
     {
-        public UserEntity Add(UserEntity entity)
+        public UserRepository(SecurityServerDbContext context) : base(context)
         {
-            throw new NotImplementedException();
+
         }
 
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public UserEntity Get(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<UserEntity> Get()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<UserEntity> GetAll()
+        IEnumerable<UserEntity> IUserRepository.Get()
         {
             return this.GetAll();
         }
 
-        public UserEntity GetById(int id)
+        UserEntity IUserRepository.Get(int id)
         {
-            return this.GetById(id);
+            return this.Get(id);
         }
 
-        public IEnumerable<UserEntity> GetUsers(int id)
+        UserEntity IUserRepository.Get(string password, string mail)
         {
-            return this.GetUsers(id);
+            return this._dbSet.Find(password, mail);
         }
 
-        public void Post(UserEntity userEntity)
+        bool IUserRepository.Get(UserEntity user)
+        {
+            if (this._dbSet.Find(user.Id) != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        UserEntity IUserRepository.Post(UserEntity user)
+        {
+            return this.Add(user); 
+        }
+
+        UserEntity IUserRepository.Update(UserEntity user)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(UserEntity userEntity)
-        {
-            throw new NotImplementedException();
-        }
-
-        UserEntity IBaseRepository<UserEntity>.Update(UserEntity entity)
+        string IUserRepository.Delete(int id)
         {
             throw new NotImplementedException();
         }

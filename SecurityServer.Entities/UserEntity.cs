@@ -19,9 +19,8 @@ namespace SecurityServer.Entities
 
         public UserEntity() { }
 
-        public UserEntity(int id, int idrole, string firstname, string lastname, string email, string password, string salt, string avatar)
+        public UserEntity(int idrole, string firstname, string lastname, string email, string password, string salt, string avatar)
         {
-            this.Id = id;
             this.FirstName = firstname;
             this.LastName = lastname;
             this.Email = email;

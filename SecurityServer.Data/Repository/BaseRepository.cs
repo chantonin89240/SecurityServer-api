@@ -32,13 +32,14 @@ namespace SecurityServer.Data.Repository
         #endregion
 
         #region DELETE
-        public void Delete(int id)
+        public string Delete(int id)
         {
             Tentity entityToDelete = this._dbSet.Find(id);
             if (entityToDelete != null)
             {
                 this._dbSet.Remove(entityToDelete);
             }
+            return "oui";
         }
         #endregion
 

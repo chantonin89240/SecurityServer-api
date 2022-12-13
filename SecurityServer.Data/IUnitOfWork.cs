@@ -20,6 +20,6 @@ namespace SecurityServer.Data
         public IApplicationRepository ApplicationRepository { get; }
         //public ClaimRepository Claim { get; set; }
         //public RoleRepository Role { get; set; }
-        //public UserRepository User { get; set; }
+        public IUserRepository UserRepository { get; }
     }
 }

@@ -27,17 +27,17 @@ namespace SecurityServer.Data.Repository
             return application;
         }
 
-        void IApplicationRepository.Post(ApplicationEntity application)
+        ApplicationEntity IApplicationRepository.Post(ApplicationEntity application)
         {
             throw new NotImplementedException();
         }
 
-        void IApplicationRepository.Update(ApplicationEntity application)
+        ApplicationEntity IApplicationRepository.Update(ApplicationEntity application)
         {
             throw new NotImplementedException();
         }
 
-        void IApplicationRepository.Delete(int id)
+        string IApplicationRepository.Delete(int id)
         {
             throw new NotImplementedException();
         }

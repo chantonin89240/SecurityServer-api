@@ -11,9 +11,11 @@ namespace SecurityServer.Data.Repository.Interface
     {
         IEnumerable<UserEntity> Get();
         UserEntity Get(int id);
-        void Post(UserEntity userEntity);
-        void Update(UserEntity userEntity);
-        void Delete(int id);
+        UserEntity Get(string password, string mail);
+        bool Get(UserEntity user);
+        UserEntity Post(UserEntity user);
+        UserEntity Update(UserEntity user);
+        string Delete(int id);
 
     }
 }

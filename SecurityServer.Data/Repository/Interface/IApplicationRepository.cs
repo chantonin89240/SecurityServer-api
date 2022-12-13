@@ -11,9 +11,8 @@ namespace SecurityServer.Data.Repository.Interface
     {
         IEnumerable<ApplicationEntity> Get();
         ApplicationEntity Get(int id);
-        
-        void Post(ApplicationEntity application);
-        void Update(ApplicationEntity application);
-        void Delete(int id);
+        ApplicationEntity Post(ApplicationEntity application);
+        ApplicationEntity Update(ApplicationEntity application);
+        string Delete(int id);
     }
 }
