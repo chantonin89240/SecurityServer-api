@@ -21,17 +21,14 @@ namespace SecurityServer.AzureFunction
     public class UserFunction
     {
         private IUserService userService;
+        private ISalt _isalt;
 
-        public UserFunction(IUserService userService)
+        public UserFunction(IUserService userService, ISalt salt)
         {
             this.userService = userService;
+            this._isalt = salt;
         }
 
-        private ISalt _isalt;
-        public UserFunction(ISalt isalt)
-        {
-            this._isalt = isalt;
-        }
         [FunctionName("CreateUser")]
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "CreateUser")] HttpRequest req,
