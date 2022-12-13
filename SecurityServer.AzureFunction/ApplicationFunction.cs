@@ -38,16 +38,16 @@ namespace SecurityServer.AzureFunction
             return new OkObjectResult(appli);
         }
 
-        [FunctionName("CreateApplications")]
-        public async Task<IActionResult> CreateApplication(
-           [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "GetApplications")] HttpRequest req,
-           ILogger log)
-        {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+        //[FunctionName("CreateApplications")]
+        //public async Task<IActionResult> CreateApplication(
+        //   [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "GetApplications")] HttpRequest req,
+        //   ILogger log)
+        //{
+        //    log.LogInformation("C# HTTP trigger function processed a request.");
 
-            List<ApplicationEntity> appli = applicationService.GetApplications();
+        //    List<ApplicationEntity> appli = applicationService.GetApplications();
 
-            return new OkObjectResult(appli);
-        }
+        //    return new OkObjectResult(appli);
+        //}
     }
 }

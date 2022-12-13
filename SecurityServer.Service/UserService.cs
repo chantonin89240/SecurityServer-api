@@ -15,11 +15,22 @@ namespace SecurityServer.Service
         }
 
         // fonction création d'un user
-        public UserEntity CreateUser(UserEntity user)
+        public bool CreateUser(UserEntity user)
         {
             this.unitOfWork.CreateTransaction();
             UserEntity thisUser = this.unitOfWork.UserRepository.Add(user);
-            return thisUser;
+            this.unitOfWork.Commit();
+            this.unitOfWork.Save();
+            var userOk = this.unitOfWork.UserRepository.Get(thisUser);
+
+            if (userOk)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         // fonction récupération d'un user pour l'authentification

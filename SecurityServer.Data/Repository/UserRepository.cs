@@ -32,6 +32,18 @@ namespace SecurityServer.Data.Repository
             return this._dbSet.Find(password, mail);
         }
 
+        bool IUserRepository.Get(UserEntity user)
+        {
+            if (this._dbSet.Find(user.Id) != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         UserEntity IUserRepository.Post(UserEntity user)
         {
             return this.Add(user); 
