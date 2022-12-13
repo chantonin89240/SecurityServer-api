@@ -1,4 +1,5 @@
 ﻿using SecurityServer.Entities;
+using SecurityServer.Entities.DtoDown;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,13 @@ namespace SecurityServer.Data.Repository.Interface
     {
         IEnumerable<UserEntity> Get();
         UserEntity Get(int id);
-        UserEntity Get(string password, string mail);
         bool Get(UserEntity user);
         UserEntity Post(UserEntity user);
         UserEntity Update(UserEntity user);
         string Delete(int id);
+        UserDtoDown Get(string email);
+        public UserEntity Get(UserDtoDown user);
+
 
     }
 }
