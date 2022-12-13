@@ -56,7 +56,17 @@ namespace SecurityServer.Data.Repository.LocalRepository
             throw new NotImplementedException();
         }
 
+        public ApplicationEntity Get(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<ApplicationEntity> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ApplicationEntity GetString(string email)
         {
             throw new NotImplementedException();
         }

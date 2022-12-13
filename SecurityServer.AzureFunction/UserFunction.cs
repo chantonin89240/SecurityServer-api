@@ -14,13 +14,19 @@ using System.Threading.Tasks;
 using SecurityServer.Entities;
 using System.Runtime.CompilerServices;
 using SecurityServer.Service;
+using SecurityServer.Service.Interface;
 
 namespace SecurityServer.AzureFunction
 {
-    public static class UserFunction
-    {       
+    public class UserFunction
+    {
+        private ISalt _isalt;
+        public UserFunction(ISalt isalt)
+        {
+            this._isalt = isalt;
+        }
         [FunctionName("CreateUser")]
-        public static async Task<IActionResult> Run(
+        public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "CreateUser")] HttpRequest req,
             ILogger log)
         {
@@ -32,9 +38,9 @@ namespace SecurityServer.AzureFunction
             var input = JsonConvert.DeserializeObject<UserEntity>(requestBody);
 
             // génération d'un salt
-            var salt = Salt.saltGenerator();
+            var salt = _isalt.saltGenerator();
             // salt du password
-            var nicePassword = Salt.SaltPassword(salt, input.Password);
+            var nicePassword = _isalt.HashPassword(input.Password, salt);
 
             // création de l'user entity
             var user = new UserEntity() { FirstName = input.FirstName, LastName = input.LastName, Email = input.Email, Password = nicePassword, Salt = salt, avatar = input.avatar };

@@ -5,7 +5,7 @@ namespace SecurityServer.Service.Interface
 {
     public interface IUserService
     {
-        public UserEntity GetUser(string password, string mail);
+        public bool GetUser(string password, string mail);
         public UserEntity CreateUser(UserEntity user);
     }
 }

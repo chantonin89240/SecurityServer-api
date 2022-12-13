@@ -7,26 +7,54 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using SecurityServer.Data;
+using SecurityServer.Service;
+using SecurityServer.Entities.DtoDown;
+using SecurityServer.Entities.DtoUp;
+using SecurityServer.Service.Interface;
 
 namespace SecurityServer.AzureFunction
 {
-    public static class UserAuthentificationFunction
+    public class UserAuthentificationFunction
     {
+        private IUserService _userService;
+        public UserAuthentificationFunction(IUserService userService)
+        {
+            this._userService = userService;
+        }
         [FunctionName("UserAuthentificationFunction")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "auth")] UserCredentials userCredentials, ILogger log)
+        public  async Task<IActionResult> Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "auth")] UserDtoUp user, ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
             // TODO: Perform custom authentication here; we're just using a simple hard coded check for this example
-            bool authenticated = userCredentials?.User.Equals("Jay", StringComparison.InvariantCultureIgnoreCase) ?? false;
+            bool authenticated = _userService.GetUser(user.Password, user.Email);
             if (!authenticated)
             {
                 return await Task.FromResult(new UnauthorizedResult()).ConfigureAwait(false);
             }
             else
             {
-                return await Task.FromResult(new OkObjectResult("User is Authenticated")).ConfigureAwait(false);
+                GenerateJWTToken generateJWTToken = new();
+                string token = generateJWTToken.IsusingJWT(user);
+                return await Task.FromResult(new OkObjectResult(token)).ConfigureAwait(false);
             }
+        }
+
+
+
+        [FunctionName(nameof(GetData))]
+        public static async Task<IActionResult> GetData(
+    [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "data")] HttpRequest req, ILogger log)
+        {
+            // Check if we have authentication info.
+            ValidateJWTService auth = new ValidateJWTService(req);
+            if (!auth.IsValid)
+            {
+                return new UnauthorizedResult(); // No authentication info.
+            }
+            string postData = await req.ReadAsStringAsync();
+            return new OkObjectResult($"{postData}");
         }
     }
 
