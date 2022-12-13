@@ -10,9 +10,13 @@ namespace SecurityServer.Service
         // initialisation de unit of work
         private IUnitOfWork<SecurityServerDbContext>? unitOfWork;
 
-      
+        private ISalt _salt;
+        public UserService(IUnitOfWork<SecurityServerDbContext> unit, ISalt salt)
+        {
+            this.unitOfWork = unit;
+            this._salt = salt;
+        }
 
-        // fonction création d'un user
         public bool CreateUser(UserEntity user)
         {
             this.unitOfWork.CreateTransaction();
@@ -20,28 +24,16 @@ namespace SecurityServer.Service
             this.unitOfWork.Commit();
             this.unitOfWork.Save();
             var userOk = this.unitOfWork.UserRepository.Get(thisUser);
-
             if (userOk)
             {
                 return true;
             }
             else
-
-        private ISalt _salt;
-        public UserService(IUnitOfWork<SecurityServerDbContext> unit, ISalt salt)
-        {
-            this.unitOfWork = unit;
-            this._salt = salt;
-        }
-        public UserEntity CreateUser(UserEntity user)
             {
                 return false;
             }
         }
-
-        // fonction récupération d'un user pour l'authentification
-        public UserEntity GetUser(string password, string mail)
-        public bool GetUser(string password, string email)
+        bool IUserService.GetUser(string password, string email)
         {
             var userDto = this.unitOfWork.UserRepository.Get(email);
             UserDtoDown userDtoDown = new UserDtoDown()
@@ -59,7 +51,6 @@ namespace SecurityServer.Service
             {
                 return false;
             }
-            throw new NotImplementedException();
         }
     }
 }

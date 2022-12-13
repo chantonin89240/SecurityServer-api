@@ -17,7 +17,6 @@ namespace SecurityServer.Data.Repository.Interface
         UserEntity Update(UserEntity user);
         string Delete(int id);
         UserDtoDown Get(string email);
-        public UserEntity Get(UserDtoDown user);
 
 
     }
