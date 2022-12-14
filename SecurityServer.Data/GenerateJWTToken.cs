@@ -29,7 +29,7 @@ namespace SecurityServer.Data
             _jwtEncoder = new JwtEncoder(_algorythm, _serializer, _base64UrlEncoder);
         }
 
-        public string IsusingJWT(UserDtoUp user)
+        public string IsusingJWT(UserDtoDown user)
         {
             Dictionary<string, object> claims = new Dictionary<string, object>
             {

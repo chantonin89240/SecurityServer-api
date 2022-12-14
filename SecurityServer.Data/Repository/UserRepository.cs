@@ -41,9 +41,10 @@ namespace SecurityServer.Data.Repository
 
             UserDtoDown userdto = new UserDtoDown()
             {
-                Email = user.Email,
-                Password = user.Password,
-                Salt = user.Salt,
+                id = user.Id,
+                email = user.Email,
+                password = user.Password,
+                salt = user.Salt,
             };
             return userdto;
         }

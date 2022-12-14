@@ -55,6 +55,7 @@ namespace SecurityServer.AzureFunction
 
         // function delete application
         [FunctionName("DeleteApplication")]
+
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "DeleteApplication")] HttpRequest req,
             ILogger log)

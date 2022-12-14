@@ -33,23 +33,24 @@ namespace SecurityServer.Service
                 return false;
             }
         }
-        bool IUserService.GetUser(string password, string email)
+         UserDtoDown IUserService.GetUser(string password, string email)
         {
             var userDto = this.unitOfWork.UserRepository.Get(email);
             UserDtoDown userDtoDown = new UserDtoDown()
             {
-                Password = userDto.Password,
-                Email = userDto.Email,
-                Salt = userDto.Salt
+                id = userDto.id,
+                password = userDto.password,
+                email = userDto.email,
+                salt = userDto.salt              
             };
-            var truc = _salt.HashPassword(password, userDtoDown.Salt);
-            if (userDtoDown.Password == _salt.HashPassword(password, userDtoDown.Salt))
+            var truc = _salt.HashPassword(password, userDtoDown.salt);
+            if (userDtoDown.password == _salt.HashPassword(password, userDtoDown.salt))
             {
-                return true;
+                return userDtoDown;
             }
             else
             {
-                return false;
+                return null;
             }
         }
     }

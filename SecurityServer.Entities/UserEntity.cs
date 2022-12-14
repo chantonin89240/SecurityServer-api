@@ -16,10 +16,11 @@ namespace SecurityServer.Entities
         public string Password { get; set; }
         public string Salt { get; set; }
         public string avatar { get; set; }
+        public bool IsAdmin { get; set; }
 
         public UserEntity() { }
 
-        public UserEntity(int idrole, string firstname, string lastname, string email, string password, string salt, string avatar)
+        public UserEntity(int idrole, string firstname, string lastname, string email, string password, string salt, string avatar, bool isAdmin)
         {
             this.FirstName = firstname;
             this.LastName = lastname;
@@ -27,6 +28,7 @@ namespace SecurityServer.Entities
             this.Password = password;
             this.Salt = salt;
             this.avatar = avatar;
+            this.IsAdmin = isAdmin;
         }
     }
 }
