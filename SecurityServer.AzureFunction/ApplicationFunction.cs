@@ -27,6 +27,7 @@ namespace SecurityServer.AzureFunction
             this.applicationService = applicationService;
         }
 
+        // function get applications
         [FunctionName("GetApplications")]
         public async Task<IActionResult> GetApplications(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "GetApplications")] HttpRequest req, ILogger log)
@@ -38,6 +39,7 @@ namespace SecurityServer.AzureFunction
             return new OkObjectResult(appli);
         }
 
+        // function create application
         [FunctionName("CreateApplication")]
         public async Task<IActionResult> CreateApplication(
            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "CreateApplication")] HttpRequest req,
