@@ -50,5 +50,24 @@ namespace SecurityServer.AzureFunction
             applicationService.CreateApplication(app);
             return new OkObjectResult(app);
         }
+
+        // function delete application
+        [FunctionName("DeleteApplication")]
+        public async Task<IActionResult> Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "DeleteApplication")] HttpRequest req,
+            ILogger log)
+        {
+            log.LogInformation("C# HTTP trigger function processed a request.");
+
+            // récupération du body 
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            // deserialization du body 
+            var input = JsonConvert.DeserializeObject<ApplicationEntity>(requestBody);
+
+            // appel du service delete d'application
+            bool result = applicationService.DeleteApplication(input.Id);
+
+            return new OkObjectResult(result);
+        }
     }
 }

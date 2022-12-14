@@ -19,9 +19,8 @@ namespace SecurityServer.Service
             this.unitOfWork = unit;
         }
 
-        public List<ApplicationEntity> GetApplications()
+        List<ApplicationEntity> IApplicationService.GetApplications()
         {
-            this.unitOfWork.CreateTransaction();
             List<ApplicationEntity> ListApplications = this.unitOfWork.ApplicationRepository.GetAll().ToList();
             return ListApplications;
         }
@@ -35,5 +34,22 @@ namespace SecurityServer.Service
             return Application;
         }
 
+
+        bool IApplicationService.DeleteApplication(int id)
+        {
+            this.unitOfWork.CreateTransaction();
+            this.unitOfWork.ApplicationRepository.Delete(id);
+            this.unitOfWork.Commit();
+            this.unitOfWork.Save();
+            var appOk = this.unitOfWork.ApplicationRepository.Get(id);
+            if (appOk.Id == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

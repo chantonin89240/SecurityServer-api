@@ -11,5 +11,6 @@ namespace SecurityServer.Service.Interface
     {
         public List<ApplicationEntity> GetApplications();
         public ApplicationEntity CreateApplication(ApplicationEntity application);
+        public bool DeleteApplication(int id);
     }
 }
