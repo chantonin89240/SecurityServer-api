@@ -36,22 +36,31 @@ namespace SecurityServer.Service
          UserDtoDown IUserService.GetUser(string password, string email)
         {
             var userDto = this.unitOfWork.UserRepository.Get(email);
-            UserDtoDown userDtoDown = new UserDtoDown()
-            {
-                id = userDto.id,
-                password = userDto.password,
-                email = userDto.email,
-                salt = userDto.salt              
-            };
-            var truc = _salt.HashPassword(password, userDtoDown.salt);
-            if (userDtoDown.password == _salt.HashPassword(password, userDtoDown.salt))
-            {
-                return userDtoDown;
-            }
-            else
+
+            if (userDto == null)
             {
                 return null;
             }
+            else
+            {
+                UserDtoDown userDtoDown = new UserDtoDown()
+                {
+                    id = userDto.id,
+                    password = userDto.password,
+                    email = userDto.email,
+                    salt = userDto.salt
+                };
+                var truc = _salt.HashPassword(password, userDtoDown.salt);
+                if (userDtoDown.password == _salt.HashPassword(password, userDtoDown.salt))
+                {
+                    return userDtoDown;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+           
         }
     }
 }

@@ -32,7 +32,8 @@ namespace SecurityServer.AzureFunction
 
             if (userDtoDown == null)
             {
-                return await Task.FromResult(new UnauthorizedResult()).ConfigureAwait(false); ;
+                var userbody = "Email or password incorrect";
+                return await Task.FromResult(new ObjectResult(userbody)).ConfigureAwait(false); ;
             }
             else
             {

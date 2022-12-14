@@ -39,14 +39,21 @@ namespace SecurityServer.Data.Repository
         {
             var user = _dbSet.FirstOrDefault(u => u.Email == email);
 
-            UserDtoDown userdto = new UserDtoDown()
+            if (user == null)
             {
-                id = user.Id,
-                email = user.Email,
-                password = user.Password,
-                salt = user.Salt,
-            };
-            return userdto;
+                return null;
+            }
+            else
+            {
+                UserDtoDown userdto = new UserDtoDown()
+                {
+                    id = user.Id,
+                    email = user.Email,
+                    password = user.Password,
+                    salt = user.Salt,
+                };
+                return userdto;
+            }
         }
         UserEntity IUserRepository.Update(UserEntity user)
         {
