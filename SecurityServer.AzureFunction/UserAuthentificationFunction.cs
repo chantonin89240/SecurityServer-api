@@ -28,7 +28,7 @@ namespace SecurityServer.AzureFunction
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
             // TODO: Perform custom authentication here; we're just using a simple hard coded check for this example
-            bool authenticated = _userService.GetUser(user.Password, user.Email);
+            bool authenticated = _userService.GetUser(user.password, user.email);
             if (!authenticated)
             {
                 return await Task.FromResult(new UnauthorizedResult()).ConfigureAwait(false);
