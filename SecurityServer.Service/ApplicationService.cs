@@ -26,5 +26,14 @@ namespace SecurityServer.Service
             return ListApplications;
         }
 
+        public ApplicationEntity CreateApplication(ApplicationEntity application)
+        {
+            this.unitOfWork.CreateTransaction();
+            ApplicationEntity Application = this.unitOfWork.ApplicationRepository.Post(application);
+            this.unitOfWork.Commit();
+            this.unitOfWork.Save();
+            return Application;
+        }
+
     }
 }

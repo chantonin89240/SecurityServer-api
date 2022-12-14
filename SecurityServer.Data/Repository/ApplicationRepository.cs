@@ -29,7 +29,7 @@ namespace SecurityServer.Data.Repository
 
         ApplicationEntity IApplicationRepository.Post(ApplicationEntity application)
         {
-            throw new NotImplementedException();
+           return this.Add(application);
         }
 
         ApplicationEntity IApplicationRepository.Update(ApplicationEntity application)
