@@ -10,5 +10,6 @@ namespace SecurityServer.Service.Interface
     public interface IApplicationService
     {
         public List<ApplicationEntity> GetApplications();
+        public bool DeleteApplication(int id);
     }
 }

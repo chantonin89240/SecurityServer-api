@@ -17,7 +17,7 @@ namespace SecurityServer.Service
             this._salt = salt;
         }
 
-        public bool CreateUser(UserEntity user)
+        bool IUserService.CreateUser(UserEntity user)
         {
             this.unitOfWork.CreateTransaction();
             UserEntity thisUser = this.unitOfWork.UserRepository.Add(user);

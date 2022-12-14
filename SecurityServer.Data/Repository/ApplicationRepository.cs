@@ -37,9 +37,9 @@ namespace SecurityServer.Data.Repository
             throw new NotImplementedException();
         }
 
-        string IApplicationRepository.Delete(int id)
+        void IApplicationRepository.Delete(int id)
         {
-            throw new NotImplementedException();
+            this.Delete(id);
         }
     }
 }

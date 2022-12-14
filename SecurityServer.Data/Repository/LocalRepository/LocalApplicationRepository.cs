@@ -81,12 +81,12 @@ namespace SecurityServer.Data.Repository.LocalRepository
             throw new NotImplementedException();
         }
 
-        string IApplicationRepository.Delete(int id)
+        void IApplicationRepository.Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        string IBaseRepository<ApplicationEntity>.Delete(int id)
+        void IBaseRepository<ApplicationEntity>.Delete(int id)
         {
             throw new NotImplementedException();
         }

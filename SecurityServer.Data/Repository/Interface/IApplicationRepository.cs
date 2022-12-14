@@ -13,6 +13,6 @@ namespace SecurityServer.Data.Repository.Interface
         ApplicationEntity Get(int id);
         ApplicationEntity Post(ApplicationEntity application);
         ApplicationEntity Update(ApplicationEntity application);
-        string Delete(int id);
+        void Delete(int id);
     }
 }

@@ -12,6 +12,6 @@ namespace SecurityServer.Data.Repository.Interface
         Tentity Get(int id);
         Tentity Add(Tentity entity);
         Tentity Update(Tentity entity);
-        string Delete(int id);
+        void Delete(int id);
     }
 }
