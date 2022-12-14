@@ -18,9 +18,8 @@ namespace SecurityServer.Entities
 
         public ApplicationEntity() { }
 
-        public ApplicationEntity(int id, string name, string description, string url, string clientSecret)
+        public ApplicationEntity(string name, string description, string url, string clientSecret)
         {
-            this.Id = id;
             this.Name = name;
             this.Description = description;
             this.Url = url;
