@@ -29,7 +29,7 @@ namespace SecurityServer.AzureFunction
 
         [FunctionName("GetApplications")]
         public async Task<IActionResult> GetApplications(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "GetApplications")] ILogger log)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "GetApplications")] HttpRequest req, ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
