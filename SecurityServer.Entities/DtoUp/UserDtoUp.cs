@@ -8,7 +8,8 @@ namespace SecurityServer.Entities.DtoUp
 {
     public class UserDtoUp
     {
-        public string password;
-        public string email;
+        public string email { get; set; }
+        public string password { get; set; }
+
     }
 }
