@@ -32,7 +32,7 @@ namespace SecurityServer.AzureFunction
 
         // function get applications
         [FunctionName("GetApplications")]
-        public async Task<IActionResult> GetApplications(
+        public IActionResult GetApplications(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "GetApplications")] HttpRequest req, ILogger log)
         {
             List<ApplicationEntity> appli = applicationService.GetApplications();
@@ -81,7 +81,7 @@ namespace SecurityServer.AzureFunction
         // function update application
         [FunctionName("UpdateApplication")]
         public async Task<IActionResult> UpdateApplication(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "UpdateApplication")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "UpdateApplication")] HttpRequest req,
             ILogger log)
         {
             // récupération du body 
