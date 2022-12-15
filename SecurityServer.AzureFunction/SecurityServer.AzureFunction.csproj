@@ -10,7 +10,7 @@
     <PackageReference Include="IoC.Di" Version="1.0.0" />
     <PackageReference Include="JWT" Version="9.0.3" />
     <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
-    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.OpenApi.Core" Version="1.4.0" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.OpenApi" Version="1.4.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.11" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.1.3" />
