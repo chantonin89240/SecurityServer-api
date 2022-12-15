@@ -1,16 +1,14 @@
-﻿using SecurityServer.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SecurityServer.Service.Interface
+﻿namespace SecurityServer.Service.Interface
 {
+    using SecurityServer.Entities;
+    using SecurityServer.Entities.DtoDown;
+    using SecurityServer.Entities.DtoUp;
+
     public interface IApplicationService
     {
         public List<ApplicationEntity> GetApplications();
         public ApplicationEntity CreateApplication(ApplicationEntity application);
         public bool DeleteApplication(int id);
+        ApplicationEntity UpdateApplication(ApplicationEntity app);
     }
 }

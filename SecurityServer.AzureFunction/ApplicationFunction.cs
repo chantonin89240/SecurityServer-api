@@ -15,6 +15,9 @@ using Microsoft.EntityFrameworkCore;
 using SecurityServer.Service;
 using SecurityServer.Entities;
 using SecurityServer.Service.Interface;
+using SecurityServer.Entities.DtoUp;
+using SecurityServer.Entities.DtoDown;
+using DocumentFormat.OpenXml.Drawing;
 
 namespace SecurityServer.AzureFunction
 {
@@ -32,10 +35,8 @@ namespace SecurityServer.AzureFunction
         public async Task<IActionResult> GetApplications(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "GetApplications")] HttpRequest req, ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
-
             List<ApplicationEntity> appli = applicationService.GetApplications();
-
+            // retour du résultat
             return new OkObjectResult(appli);
         }
 
@@ -45,32 +46,56 @@ namespace SecurityServer.AzureFunction
            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "CreateApplication")] HttpRequest req,
            ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            // récupération du body
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            // deserialization du body 
             var input = JsonConvert.DeserializeObject<ApplicationEntity>(requestBody);
+
+            // création d'une application Entity
             var app = new ApplicationEntity() { Name = input.Name, Description = input.Description, Url = input.Url, ClientSecret = input.ClientSecret };
+            // appel du service create application
             applicationService.CreateApplication(app);
+
+            // retour du résultat
             return new OkObjectResult(app);
         }
 
         // function delete application
         [FunctionName("DeleteApplication")]
 
-        public async Task<IActionResult> Run(
+        public async Task<IActionResult> DeleteApplication(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "DeleteApplication")] HttpRequest req,
             ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
-
             // récupération du body 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             // deserialization du body 
             var input = JsonConvert.DeserializeObject<ApplicationEntity>(requestBody);
 
-            // appel du service delete d'application
+            // appel du service delete application
             bool result = applicationService.DeleteApplication(input.Id);
-
+            // retour du résultat
             return new OkObjectResult(result);
+        }
+
+        // function update application
+        [FunctionName("UpdateApplication")]
+        public async Task<IActionResult> UpdateApplication(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "UpdateApplication")] HttpRequest req,
+            ILogger log)
+        {
+            // récupération du body 
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            // deserialization du body 
+            var input = JsonConvert.DeserializeObject<ApplicationEntity>(requestBody);
+
+            // création d'une application Entity
+            var app = new ApplicationEntity() { Id = input.Id, Name = input.Name, Description = input.Description, Url = input.Url };
+
+            // appel du service update application
+            ApplicationEntity appUpdate =  applicationService.UpdateApplication(app);
+            // retour du résultat
+            return new OkObjectResult(appUpdate);
         }
     }
 }

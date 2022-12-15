@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SecurityServer.Entities.DtoDown;
+using SecurityServer.Entities.DtoUp;
 
 namespace SecurityServer.Data.Repository.LocalRepository
 {
@@ -77,6 +79,11 @@ namespace SecurityServer.Data.Repository.LocalRepository
         }
 
         public void Update(ApplicationEntity application)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AppUpdateDtoDown Update(AppUpdateDtoUp application)
         {
             throw new NotImplementedException();
         }

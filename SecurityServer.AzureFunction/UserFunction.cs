@@ -30,7 +30,7 @@ namespace SecurityServer.AzureFunction
         }
 
         [FunctionName("CreateUser")]
-        public async Task<IActionResult> Run(
+        public async Task<IActionResult> CreateUser(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "CreateUser")] HttpRequest req,
             ILogger log)
         {

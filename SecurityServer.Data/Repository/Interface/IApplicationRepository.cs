@@ -1,4 +1,6 @@
 ﻿using SecurityServer.Entities;
+using SecurityServer.Entities.DtoDown;
+using SecurityServer.Entities.DtoUp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
