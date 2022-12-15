@@ -23,7 +23,7 @@ namespace SecurityServer.AzureFunction
             this._userService = userService;
         }
         [FunctionName("UserAuthentificationFunction")]
-        public  async Task<IActionResult> Run(
+        public  async Task<IActionResult> UserAuthentification(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "auth")] UserDtoUp user, ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");

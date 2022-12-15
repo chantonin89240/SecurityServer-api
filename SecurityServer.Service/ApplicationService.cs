@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SecurityServer.Entities;
-using SecurityServer.Data;
-using SecurityServer.Entities.IEntities;
-using SecurityServer.Service.Interface;
-
-namespace SecurityServer.Service
+﻿namespace SecurityServer.Service
 {
+    using SecurityServer.Entities;
+    using SecurityServer.Data;
+    using SecurityServer.Service.Interface;
+    using SecurityServer.Entities.DtoDown;
+    using SecurityServer.Entities.DtoUp;
+
     public class ApplicationService : IApplicationService
     {
         private IUnitOfWork<SecurityServerDbContext>? unitOfWork;
@@ -50,6 +46,20 @@ namespace SecurityServer.Service
             {
                 return false;
             }
+        }
+
+        // service update application
+        ApplicationEntity IApplicationService.UpdateApplication(ApplicationEntity app)
+        {
+            // création d'une transaction
+            this.unitOfWork.CreateTransaction();
+            // appel du repository update
+            ApplicationEntity appUpdate = this.unitOfWork.ApplicationRepository.Update(app);
+            // appel du commit et du save de la transaction
+            this.unitOfWork.Commit();
+            this.unitOfWork.Save();
+            // renvoi de l'application update
+            return appUpdate;
         }
     }
 }

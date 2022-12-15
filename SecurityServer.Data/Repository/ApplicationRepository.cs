@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SecurityServer.Data;
-using SecurityServer.Data.Repository.Interface;
+﻿using SecurityServer.Data.Repository.Interface;
 using SecurityServer.Entities;
+using SecurityServer.Entities.DtoDown;
+using SecurityServer.Entities.DtoUp;
 
 namespace SecurityServer.Data.Repository
 {
@@ -34,7 +30,13 @@ namespace SecurityServer.Data.Repository
 
         ApplicationEntity IApplicationRepository.Update(ApplicationEntity application)
         {
-            throw new NotImplementedException();
+            var attach = this._dbSet.Attach(application);
+
+            attach.Property(a => a.Url).IsModified = true;
+            attach.Property(a => a.Description).IsModified = true;
+            attach.Property(a => a.Name).IsModified = true;
+
+            return application;
         }
 
         void IApplicationRepository.Delete(int id)
