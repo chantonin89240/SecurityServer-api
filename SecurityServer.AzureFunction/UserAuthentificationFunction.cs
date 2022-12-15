@@ -17,6 +17,7 @@ using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
 using Microsoft.OpenApi.Models;
 using System.Net;
 using DocumentFormat.OpenXml.Spreadsheet;
+using System.Web.Http;
 
 namespace SecurityServer.AzureFunction
 {
@@ -45,10 +46,8 @@ namespace SecurityServer.AzureFunction
 
             if (userDtoDown == null)
             {
-                var userbody = new ObjectResult("Email or password incorrect");
-                userbody.StatusCode = StatusCodes.Status401Unauthorized;
-                
-                return await Task.FromResult(new BadRequestObjectResult(userbody)).ConfigureAwait(false); ;
+               
+                return await Task.FromResult(new BadRequestErrorMessageResult("Email or password incorrect")).ConfigureAwait(false); ;
             }
             else
             {
