@@ -12,6 +12,11 @@ using SecurityServer.Service;
 using SecurityServer.Entities.DtoDown;
 using SecurityServer.Entities.DtoUp;
 using SecurityServer.Service.Interface;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
+using Microsoft.OpenApi.Models;
+using System.Net;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace SecurityServer.AzureFunction
 {
@@ -22,7 +27,15 @@ namespace SecurityServer.AzureFunction
         {
             this._userService = userService;
         }
+
+
+
+
         [FunctionName("UserAuthentificationFunction")]
+        [OpenApiOperation("userAuth", "authentication")]
+        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
+        [OpenApiRequestBody("application/json", typeof(UserDtoUp))]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(UserDtoDown), Description = "The OK response")]
         public  async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "auth")] UserDtoUp user, ILogger log)
         {
