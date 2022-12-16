@@ -31,7 +31,7 @@ namespace SecurityServer.AzureFunction
 
         [FunctionName("CreateUser")]
         public async Task<IActionResult> CreateUser(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "CreateUser")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "user/create")] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");

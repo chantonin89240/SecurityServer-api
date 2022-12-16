@@ -40,7 +40,7 @@ namespace SecurityServer.AzureFunction
             if (userDtoDown == null)
             {
                
-                return await Task.FromResult(new BadRequestErrorMessageResult("Email or password incorrect")).ConfigureAwait(false); ;
+                return new BadRequestErrorMessageResult("Email or password incorrect");
             }
             else
             {
@@ -54,7 +54,7 @@ namespace SecurityServer.AzureFunction
                     userDtoDown.token,
                     userDtoDown.isAdmin
                 };
-                return await Task.FromResult(new OkObjectResult(userbody)).ConfigureAwait(false);
+                return new OkObjectResult(userbody);
             }
                 
             

@@ -1,26 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using SecurityServer.Service;
-using SecurityServer.Entities;
-using SecurityServer.Service.Interface;
-using SecurityServer.Entities.DtoUp;
-using SecurityServer.Entities.DtoDown;
-using DocumentFormat.OpenXml.Drawing;
-
-namespace SecurityServer.AzureFunction
+﻿namespace SecurityServer.AzureFunction
 {
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Azure.WebJobs.Extensions.Http;
+    using Microsoft.Azure.WebJobs;
+    using Microsoft.Extensions.Logging;
+    using Newtonsoft.Json;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Threading.Tasks;
+    using SecurityServer.Entities;
+    using SecurityServer.Service.Interface;
+
     public class ApplicationFunction
     {
         private IApplicationService applicationService;
@@ -33,9 +24,21 @@ namespace SecurityServer.AzureFunction
         // function get applications
         [FunctionName("GetApplications")]
         public IActionResult GetApplications(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "GetApplications")] HttpRequest req, ILogger log)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "application/get")] HttpRequest req, ILogger log)
         {
+            // appel du service get applications
             List<ApplicationEntity> appli = applicationService.GetApplications();
+            // retour du résultat
+            return new OkObjectResult(appli);
+        }
+
+        // function get application
+        [FunctionName("GetApplication")]
+        public IActionResult GetApplication(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "application/get/{id}")] HttpRequest req, int id, ILogger log)
+        {
+            // appel du service get application
+            ApplicationEntity appli = applicationService.GetApplication(id);
             // retour du résultat
             return new OkObjectResult(appli);
         }
@@ -43,7 +46,7 @@ namespace SecurityServer.AzureFunction
         // function create application
         [FunctionName("CreateApplication")]
         public async Task<IActionResult> CreateApplication(
-           [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "CreateApplication")] HttpRequest req,
+           [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "application/create")] HttpRequest req,
            ILogger log)
         {
             // récupération du body
@@ -64,16 +67,12 @@ namespace SecurityServer.AzureFunction
         [FunctionName("DeleteApplication")]
 
         public async Task<IActionResult> DeleteApplication(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "DeleteApplication")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "applications/{id}")] HttpRequest req,
+            int id,
             ILogger log)
         {
-            // récupération du body 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            // deserialization du body 
-            var input = JsonConvert.DeserializeObject<ApplicationEntity>(requestBody);
-
             // appel du service delete application
-            bool result = applicationService.DeleteApplication(input.Id);
+            bool result = applicationService.DeleteApplication(id);
             // retour du résultat
             return new OkObjectResult(result);
         }
@@ -81,7 +80,7 @@ namespace SecurityServer.AzureFunction
         // function update application
         [FunctionName("UpdateApplication")]
         public async Task<IActionResult> UpdateApplication(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "UpdateApplication")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "application/update")] HttpRequest req,
             ILogger log)
         {
             // récupération du body 

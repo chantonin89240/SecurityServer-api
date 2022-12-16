@@ -35,7 +35,7 @@ namespace SecurityServer.Data.Repository
             }
         }
 
-        public UserDtoDown Get(string email)
+        UserEntity IUserRepository.Get(string email)
         {
             var user = _dbSet.FirstOrDefault(u => u.Email == email);
 
@@ -45,12 +45,12 @@ namespace SecurityServer.Data.Repository
             }
             else
             {
-                UserDtoDown userdto = new UserDtoDown()
+                UserEntity userdto = new UserEntity()
                 {
-                    id = user.Id,
-                    email = user.Email,
-                    password = user.Password,
-                    salt = user.Salt,
+                    Id = user.Id,
+                    Email = user.Email,
+                    Password = user.Password,
+                    Salt = user.Salt,
                 };
                 return userdto;
             }

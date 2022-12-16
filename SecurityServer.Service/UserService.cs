@@ -45,10 +45,10 @@ namespace SecurityServer.Service
             {
                 UserDtoDown userDtoDown = new UserDtoDown()
                 {
-                    id = userDto.id,
-                    password = userDto.password,
-                    email = userDto.email,
-                    salt = userDto.salt
+                    id = userDto.Id,
+                    password = userDto.Password,
+                    email = userDto.Email,
+                    salt = userDto.Salt
                 };
                 var truc = _salt.HashPassword(password, userDtoDown.salt);
                 if (userDtoDown.password == _salt.HashPassword(password, userDtoDown.salt))
