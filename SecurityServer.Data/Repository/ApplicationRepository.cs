@@ -19,8 +19,7 @@ namespace SecurityServer.Data.Repository
 
         ApplicationEntity IApplicationRepository.Get(int id)
         {
-            ApplicationEntity application = new ApplicationEntity();
-            return application;
+            return this.Get(id);
         }
 
         ApplicationEntity IApplicationRepository.Post(ApplicationEntity application)

@@ -26,7 +26,19 @@
         public IActionResult GetApplications(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "application/get")] HttpRequest req, ILogger log)
         {
+            // appel du service get applications
             List<ApplicationEntity> appli = applicationService.GetApplications();
+            // retour du résultat
+            return new OkObjectResult(appli);
+        }
+
+        // function get application
+        [FunctionName("GetApplication")]
+        public IActionResult GetApplication(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "application/get/{id}")] HttpRequest req, int id, ILogger log)
+        {
+            // appel du service get application
+            ApplicationEntity appli = applicationService.GetApplication(id);
             // retour du résultat
             return new OkObjectResult(appli);
         }
