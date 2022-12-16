@@ -82,12 +82,6 @@ namespace SecurityServer.Data.Repository.LocalRepository
         {
             throw new NotImplementedException();
         }
-
-        public AppUpdateDtoDown Update(AppUpdateDtoUp application)
-        {
-            throw new NotImplementedException();
-        }
-
         void IApplicationRepository.Delete(int id)
         {
             throw new NotImplementedException();
