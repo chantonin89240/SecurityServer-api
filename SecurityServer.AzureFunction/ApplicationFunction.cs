@@ -11,7 +11,7 @@
     using System.Threading.Tasks;
     using SecurityServer.Entities;
     using SecurityServer.Service.Interface;
-
+    using System.Web.Http;
 
     public class ApplicationFunction
     {
@@ -103,9 +103,10 @@
             var app = new ApplicationEntity() { Id = input.Id, Name = input.Name, Description = input.Description, Url = input.Url };
 
             // appel du service update application
-            ApplicationEntity appUpdate =  applicationService.UpdateApplication(app);
+            ApplicationEntity appUpdate = applicationService.UpdateApplication(app);
             // retour du résultat
             return new OkObjectResult(appUpdate);
         }
     }
+}
 
