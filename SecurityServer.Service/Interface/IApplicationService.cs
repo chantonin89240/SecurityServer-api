@@ -8,7 +8,7 @@
     {
         public List<ApplicationEntity> GetApplications();
         public ApplicationEntity GetApplication(int id);
-        public ApplicationEntity CreateApplication(ApplicationEntity application);
+        bool CreateApplication(ApplicationEntity application);
         public bool DeleteApplication(int id);
         ApplicationEntity UpdateApplication(ApplicationEntity app);
     }

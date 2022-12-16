@@ -12,6 +12,7 @@
     using SecurityServer.Entities;
     using SecurityServer.Service.Interface;
 
+
     public class ApplicationFunction
     {
         private IApplicationService applicationService;
@@ -56,11 +57,21 @@
 
             // création d'une application Entity
             var app = new ApplicationEntity() { Name = input.Name, Description = input.Description, Url = input.Url, ClientSecret = input.ClientSecret };
-            // appel du service create application
-            applicationService.CreateApplication(app);
 
-            // retour du résultat
-            return new OkObjectResult(app);
+            // appel du service create application
+            var verif = applicationService.CreateApplication(app);
+
+            if (verif == false)
+            {
+                return new BadRequestErrorMessageResult("Création d'application impossible - informations manquantes");
+                //return null;
+            }
+            else
+            {
+                // retour du résultat
+                return new OkObjectResult(app);
+            }
+
         }
 
         // function delete application
@@ -97,4 +108,4 @@
             return new OkObjectResult(appUpdate);
         }
     }
-}
+

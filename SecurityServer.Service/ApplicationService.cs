@@ -7,10 +7,12 @@
     public class ApplicationService : IApplicationService
     {
         private IUnitOfWork<SecurityServerDbContext>? unitOfWork;
+        private ISalt _salt;
 
-        public ApplicationService(IUnitOfWork<SecurityServerDbContext> unit) 
+        public ApplicationService(IUnitOfWork<SecurityServerDbContext> unit, ISalt salt) 
         {
             this.unitOfWork = unit;
+            this._salt = salt;
         }
 
         List<ApplicationEntity> IApplicationService.GetApplications()
@@ -19,19 +21,30 @@
             return ListApplications;
         }
 
+
         ApplicationEntity IApplicationService.GetApplication(int id)
         {
             ApplicationEntity application = this.unitOfWork.ApplicationRepository.Get(id);
             return application;
         }
 
-        ApplicationEntity IApplicationService.CreateApplication(ApplicationEntity application)
+
+        bool IApplicationService.CreateApplication(ApplicationEntity application)
         {
             this.unitOfWork.CreateTransaction();
-            ApplicationEntity Application = this.unitOfWork.ApplicationRepository.Post(application);
-            this.unitOfWork.Commit();
-            this.unitOfWork.Save();
-            return Application;
+            application.ClientSecret = _salt.saltGenerator();
+            this.unitOfWork.ApplicationRepository.Post(application);
+            if (application.Url.Trim() == "" || application.Name.Trim() =="")
+            {
+                return false;
+            }
+            else
+            {
+                this.unitOfWork.Commit();
+                this.unitOfWork.Save();
+                return true;
+            }
+            
         }
 
 
