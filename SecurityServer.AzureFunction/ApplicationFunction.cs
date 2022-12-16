@@ -61,7 +61,7 @@ namespace SecurityServer.AzureFunction
             // appel du service create application
             var verif = applicationService.CreateApplication(app);
 
-            if (verif == null)
+            if (verif == false)
             {
                 return new BadRequestErrorMessageResult("Création d'application impossible - informations manquantes");
                 //return null;
