@@ -55,7 +55,7 @@
             this.unitOfWork.Commit();
             this.unitOfWork.Save();
             var appOk = this.unitOfWork.ApplicationRepository.Get(id);
-            if (appOk.Id == 0)
+            if (appOk == null)
             {
                 return true;
             }
