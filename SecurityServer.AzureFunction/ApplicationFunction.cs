@@ -18,7 +18,7 @@
         private IApplicationService applicationService;
 
         public ApplicationFunction(IApplicationService applicationService)
-        {
+        { 
             this.applicationService = applicationService;
         }
 
