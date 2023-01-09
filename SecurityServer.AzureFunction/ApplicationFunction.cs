@@ -78,7 +78,7 @@
         [FunctionName("DeleteApplication")]
 
         public async Task<IActionResult> DeleteApplication(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "applications/{id}")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "application/{id}")] HttpRequest req,
             int id,
             ILogger log)
         {
