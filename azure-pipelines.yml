@@ -9,43 +9,27 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
+steps : 
 - task: DotNetCoreCLI@2
-  displayName: Restore
   inputs:
-    command: restore
-    projects: '$(Parameters.RestoreBuildProjects)'
-    vstsFeed: '1f6ebcc1-f11d-4e8e-b02b-0efdffb6ef06/bb0d9559-66f6-4470-b49f-46d7eb4c742e'
+    command: 'restore'
+    feedsToUse: 'select'
 
 - task: DotNetCoreCLI@2
-  displayName: Build
   inputs:
-    projects: '$(Parameters.RestoreBuildProjects)'
-    arguments: '--configuration $(BuildConfiguration)'
+    command: 'build'
 
 - task: DotNetCoreCLI@2
-  displayName: Test
   inputs:
-    command: test
-    projects: '$(Parameters.TestProjects)'
-    arguments: '--configuration $(BuildConfiguration)'
-  enabled: false
-
-- task: DotNetCoreCLI@2
-  displayName: Publish
-  inputs:
-    command: publish
-    publishWebProjects: false
-    projects: '$(Parameters.RestoreBuildProjects)'
-    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
-    zipAfterPublish: True
+    command: 'publish'
+    publishWebProjects: true
 
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact'
   inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)'
-  condition: succeededOrFailed()
-  
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
 - task: JetBrains.qodana.QodanaScan.QodanaScan@2022
   displayName: 'Qodana Scan'
   enabled: false
