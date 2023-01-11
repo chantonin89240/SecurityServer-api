@@ -10,6 +10,7 @@ namespace SecurityServer.Entities.DtoUp
     {
         public string email { get; set; }
         public string password { get; set; }
+        public int clientId { get; set; }
 
     }
 }

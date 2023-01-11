@@ -8,7 +8,8 @@ namespace SecurityServer.Entities.IEntities
 {
     public interface ICodeGrantEntity
     {
-        public int Client_Id { get; set; }
+        public int Id { get; set; }
+        public int ClientId { get; set; }
         public int IdUser { get; set; }
         public string CodeGrant { get; set; }
     }

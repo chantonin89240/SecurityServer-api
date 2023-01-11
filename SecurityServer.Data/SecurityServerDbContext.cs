@@ -19,6 +19,8 @@
 
         public DbSet<CodeGrantEntity>? CodeGrant { get; set; }
 
+        public DbSet<CodeGrantEntity>? CodeGrant { get; set; }
+
         public SecurityServerDbContext(DbContextOptions<SecurityServerDbContext> options)
             : base(options)
         {

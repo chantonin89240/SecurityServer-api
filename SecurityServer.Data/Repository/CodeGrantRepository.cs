@@ -1,11 +1,5 @@
 ﻿using SecurityServer.Data.Repository.Interface;
 using SecurityServer.Entities;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SecurityServer.Data.Repository
 {
@@ -16,14 +10,15 @@ namespace SecurityServer.Data.Repository
 
         }
 
-        public CodeGrantEntity Get(string codegrant)
+        CodeGrantEntity ICodeGrantRepository.Get(string codeGrant)
         {
-            return this.Get(codegrant);
+            CodeGrantEntity grant = this._dbSet.FirstOrDefault(code => code.CodeGrant == codeGrant);
+            return grant;
         }
 
-        public CodeGrantEntity Post(CodeGrantEntity codegrant)
+        void ICodeGrantRepository.Delete(int clientId)
         {
-            return this.Add(codegrant);
+
         }
     }
 }
