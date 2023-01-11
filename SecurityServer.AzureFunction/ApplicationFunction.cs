@@ -12,6 +12,8 @@
     using SecurityServer.Entities;
     using SecurityServer.Service.Interface;
     using System.Web.Http;
+    using SecurityServer.Entities.DtoDown;
+    using System.Linq;
 
     public class ApplicationFunction
     {
@@ -25,7 +27,7 @@
         // function get applications
         [FunctionName("GetApplications")]
         public IActionResult GetApplications(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "application/get")] HttpRequest req, ILogger log)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "applications")] HttpRequest req, ILogger log)
         {
             // appel du service get applications
             List<ApplicationEntity> appli = applicationService.GetApplications();
@@ -36,10 +38,10 @@
         // function get application
         [FunctionName("GetApplication")]
         public IActionResult GetApplication(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "application/get/{id}")] HttpRequest req, int id, ILogger log)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "application/{id}")] HttpRequest req, int id, ILogger log)
         {
             // appel du service get application
-            ApplicationEntity appli = applicationService.GetApplication(id);
+            ApplicationDtoDown appli = applicationService.GetApplication(id);
             // retour du résultat
             return new OkObjectResult(appli);
         }

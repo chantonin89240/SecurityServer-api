@@ -14,7 +14,7 @@ namespace SecurityServer.Entities
         public string Description { get; set; }
         public string Url { get; set; }
         public string ClientSecret { get; set; }
-        //public List<UserApplicationEntity> Applications {  get; set; }
+        public List<UserEntity> Users {  get; set; }
 
         public ApplicationEntity() { }
 
@@ -24,6 +24,7 @@ namespace SecurityServer.Entities
             this.Description = description;
             this.Url = url;
             this.ClientSecret = clientSecret;
+           Users = new List<UserEntity>();
         }
     }
 }

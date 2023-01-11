@@ -18,6 +18,9 @@ namespace SecurityServer.Entities
         public string avatar { get; set; }
         public bool IsAdmin { get; set; }
 
+        public List<ApplicationEntity> Applications {  get; set; }
+
+
         public UserEntity() { }
 
         public UserEntity(int idrole, string firstname, string lastname, string email, string password, string salt, string avatar, bool isAdmin)
@@ -29,6 +32,7 @@ namespace SecurityServer.Entities
             this.Salt = salt;
             this.avatar = avatar;
             this.IsAdmin = isAdmin;
+            Applications = new List<ApplicationEntity>();
         }
     }
 }

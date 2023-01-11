@@ -3,6 +3,7 @@
     using SecurityServer.Entities;
     using SecurityServer.Data;
     using SecurityServer.Service.Interface;
+    using SecurityServer.Entities.DtoDown;
 
     public class ApplicationService : IApplicationService
     {
@@ -22,9 +23,9 @@
         }
 
 
-        ApplicationEntity IApplicationService.GetApplication(int id)
+        ApplicationDtoDown IApplicationService.GetApplication(int id)
         {
-            ApplicationEntity application = this.unitOfWork.ApplicationRepository.Get(id);
+            ApplicationDtoDown application = this.unitOfWork.ApplicationRepository.Get(id);
             return application;
         }
 

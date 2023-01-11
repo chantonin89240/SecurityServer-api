@@ -11,6 +11,7 @@ namespace SecurityServer.Entities
         public int IdUser { get; set; }
         public int IdApplication { get; set; }
 
+
         public UserApplicationEntity() { }
 
         public UserApplicationEntity(int idUser, int idApplication)

@@ -18,4 +18,10 @@
   </ItemGroup>
 
 
+
+  <ItemGroup>
+    <Folder Include="Repository\LocalRepository\" />
+  </ItemGroup>
+
+
 </Project>
