@@ -8,6 +8,11 @@ namespace SecurityServer.Entities.DtoDown
 {
     public class UserDtoDown
     {
-        public string codeGrant { get; set; }
+        public int id { get; set; }
+        public string email { get; set; }
+        public string password { get; set; }
+        public string salt { get; set; }
+        public string token { get; set; }
+        public bool isAdmin { get; set; }
     }
 }

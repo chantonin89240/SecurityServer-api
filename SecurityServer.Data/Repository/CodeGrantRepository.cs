@@ -20,5 +20,10 @@ namespace SecurityServer.Data.Repository
         {
 
         }
+
+        CodeGrantEntity ICodeGrantRepository.Post(CodeGrantEntity codegrant)
+        {
+            return this.Add(codegrant);
+        }
     }
 }

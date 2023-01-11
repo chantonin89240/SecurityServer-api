@@ -9,8 +9,7 @@ namespace SecurityServer.Data.Repository.Interface
 {
     public interface ICodeGrantRepository : IBaseRepository<CodeGrantEntity>
     {
-        CodeGrantEntity Get(string codegrant);
-        CodeGrantEntity Post(CodeGrantEntity codegrant);
+        public CodeGrantEntity Post(CodeGrantEntity codegrant);
         public CodeGrantEntity Get(string codeGrant);
         public void Delete(int clientId);
     }
