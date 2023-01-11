@@ -62,7 +62,7 @@ namespace SecurityServer.Service
             var grant =  this.unitOfWork.CodeGrantRepository.Get(codeGrant);
 
 
-            return truc;
+            return null;
         }
     }
 }

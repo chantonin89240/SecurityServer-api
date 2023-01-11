@@ -93,7 +93,7 @@
         // function update application
         [FunctionName("UpdateApplication")]
         public async Task<IActionResult> UpdateApplication(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "application/update")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "application/update")] HttpRequest req,
             ILogger log)
         {
             // récupération du body 
