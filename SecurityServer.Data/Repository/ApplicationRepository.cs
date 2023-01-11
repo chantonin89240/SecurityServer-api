@@ -50,7 +50,8 @@ namespace SecurityServer.Data.Repository
             {
                 Name = application.Name,
                 Description = application.Description,
-                Url = application.Url
+                Url = application.Url,
+                CodeSecret = application.ClientSecret
             };
 
             foreach (var user in users)
