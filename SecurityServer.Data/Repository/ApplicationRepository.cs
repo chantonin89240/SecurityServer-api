@@ -7,19 +7,65 @@ namespace SecurityServer.Data.Repository
 {
     public class ApplicationRepository : BaseRepository<ApplicationEntity>, IApplicationRepository
     {
+
+        SecurityServerDbContext context;
         public ApplicationRepository(SecurityServerDbContext context) : base (context) 
         {
-
+            this.context = context;
         }
 
         IEnumerable<ApplicationEntity> IApplicationRepository.Get()
         {
             return this.GetAll();
         }
+        //public ApplicationEntity GetApplicationWithUsers(int applicationId)
+        //{
+        //    List<ApplicationEntity> applicationEntities;
+        //    List<UserApplicationEntity> userApplicationEntities;
+        //    List<UserEntity> userEntities;
+        //    var application = applicationEntities.Where(a => a.Id == applicationId).FirstOrDefault();
+        //    if (application == null)
+        //    {
+        //        return null;
+        //    }
 
-        ApplicationEntity IApplicationRepository.Get(int id)
+        //    var userApplication = userApplicationEntities.Where(ua => ua.IdApplication == applicationId);
+        //    var users = userApplication.Join(userEntities, ua => ua.IdUser, u => u.Id, (ua, u) => u).ToList();
+
+        //    application.Users = users;
+
+        //    return application;
+        //}
+
+        ApplicationDtoDown IApplicationRepository.Get(int id)
         {
-            return this.Get(id);
+            
+            var application = this.Get(id);
+            var usersapp = context.UserApplication.Where(ua => ua.IdApplication == application.Id).Select(ua=> ua.IdUser).ToList();
+            application.Users = context.User.Where(ua => usersapp.Contains(ua.Id)).ToList();
+            var users = context.User.Where(ua => usersapp.Contains(ua.Id)).Select(ua => new { ua.FirstName, ua.LastName, ua.Email }).ToList();
+            ApplicationDtoDown applicationDtoDown = new ApplicationDtoDown
+            {
+                Name = application.Name,
+                Description = application.Description,
+                Url = application.Url
+            };
+
+            foreach (var user in users)
+            {
+                UserAppDtoDown userAppDto = new UserAppDtoDown
+                {
+                    email = user.Email,
+                    firstname = user.FirstName,
+                    lastname = user.LastName,
+                };
+
+                applicationDtoDown.Userdto.Add(userAppDto);
+            }
+
+          
+            
+            return applicationDtoDown;
         }
 
         ApplicationEntity IApplicationRepository.Post(ApplicationEntity application)

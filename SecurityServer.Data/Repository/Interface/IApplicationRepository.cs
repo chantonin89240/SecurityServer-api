@@ -12,7 +12,7 @@ namespace SecurityServer.Data.Repository.Interface
     public interface IApplicationRepository : IBaseRepository<ApplicationEntity>
     {
         IEnumerable<ApplicationEntity> Get();
-        ApplicationEntity Get(int id);
+        ApplicationDtoDown Get(int id);
         ApplicationEntity Post(ApplicationEntity application);
         ApplicationEntity Update(ApplicationEntity application);
         void Delete(int id);

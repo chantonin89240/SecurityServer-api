@@ -7,7 +7,7 @@
     public interface IApplicationService
     {
         public List<ApplicationEntity> GetApplications();
-        public ApplicationEntity GetApplication(int id);
+        public ApplicationDtoDown GetApplication(int id);
         bool CreateApplication(ApplicationEntity application);
         public bool DeleteApplication(int id);
         ApplicationEntity UpdateApplication(ApplicationEntity app);
