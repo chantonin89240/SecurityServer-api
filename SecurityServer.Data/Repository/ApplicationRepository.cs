@@ -41,6 +41,8 @@ namespace SecurityServer.Data.Repository
         {
             
             var application = this.Get(id);
+            if (application == null) return null;
+ 
             var usersapp = context.UserApplication.Where(ua => ua.IdApplication == application.Id).Select(ua=> ua.IdUser).ToList();
             application.Users = context.User.Where(ua => usersapp.Contains(ua.Id)).ToList();
             var users = context.User.Where(ua => usersapp.Contains(ua.Id)).Select(ua => new { ua.FirstName, ua.LastName, ua.Email }).ToList();
