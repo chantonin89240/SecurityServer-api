@@ -38,6 +38,15 @@ namespace SecurityServer.Data
             }
         }
 
+        public ICodeGrantRepository CodeGrantRepository
+        {
+            get
+            {
+                if (!_repositories.ContainsKey(nameof(CodeGrantRepository))) _repositories.Add(nameof(CodeGrantRepository), new CodeGrantRepository(_context));
+                return (CodeGrantRepository)_repositories[nameof(CodeGrantRepository)];
+            }
+        }
+
         //public ClaimRepository Claim { get; set; }
         //public RoleRepository Role { get; set; }
 
