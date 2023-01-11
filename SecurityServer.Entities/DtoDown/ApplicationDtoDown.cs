@@ -11,6 +11,7 @@ namespace SecurityServer.Entities.DtoDown
         public string Name { get; set; }
         public string Description { get; set; }
         public string Url { get; set; }
+        public string ClientSecret { get; set; }
         public List<UserAppDtoDown> Userdto { get; set; }
 
         public ApplicationDtoDown()
