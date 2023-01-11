@@ -7,6 +7,8 @@ namespace SecurityServer.Service.Interface
     public interface IUserService
     {
         public bool CreateUser(UserEntity user);
-        public UserDtoDown GetUser(string password, string mail);
+        public bool GetUser(string mail, string password);
+        public string GetCodeGrant();
+        public CodeGrantEntity GetToken(string codeGrant);
     }
 }

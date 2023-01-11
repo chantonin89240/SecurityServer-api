@@ -23,7 +23,7 @@ namespace SecurityServer.AzureFunction
                .AddEnvironmentVariables()
                .Build();
 
-            string connectionString = config.GetConnectionStringOrSetting("SqlConnectionString"); // "Server=bdd-p2-g5.database.windows.net;Initial Catalog=BDD-DIIAGE-P2-G5;Persist Security Info=False;User ID=diiage2bg;Password=Diiage_G5_P2;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            string connectionString = "Server=bdd-p2-g5.database.windows.net;Initial Catalog=BDD-DIIAGE-P2-G5;Persist Security Info=False;User ID=diiage2bg;Password=Diiage_G5_P2;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"; //config.GetConnectionStringOrSetting("SqlConnectionString");
             builder.Services.AddDbContext<SecurityServerDbContext>(
               options => SqlServerDbContextOptionsExtensions.UseSqlServer(options, connectionString));
             builder.Services.AddScoped<IUnitOfWork<SecurityServerDbContext>, UnitOfWork<SecurityServerDbContext>>();
@@ -40,6 +40,7 @@ namespace SecurityServer.AzureFunction
             builder.Services.AddScoped<ClaimRepository>();
             builder.Services.AddScoped<RoleRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<ICodeGrantRepository, CodeGrantRepository>();
         }
 
     }

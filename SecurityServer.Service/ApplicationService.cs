@@ -47,7 +47,6 @@
             
         }
 
-
         bool IApplicationService.DeleteApplication(int id)
         {
             this.unitOfWork.CreateTransaction();

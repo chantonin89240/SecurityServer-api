@@ -1,6 +1,6 @@
 ﻿using SecurityServer.Data;
+using SecurityServer.Data.Repository;
 using SecurityServer.Entities;
-using SecurityServer.Entities.DtoDown;
 using SecurityServer.Service.Interface;
 
 namespace SecurityServer.Service
@@ -33,34 +33,36 @@ namespace SecurityServer.Service
                 return false;
             }
         }
-         UserDtoDown IUserService.GetUser(string password, string email)
+
+         bool IUserService.GetUser(string email, string password)
         {
             var userDto = this.unitOfWork.UserRepository.Get(email);
+            bool userAuth = false;
 
             if (userDto == null)
             {
-                return null;
+                userAuth = false;
+                return userAuth;
             }
             else
             {
-                UserDtoDown userDtoDown = new UserDtoDown()
-                {
-                    id = userDto.Id,
-                    password = userDto.Password,
-                    email = userDto.Email,
-                    salt = userDto.Salt
-                };
-                var truc = _salt.HashPassword(password, userDtoDown.salt);
-                if (userDtoDown.password == _salt.HashPassword(password, userDtoDown.salt))
-                {
-                    return userDtoDown;
-                }
-                else
-                {
-                    return null;
-                }
+                userAuth = true;
+                return userAuth;
             }
            
+        }
+
+        string IUserService.GetCodeGrant()
+        {
+            return "le code grant";
+        }
+
+        CodeGrantEntity IUserService.GetToken(string codeGrant)
+        {
+            var grant =  this.unitOfWork.CodeGrantRepository.Get(codeGrant);
+
+
+            return truc;
         }
     }
 }

@@ -15,56 +15,66 @@ using SecurityServer.Service.Interface;
 using System.Net;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System.Web.Http;
+using SecurityServer.Entities;
+using Nest;
 
 namespace SecurityServer.AzureFunction
 {
     public class UserAuthentificationFunction
     {
         private IUserService _userService;
-        public UserAuthentificationFunction(IUserService userService)
+        private IApplicationService _applicationService;
+
+        public UserAuthentificationFunction(IUserService userService, IApplicationService applicationService)
         {
             this._userService = userService;
+            this._applicationService = applicationService;
         }
 
-
-
-
         [FunctionName("UserAuthentificationFunction")]
-        public  async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "auth")] UserDtoUp user, ILogger log)
+        public  async Task<IActionResult> Authentification(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "auth")] UserDtoUp user)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
-            // TODO: Perform custom authentication here; we're just using a simple hard coded check for this example
-            UserDtoDown userDtoDown = _userService.GetUser(user.password, user.email);
+            
+            bool userAuth = _userService.GetUser(user.email, user.password);
+            var redirecteUri = _applicationService.GetApplication(user.clientId);
 
-            if (userDtoDown == null)
+            if (userAuth)
             {
-               
-                return new BadRequestErrorMessageResult("Email or password incorrect");
+                string codeGrant = _userService.GetCodeGrant();
+                string url = redirecteUri.Url + "&code=" + codeGrant; 
+                return new RedirectResult(url);
             }
             else
             {
-                GenerateJWTToken generateJWTToken = new();
-                string token = generateJWTToken.IsusingJWT(userDtoDown);
-                userDtoDown.token = token;
-                var userbody = new
-                {
-                    userDtoDown.id,
-                    userDtoDown.email,
-                    userDtoDown.token,
-                    userDtoDown.isAdmin
-                };
-                return new OkObjectResult(userbody);
-            }
-                
+                return new BadRequestErrorMessageResult("Login or Password not correct");
+            }               
             
+        }
+
+        [FunctionName("getTokenFunction")]
+        public async Task<IActionResult> getToken(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "GetAcces")] HttpRequest req)
+        {
+            string codeGrant = req.Query["codeGrant"];
+
+            string requestBody = String.Empty;
+            using (StreamReader streamReader = new StreamReader(req.Body))
+            {
+                requestBody = await streamReader.ReadToEndAsync();
             }
+            dynamic data = JsonConvert.DeserializeObject(requestBody);
+            codeGrant = codeGrant ?? data?.codeGrant;
 
+            var token = _userService.GetToken(codeGrant);
 
+            return new OkObjectResult(token);
+
+        }
 
         [FunctionName(nameof(GetData))]
         public static async Task<IActionResult> GetData(
-    [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "data")] HttpRequest req, ILogger log)
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "data")] HttpRequest req)
         {
             // Check if we have authentication info.
             ValidateJWTService auth = new ValidateJWTService(req);
