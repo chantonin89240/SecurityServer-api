@@ -1,19 +1,13 @@
-using System;
-using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using SecurityServer.Data;
 using SecurityServer.Service;
 using SecurityServer.Entities.DtoDown;
 using SecurityServer.Entities.DtoUp;
 using SecurityServer.Service.Interface;
-using System.Net;
-using DocumentFormat.OpenXml.Spreadsheet;
 using System.Web.Http;
 
 namespace SecurityServer.AzureFunction
@@ -21,9 +15,11 @@ namespace SecurityServer.AzureFunction
     public class UserAuthentificationFunction
     {
         private IUserService _userService;
-        public UserAuthentificationFunction(IUserService userService)
+        private IAuthenticationService _authenticationService;
+        public UserAuthentificationFunction(IUserService userService, IAuthenticationService authenticationService)
         {
             this._userService = userService;
+            this._authenticationService = authenticationService;
         }
 
 
@@ -36,6 +32,7 @@ namespace SecurityServer.AzureFunction
             log.LogInformation("C# HTTP trigger function processed a request.");
             // TODO: Perform custom authentication here; we're just using a simple hard coded check for this example
             UserDtoDown userDtoDown = _userService.GetUser(user.password, user.email);
+            
 
             if (userDtoDown == null)
             {
@@ -44,8 +41,9 @@ namespace SecurityServer.AzureFunction
             }
             else
             {
-                GenerateJWTToken generateJWTToken = new();
-                string token = generateJWTToken.IsusingJWT(userDtoDown);
+
+                var codegrant = _authenticationService.CodeGrant(userDtoDown);
+                string token = _authenticationService.IsusingJWT(userDtoDown);
                 userDtoDown.token = token;
                 var userbody = new
                 {

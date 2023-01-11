@@ -21,5 +21,6 @@ namespace SecurityServer.Data
         //public ClaimRepository Claim { get; set; }
         //public RoleRepository Role { get; set; }
         public IUserRepository UserRepository { get; }
+        public ICodeGrantRepository CodeGrantRepository { get; }
     }
 }
