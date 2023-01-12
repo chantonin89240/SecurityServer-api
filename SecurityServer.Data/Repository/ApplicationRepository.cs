@@ -65,10 +65,13 @@ namespace SecurityServer.Data.Repository
 
                 applicationDtoDown.Userdto.Add(userAppDto);
             }
-
-          
-            
             return applicationDtoDown;
+        }
+
+        ApplicationEntity IApplicationRepository.Get(string clientSecret)
+        {
+            ApplicationEntity application = this._dbSet.FirstOrDefault(a => a.ClientSecret == clientSecret);
+            return application;
         }
 
         ApplicationEntity IApplicationRepository.Post(ApplicationEntity application)

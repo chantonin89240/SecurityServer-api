@@ -13,6 +13,7 @@ namespace SecurityServer.Data.Repository.Interface
     {
         IEnumerable<ApplicationEntity> Get();
         ApplicationDtoDown Get(int id);
+        ApplicationEntity Get(string clientSecret);
         ApplicationEntity Post(ApplicationEntity application);
         ApplicationEntity Update(ApplicationEntity application);
         void Delete(int id);
