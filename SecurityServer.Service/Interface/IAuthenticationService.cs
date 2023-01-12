@@ -9,8 +9,8 @@ namespace SecurityServer.Service.Interface
 {
     public interface IAuthenticationService
     {
-        public string IsusingJWT(UserDtoDown user);
-        public string CodeGrant(UserDtoDown user);
+        public string GenerateJWT(string codeGrant);
+        public string CodeGrant(UserDtoDown user, string clientSecret);
 
     }
 }

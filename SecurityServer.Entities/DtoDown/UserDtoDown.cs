@@ -10,9 +10,6 @@ namespace SecurityServer.Entities.DtoDown
     {
         public int id { get; set; }
         public string email { get; set; }
-        public string password { get; set; }
-        public string salt { get; set; }
-        public string token { get; set; }
         public bool isAdmin { get; set; }
     }
 }

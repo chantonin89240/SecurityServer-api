@@ -37,22 +37,31 @@ namespace SecurityServer.Data
 
         }
 
-        public string IsusingJWT(UserDtoDown user)
+        string IAuthenticationService.GenerateJWT(string codeGrant)
         {
-            Dictionary<string, object> claims = new Dictionary<string, object>
+            CodeGrantEntity grant = this.unitOfWork.CodeGrantRepository.Get(codeGrant);
+            UserEntity user = this.unitOfWork.UserRepository.Get(grant.IdUser);
+
+            if(grant != null)
             {
+                Dictionary<string, object> claims = new Dictionary<string, object>
                 {
-                    "email",
-                    user
-                }
-            };
-            string token = _jwtEncoder.Encode(claims, "your secret security key string");
-            return token;
-            
+                    {
+                        "email",
+                        user.Email
+                    }
+                };
+                string token = _jwtEncoder.Encode(claims, "your secret security key string");
+                return token;
+            }
+            else
+            {
+                return "ptit problème de token ma gueule";
+            }
         }
 
 
-        public string CodeGrant(UserDtoDown user)
+        string IAuthenticationService.CodeGrant(UserDtoDown user, string clientSecret)
         {
             this.unitOfWork.CreateTransaction();
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -60,7 +69,7 @@ namespace SecurityServer.Data
                 .Select(s => s[random.Next(s.Length)]).ToArray())}FEUR";
             CodeGrantEntity codeGrant = new CodeGrantEntity
             {
-                ClientId = 1,
+                ClientSecret = clientSecret,
                 IdUser = user.id,
                 CodeGrant = codegrant
 

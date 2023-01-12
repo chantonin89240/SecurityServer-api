@@ -24,11 +24,13 @@ namespace SecurityServer.AzureFunction
     {
         private IUserService _userService;
         private IApplicationService _applicationService;
+        private IAuthenticationService _authenticationService;
 
-        public UserAuthentificationFunction(IUserService userService, IApplicationService applicationService)
+        public UserAuthentificationFunction(IUserService userService, IApplicationService applicationService, IAuthenticationService authService)
         {
             this._userService = userService;
             this._applicationService = applicationService;
+            this._authenticationService = authService;
         }
 
         [FunctionName("UserAuthentificationFunction")]
@@ -36,12 +38,12 @@ namespace SecurityServer.AzureFunction
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "auth")] UserDtoUp user)
         {
             
-            bool userAuth = _userService.GetUser(user.email, user.password);
-            var redirecteUri = _applicationService.GetApplication(user.clientId);
+            UserDtoDown userAuth = _userService.GetUser(user.email, user.password);
+            var redirecteUri = _applicationService.GetSecret(user.clientSecret);
 
-            if (userAuth)
+            if (userAuth != null)
             {
-                string codeGrant = _userService.GetCodeGrant();
+                string codeGrant = _authenticationService.CodeGrant(userAuth, user.clientSecret);
                 string url = redirecteUri.Url + "&code=" + codeGrant; 
                 return new RedirectResult(url);
             }
@@ -66,7 +68,7 @@ namespace SecurityServer.AzureFunction
             dynamic data = JsonConvert.DeserializeObject(requestBody);
             codeGrant = codeGrant ?? data?.codeGrant;
 
-            var token = _userService.GetToken(codeGrant);
+            var token = _authenticationService.GenerateJWT(codeGrant);
 
             return new OkObjectResult(token);
 

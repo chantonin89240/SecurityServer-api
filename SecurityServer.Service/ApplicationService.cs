@@ -29,6 +29,11 @@
             return application;
         }
 
+        ApplicationEntity IApplicationService.GetSecret(string clientSecret)
+        {
+            ApplicationEntity application = this.unitOfWork.ApplicationRepository.Get(clientSecret);
+            return application;
+        }
 
         bool IApplicationService.CreateApplication(ApplicationEntity application)
         {
