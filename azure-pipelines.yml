@@ -2,31 +2,34 @@
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
+
 trigger:
 - Dev
+
 pool:
   vmImage: ubuntu-latest
 
-steps:
+steps : 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
-    projects: '**/*.csproj'
     feedsToUse: 'select'
-    vstsFeed: '1f6ebcc1-f11d-4e8e-b02b-0efdffb6ef06/bb0d9559-66f6-4470-b49f-46d7eb4c742e'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    projects: '**/*.csproj'
-    arguments: '--configuration $(BuildConfiguration)'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
-    publishWebProjects: false
-    projects: '**/*.csproj'
-    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
+    publishWebProjects: true
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+
+- task: JetBrains.qodana.QodanaScan.QodanaScan@2022
+  displayName: 'Qodana Scan'
+  enabled: false
