@@ -1,16 +1,11 @@
-﻿using SecurityServer.Entities.DtoDown;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SecurityServer.Service.Interface
+﻿namespace SecurityServer.Service.Interface
 {
+    using Microsoft.AspNetCore.Http;
+    using SecurityServer.Entities.DtoDown;
+
     public interface IAuthenticationService
     {
         public string GenerateJWT(string codeGrant);
         public string CodeGrant(UserDtoDown user, string clientSecret);
-
     }
 }

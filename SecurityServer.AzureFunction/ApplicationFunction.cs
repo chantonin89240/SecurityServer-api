@@ -2,18 +2,17 @@
 {
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Azure.WebJobs.Extensions.Http;
     using Microsoft.Azure.WebJobs;
+    using Microsoft.Azure.WebJobs.Extensions.Http;
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
+    using SecurityServer.Entities;
+    using SecurityServer.Entities.DtoDown;
+    using SecurityServer.Service.Interface;
     using System.Collections.Generic;
     using System.IO;
     using System.Threading.Tasks;
-    using SecurityServer.Entities;
-    using SecurityServer.Service.Interface;
     using System.Web.Http;
-    using SecurityServer.Entities.DtoDown;
-    using System.Linq;
 
     public class ApplicationFunction
     {
@@ -58,7 +57,7 @@
             var input = JsonConvert.DeserializeObject<ApplicationEntity>(requestBody);
 
             // création d'une application Entity
-            var app = new ApplicationEntity() { Name = input.Name, Description = input.Description, Url = input.Url, ClientSecret = input.ClientSecret };
+            var app = new ApplicationEntity() { Name = input.Name, Description = input.Description, Url = input.Url };
 
             // appel du service create application
             var verif = applicationService.CreateApplication(app);
@@ -78,7 +77,6 @@
 
         // function delete application
         [FunctionName("DeleteApplication")]
-
         public async Task<IActionResult> DeleteApplication(
             [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "application/{id}")] HttpRequest req,
             int id,

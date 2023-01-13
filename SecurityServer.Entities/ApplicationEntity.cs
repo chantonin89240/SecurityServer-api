@@ -1,12 +1,7 @@
-﻿using SecurityServer.Entities.IEntities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SecurityServer.Entities
+﻿namespace SecurityServer.Entities
 {
+    using SecurityServer.Entities.IEntities;
+
     public class ApplicationEntity : IApplicationEntity
     {
         public int Id { get; set; }
@@ -24,7 +19,7 @@ namespace SecurityServer.Entities
             this.Description = description;
             this.Url = url;
             this.ClientSecret = clientSecret;
-           Users = new List<UserEntity>();
+            this.Users = new List<UserEntity>();
         }
     }
 }

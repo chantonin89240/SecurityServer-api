@@ -1,14 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SecurityServer.Data.Repository.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-
-namespace SecurityServer.Data.Repository
+﻿namespace SecurityServer.Data.Repository
 {
+    using Microsoft.EntityFrameworkCore;
+    using SecurityServer.Data.Repository.Interface;
+
     public class BaseRepository<Tentity> : IBaseRepository<Tentity> where Tentity : class
     {
         #region VARIABLE ET CONSTRUCTEUR

@@ -1,8 +1,8 @@
-﻿using SecurityServer.Data.Repository.Interface;
-using SecurityServer.Entities;
-
-namespace SecurityServer.Data.Repository
+﻿namespace SecurityServer.Data.Repository
 {
+    using SecurityServer.Data.Repository.Interface;
+    using SecurityServer.Entities;
+
     public class CodeGrantRepository : BaseRepository<CodeGrantEntity>, ICodeGrantRepository
     {
         public CodeGrantRepository(SecurityServerDbContext context) : base(context)

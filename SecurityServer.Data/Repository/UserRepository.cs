@@ -1,10 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SecurityServer.Data.Repository.Interface;
-using SecurityServer.Entities;
-using SecurityServer.Entities.DtoDown;
-
-namespace SecurityServer.Data.Repository
+﻿namespace SecurityServer.Data.Repository
 {
+    using SecurityServer.Data.Repository.Interface;
+    using SecurityServer.Entities;
+
     public class UserRepository : BaseRepository<UserEntity>, IUserRepository
     {
 

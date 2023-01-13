@@ -1,33 +1,41 @@
-﻿using JWT;
-using JWT.Algorithms;
-using JWT.Serializers;
-using SecurityServer.Entities;
-using SecurityServer.Entities.DtoDown;
-using SecurityServer.Service.Interface;
-
-namespace SecurityServer.Data
+﻿namespace SecurityServer.Data
 {
+    using JWT;
+    using JWT.Algorithms;
+    using JWT.Serializers;
+    using SecurityServer.Entities;
+    using SecurityServer.Entities.DtoDown;
+    using SecurityServer.Service.Interface;
+
     public class AuthenticationService : IAuthenticationService
     {
+        #region Variables
         private readonly IJwtAlgorithm _algorythm;
         private readonly IJsonSerializer _serializer;
         private readonly IBase64UrlEncoder _base64UrlEncoder;
         private readonly IJwtEncoder _jwtEncoder;
 
-        private UserDtoDown userDtoDown;
         private static Random random = new Random();
         private IUnitOfWork<SecurityServerDbContext>? unitOfWork;
 
+        public bool IsValid { get; }
+        public string Username { get; }
+        public string Role { get; }
+        #endregion
+
+        #region Initialisation
         public AuthenticationService(IUnitOfWork<SecurityServerDbContext> unit)
         {
-            _algorythm = new HMACSHA256Algorithm();
-            _serializer = new JsonNetSerializer();
-            _base64UrlEncoder = new JwtBase64UrlEncoder();
-            _jwtEncoder = new JwtEncoder(_algorythm, _serializer, _base64UrlEncoder);
+            this._algorythm = new HMACSHA256Algorithm();
+            this._serializer = new JsonNetSerializer();
+            this._base64UrlEncoder = new JwtBase64UrlEncoder();
+            this._jwtEncoder = new JwtEncoder(_algorythm, _serializer, _base64UrlEncoder);
             this.unitOfWork = unit;
 
         }
+        #endregion
 
+        #region GenerateJWT(string codeGrant)
         string IAuthenticationService.GenerateJWT(string codeGrant)
         {
             CodeGrantEntity grant = this.unitOfWork.CodeGrantRepository.Get(codeGrant);
@@ -50,8 +58,9 @@ namespace SecurityServer.Data
                 return "ptit problème de token ma gueule";
             }
         }
+        #endregion
 
-
+        #region CodeGrant(UserDtoDown user, string clientSecret)
         string IAuthenticationService.CodeGrant(UserDtoDown user, string clientSecret)
         {
             this.unitOfWork.CreateTransaction();
@@ -61,7 +70,7 @@ namespace SecurityServer.Data
             CodeGrantEntity codeGrant = new CodeGrantEntity
             {
                 ClientSecret = clientSecret,
-                IdUser = user.id,
+                IdUser = user.Id,
                 CodeGrant = codegrant
 
             };
@@ -71,48 +80,7 @@ namespace SecurityServer.Data
 
             return codegrant;
         }
+        #endregion
 
-
-      //public async Task Main(UserDtoDown user)
-      //  {
-      //      // Remplacez ces valeurs par celles de votre serveur d'autorisation
-      //      string clientId = "YOUR_CLIENT_ID";
-      //      string clientSecret = "YOUR_CLIENT_SECRET";
-      //      string tokenEndpoint = "https://your-authorization-server.com/oauth2/token";
-
-      //      // Créez une requête POST pour obtenir un jeton d'accès
-      //      HttpClient client = new HttpClient();
-      //      HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, tokenEndpoint);
-      //      request.Headers.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.ASCII.GetBytes(clientId + ":" + clientSecret)));
-      //      request.Content = new FormUrlEncodedContent(new Dictionary<string, string>
-      //      {
-      //          { "grant_type", "client_credentials" }
-      //      });
-
-      //      // Envoyez la requête et récupérez le jeton d'accès
-      //      HttpResponseMessage response = await client.SendAsync(request);
-      //      if (response.IsSuccessStatusCode)
-      //      {
-      //          string responseText = await response.Content.ReadAsStringAsync();
-      //          JObject responseJson = JObject.Parse(responseText);
-      //          string accessToken = (string)responseJson["access_token"];
-      //          Console.WriteLine("Jeton d'accès obtenu : " + accessToken);
-
-      //          // Extraire les claims du jeton d'accès
-      //          JObject claims = JObject.Parse((string)responseJson["id_token"]);
-      //          string username = (string)claims["username"];
-      //          string email = (string)claims["email"];
-      //          string role = (string)claims["role"];
-      //          Console.WriteLine("Informations sur l'utilisateur :");
-      //          Console.WriteLine("Nom d'utilisateur : " + username);
-      //          Console.WriteLine("Adresse email : " + email);
-      //          Console.WriteLine("Rôle : " + role);
-      //      }
-      //      else
-      //      {
-      //          Console.WriteLine("Erreur lors de la récupération du jeton d'accès : " + response.StatusCode);
-      //      }
-      //  }   
     }
-
 }

@@ -1,23 +1,27 @@
-﻿using SecurityServer.Data;
-using SecurityServer.Data.Repository;
-using SecurityServer.Entities;
-using SecurityServer.Entities.DtoDown;
-using SecurityServer.Service.Interface;
-
-namespace SecurityServer.Service
+﻿namespace SecurityServer.Service
 {
+    using SecurityServer.Data;
+    using SecurityServer.Entities;
+    using SecurityServer.Entities.DtoDown;
+    using SecurityServer.Service.Interface;
+
     public class UserService : IUserService
     {
+        #region Variables
         // initialisation de unit of work
         private IUnitOfWork<SecurityServerDbContext>? unitOfWork;
-
         private ISalt _salt;
+        #endregion
+
+        #region Initialisation
         public UserService(IUnitOfWork<SecurityServerDbContext> unit, ISalt salt)
         {
             this.unitOfWork = unit;
             this._salt = salt;
         }
+        #endregion
 
+        #region CreateUser(UserEntity user)
         bool IUserService.CreateUser(UserEntity user)
         {
             this.unitOfWork.CreateTransaction();
@@ -34,22 +38,25 @@ namespace SecurityServer.Service
                 return false;
             }
         }
+        #endregion
 
+        #region GetAuthUser(string email, string password)
         UserDtoDown IUserService.GetAuthUser(string email, string password)
         {
             var userDto = this.unitOfWork.UserRepository.Get(email);
-            bool userAuth = false;
 
             UserDtoDown user = new UserDtoDown()
             {
-                id = userDto.Id,
-                email = userDto.Email,
-                isAdmin = userDto.IsAdmin
+                Id = userDto.Id,
+                Email = userDto.Email,
+                IsAdmin = userDto.IsAdmin
             };
 
             return user;
         }
+        #endregion
 
+        #region GetUsers
         List<UserAppDtoDown> IUserService.GetUsers()
         {
             List<UserEntity> ListUsers = this.unitOfWork.UserRepository.GetAll().ToList();
@@ -59,15 +66,16 @@ namespace SecurityServer.Service
             {
                 UserAppDtoDown us = new UserAppDtoDown()
                 {
-                    id = user.Id,
-                    email = user.Email,
-                    firstname = user.FirstName,
-                    lastname = user.LastName,
+                    Id = user.Id,
+                    Email = user.Email,
+                    Firstname = user.FirstName,
+                    Lastname = user.LastName,
                 };
                 usersDto.Add(us);
             }
             
             return usersDto;
         }
+        #endregion
     }
 }

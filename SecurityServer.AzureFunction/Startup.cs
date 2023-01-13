@@ -1,16 +1,15 @@
 ﻿using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SecurityServer.Data;
-using SecurityServer.Service;
-using SecurityServer.Service.Interface;
 using SecurityServer.Data.Repository;
 using SecurityServer.Data.Repository.Interface;
-using Microsoft.Extensions.Configuration;
+using SecurityServer.Service;
+using SecurityServer.Service.Interface;
 using System.IO;
 
 [assembly: FunctionsStartup(typeof(SecurityServer.AzureFunction.StartUp))]
-
 namespace SecurityServer.AzureFunction
 {
     public class StartUp : FunctionsStartup

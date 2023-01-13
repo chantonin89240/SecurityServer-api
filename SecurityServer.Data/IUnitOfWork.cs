@@ -1,14 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SecurityServer.Data.Repository;
-using SecurityServer.Data.Repository.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SecurityServer.Data
+﻿namespace SecurityServer.Data
 {
+    using Microsoft.EntityFrameworkCore;
+    using SecurityServer.Data.Repository.Interface;
+
     public interface IUnitOfWork<out Tcontext> where Tcontext : DbContext
     {
         Tcontext Context { get; }

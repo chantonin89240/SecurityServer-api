@@ -1,24 +1,26 @@
-﻿using SecurityServer.Service.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SecurityServer.AzureFunction
+﻿namespace SecurityServer.AzureFunction
 {
+    using SecurityServer.Service.Interface;
+    using System.Security.Cryptography;
+    using System.Text;
+
     public class Salt : ISalt
     {
+        #region Variables
         private static Random random = new Random();
-        public string saltGenerator()
+        #endregion
+
+        #region SaltGenerator
+        string ISalt.SaltGenerator()
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return $@"{new string(Enumerable.Repeat(chars, 32)
                 .Select(s => s[random.Next(s.Length)]).ToArray())}FEUR";
         }
+        #endregion
 
-        public string HashPassword(string password, string salt)
+        #region HashPassword(string password, string salt)
+        string ISalt.HashPassword(string password, string salt)
         {
             using (SHA256 sha256Hash = SHA256.Create())
             {
@@ -34,6 +36,6 @@ namespace SecurityServer.AzureFunction
                 return builder.ToString();
             }
         }
-
+        #endregion
     }
 }

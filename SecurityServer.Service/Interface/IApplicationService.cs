@@ -2,7 +2,6 @@
 {
     using SecurityServer.Entities;
     using SecurityServer.Entities.DtoDown;
-    using SecurityServer.Entities.DtoUp;
 
     public interface IApplicationService
     {
