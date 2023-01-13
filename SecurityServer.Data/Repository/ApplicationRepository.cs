@@ -1,10 +1,9 @@
-﻿using SecurityServer.Data.Repository.Interface;
-using SecurityServer.Entities;
-using SecurityServer.Entities.DtoDown;
-using SecurityServer.Entities.DtoUp;
-
-namespace SecurityServer.Data.Repository
+﻿namespace SecurityServer.Data.Repository
 {
+    using SecurityServer.Data.Repository.Interface;
+    using SecurityServer.Entities;
+    using SecurityServer.Entities.DtoDown;
+
     public class ApplicationRepository : BaseRepository<ApplicationEntity>, IApplicationRepository
     {
 
@@ -59,10 +58,10 @@ namespace SecurityServer.Data.Repository
             {
                 UserAppDtoDown userAppDto = new UserAppDtoDown
                 {
-                    id = user.Id, 
-                    email = user.Email,
-                    firstname = user.FirstName,
-                    lastname = user.LastName,
+                    Id = user.Id, 
+                    Email = user.Email,
+                    Firstname = user.FirstName,
+                    Lastname = user.LastName,
                 };
 
                 applicationDtoDown.Users.Add(userAppDto);

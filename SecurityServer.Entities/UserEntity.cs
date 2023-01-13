@@ -1,12 +1,7 @@
-﻿using SecurityServer.Entities.IEntities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SecurityServer.Entities
+﻿namespace SecurityServer.Entities
 {
+    using SecurityServer.Entities.IEntities;
+
     public class UserEntity : IUserEntity
     {
         public int Id { get; set; }
@@ -25,6 +20,7 @@ namespace SecurityServer.Entities
 
         public UserEntity(int idrole, string firstname, string lastname, string email, string password, string salt, string avatar, bool isAdmin)
         {
+            this.Id = idrole;
             this.FirstName = firstname;
             this.LastName = lastname;
             this.Email = email;
@@ -32,7 +28,7 @@ namespace SecurityServer.Entities
             this.Salt = salt;
             this.avatar = avatar;
             this.IsAdmin = isAdmin;
-            Applications = new List<ApplicationEntity>();
+            this.Applications = new List<ApplicationEntity>();
         }
     }
 }

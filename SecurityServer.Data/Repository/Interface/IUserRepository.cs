@@ -1,13 +1,7 @@
-﻿using SecurityServer.Entities;
-using SecurityServer.Entities.DtoDown;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SecurityServer.Data.Repository.Interface
+﻿namespace SecurityServer.Data.Repository.Interface
 {
+    using SecurityServer.Entities;
+
     public  interface IUserRepository : IBaseRepository<UserEntity>
     {
         IEnumerable<UserEntity> Get();

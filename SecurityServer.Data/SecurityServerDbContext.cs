@@ -2,9 +2,6 @@
 {
     using Microsoft.EntityFrameworkCore;
     using SecurityServer.Entities;
-    using System;
-    using System.Collections.Generic;
-    using System.Reflection.Metadata;
 
     public class SecurityServerDbContext : DbContext
     {
@@ -19,11 +16,7 @@
 
         public DbSet<CodeGrantEntity>? CodeGrant { get; set; }
 
-        public SecurityServerDbContext(DbContextOptions<SecurityServerDbContext> options)
-            : base(options)
-        {
-        }
-
+        public SecurityServerDbContext(DbContextOptions<SecurityServerDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

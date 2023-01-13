@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SecurityServer.Entities.DtoDown
+﻿namespace SecurityServer.Entities.DtoDown
 {
     public class UserDtoDown
     {
-        public int id { get; set; }
-        public string email { get; set; }
-        public bool isAdmin { get; set; }
+        public int Id { get; set; }
+        public string Email { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }

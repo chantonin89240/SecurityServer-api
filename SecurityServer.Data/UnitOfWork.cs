@@ -1,15 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using SecurityServer.Data.Repository;
-using SecurityServer.Data.Repository.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SecurityServer.Data
+﻿namespace SecurityServer.Data
 {
+    using Microsoft.EntityFrameworkCore.Storage;
+    using SecurityServer.Data.Repository;
+    using SecurityServer.Data.Repository.Interface;
+
     public class UnitOfWork<Tcontext> : IUnitOfWork<Tcontext>, IDisposable where Tcontext : SecurityServerDbContext
     {
         private readonly Tcontext _context;

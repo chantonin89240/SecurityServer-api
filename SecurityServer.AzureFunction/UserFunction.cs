@@ -1,18 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using SecurityServer.Entities;
-using SecurityServer.Entities.DtoDown;
-using SecurityServer.Service.Interface;
-
-namespace SecurityServer.AzureFunction
+﻿namespace SecurityServer.AzureFunction
 {
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Azure.WebJobs;
+    using Microsoft.Azure.WebJobs.Extensions.Http;
+    using Microsoft.Extensions.Logging;
+    using Newtonsoft.Json;
+    using SecurityServer.Entities;
+    using SecurityServer.Entities.DtoDown;
+    using SecurityServer.Service.Interface;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Threading.Tasks;
+
     public class UserFunction
     {
         private IUserService userService;
@@ -24,6 +24,7 @@ namespace SecurityServer.AzureFunction
             this._isalt = salt;
         }
 
+        // function de création d'un user
         [FunctionName("CreateUser")]
         public async Task<IActionResult> CreateUser(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "user/create")] HttpRequest req,
@@ -37,7 +38,7 @@ namespace SecurityServer.AzureFunction
             var input = JsonConvert.DeserializeObject<UserEntity>(requestBody);
             
             // génération d'un salt
-            var salt = _isalt.saltGenerator();
+            var salt = _isalt.SaltGenerator();
             // salt du password
             var nicePassword = _isalt.HashPassword(input.Password, salt);
 

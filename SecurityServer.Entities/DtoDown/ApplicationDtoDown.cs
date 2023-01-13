@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SecurityServer.Entities.DtoDown
+﻿namespace SecurityServer.Entities.DtoDown
 {
+    using System.Collections.Generic;
+
     public class ApplicationDtoDown
     {
         public int Id { get; set; }

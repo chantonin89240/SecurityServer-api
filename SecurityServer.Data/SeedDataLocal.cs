@@ -1,13 +1,8 @@
-﻿using SecurityServer.Entities;
-using SecurityServer.Factory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SecurityServer.Data
+﻿namespace SecurityServer.Data
 {
+    using SecurityServer.Entities;
+    using SecurityServer.Factory;
+
     public class SeedDataLocal
     {
         private static IEnumerable<ApplicationEntity> Applications;

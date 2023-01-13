@@ -1,29 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JWT.Algorithms;
-using JWT.Builder;
-using Microsoft.AspNetCore.Http;
-
-namespace SecurityServer.Service
+﻿namespace SecurityServer.Service
 {
+    using JWT.Algorithms;
+    using JWT.Builder;
+    using Microsoft.AspNetCore.Http;
+
     public class ValidateJWTService
     {
-        public bool IsValid
-        {
-            get;
-        }
-        public string Username
-        {
-            get;
-        }
-        public string Role
-        {
-            get;
-        }
+        #region Variables
+        public bool IsValid { get; }
+        public string Username { get; }
+        public string Role { get; }
+        #endregion
 
+        #region 
         public ValidateJWTService(HttpRequest request)
         {
             if (!request.Headers.ContainsKey("Authorization"))
@@ -64,7 +53,8 @@ namespace SecurityServer.Service
             Username = Convert.ToString(claims["email"]);
             Role = Convert.ToString(claims["role"]);
         
-    }
-       
+        }
+        #endregion
+
     }
 }
