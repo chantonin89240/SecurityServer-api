@@ -37,7 +37,7 @@ namespace SecurityServer.Data.Repository
 
         UserEntity IUserRepository.Get(string email)
         {
-            var user = _dbSet.FirstOrDefault(u => u.Email == email);
+            var user = this._dbSet.FirstOrDefault(u => u.Email == email);
 
             if (user == null)
             {
