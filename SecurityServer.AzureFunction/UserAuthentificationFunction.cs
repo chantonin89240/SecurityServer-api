@@ -38,7 +38,7 @@ namespace SecurityServer.AzureFunction
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "auth")] UserDtoUp user)
         {
             
-            UserDtoDown userAuth = _userService.GetUser(user.email, user.password);
+            UserDtoDown userAuth = _userService.GetAuthUser(user.email, user.password);
             var redirecteUri = _applicationService.GetSecret(user.clientSecret);
 
             if (userAuth != null)

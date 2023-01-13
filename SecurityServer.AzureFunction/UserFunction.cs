@@ -1,19 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using SecurityServer.Entities;
-using System.Runtime.CompilerServices;
-using SecurityServer.Service;
+using SecurityServer.Entities.DtoDown;
 using SecurityServer.Service.Interface;
 
 namespace SecurityServer.AzureFunction
@@ -53,5 +48,17 @@ namespace SecurityServer.AzureFunction
 
             return new OkObjectResult(result);
         }
+
+        // function get users
+        [FunctionName("GetUsers")]
+        public IActionResult GetApplications(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "users")] HttpRequest req, ILogger log)
+        {
+            // appel du service get users
+            List<UserAppDtoDown> appli = userService.GetUsers();
+            // retour du résultat
+            return new OkObjectResult(appli);
+        }
     }
+
 }

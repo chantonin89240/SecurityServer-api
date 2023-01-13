@@ -35,7 +35,7 @@ namespace SecurityServer.Service
             }
         }
 
-        UserDtoDown IUserService.GetUser(string email, string password)
+        UserDtoDown IUserService.GetAuthUser(string email, string password)
         {
             var userDto = this.unitOfWork.UserRepository.Get(email);
             bool userAuth = false;
@@ -48,6 +48,26 @@ namespace SecurityServer.Service
             };
 
             return user;
+        }
+
+        List<UserAppDtoDown> IUserService.GetUsers()
+        {
+            List<UserEntity> ListUsers = this.unitOfWork.UserRepository.GetAll().ToList();
+            List<UserAppDtoDown> usersDto = new List<UserAppDtoDown>();
+
+            foreach(UserEntity user in ListUsers)
+            {
+                UserAppDtoDown us = new UserAppDtoDown()
+                {
+                    id = user.Id,
+                    email = user.Email,
+                    firstname = user.FirstName,
+                    lastname = user.LastName,
+                };
+                usersDto.Add(us);
+            }
+            
+            return usersDto;
         }
     }
 }
