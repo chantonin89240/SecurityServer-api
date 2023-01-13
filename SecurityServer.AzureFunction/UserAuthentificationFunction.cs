@@ -43,7 +43,7 @@ namespace SecurityServer.AzureFunction
                 // génération du code grant
                 string codeGrant = _authenticationService.CodeGrant(userAuth, user.ClientSecret);
                 // ajout du code grant à l'url de redirection
-                string url = redirecteUri.Url + "&code=" + codeGrant; 
+                string url = redirecteUri.Url + "/&code=" + codeGrant; 
                 // redirection avec l'url passer en paramètre
                 return new RedirectResult(url);
             }

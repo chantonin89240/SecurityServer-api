@@ -64,8 +64,8 @@
 
             if (verif == false)
             {
+                // retour un message d'erreur
                 return new BadRequestErrorMessageResult("Création d'application impossible - informations manquantes");
-                //return null;
             }
             else
             {
