@@ -45,9 +45,10 @@ namespace SecurityServer.Data.Repository
  
             var usersapp = context.UserApplication.Where(ua => ua.IdApplication == application.Id).Select(ua=> ua.IdUser).ToList();
             application.Users = context.User.Where(ua => usersapp.Contains(ua.Id)).ToList();
-            var users = context.User.Where(ua => usersapp.Contains(ua.Id)).Select(ua => new { ua.FirstName, ua.LastName, ua.Email }).ToList();
+            var users = context.User.Where(ua => usersapp.Contains(ua.Id)).Select(ua => new { ua.Id, ua.FirstName, ua.LastName, ua.Email }).ToList();
             ApplicationDtoDown applicationDtoDown = new ApplicationDtoDown
             {
+                Id = id,
                 Name = application.Name,
                 Description = application.Description,
                 Url = application.Url,
@@ -58,12 +59,13 @@ namespace SecurityServer.Data.Repository
             {
                 UserAppDtoDown userAppDto = new UserAppDtoDown
                 {
+                    id = user.Id, 
                     email = user.Email,
                     firstname = user.FirstName,
                     lastname = user.LastName,
                 };
 
-                applicationDtoDown.Userdto.Add(userAppDto);
+                applicationDtoDown.Users.Add(userAppDto);
             }
             return applicationDtoDown;
         }

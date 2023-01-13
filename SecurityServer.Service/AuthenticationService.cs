@@ -1,18 +1,9 @@
 ﻿using JWT;
 using JWT.Algorithms;
 using JWT.Serializers;
-using Newtonsoft.Json.Linq;
 using SecurityServer.Entities;
 using SecurityServer.Entities.DtoDown;
-using SecurityServer.Entities.DtoUp;
 using SecurityServer.Service.Interface;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SecurityServer.Data
 {
