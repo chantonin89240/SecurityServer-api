@@ -21,6 +21,11 @@ steps:
     arguments: '--configuration $(BuildConfiguration)'
 - task: DotNetCoreCLI@2
   inputs:
+    command: 'test'
+    projects: '**/SecurityServer.Test/**.csproj'
+    arguments: '--configuration release'
+- task: DotNetCoreCLI@2
+  inputs:
     command: 'publish'
     publishWebProjects: false
     projects: '**/*.csproj'
