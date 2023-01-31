@@ -1,11 +1,12 @@
 ﻿namespace SecurityServer.Data.Repository.Interface
 {
     using SecurityServer.Entities;
+    using SecurityServer.Entities.DtoDown;
 
     public  interface IUserRepository : IBaseRepository<UserEntity>
     {
         IEnumerable<UserEntity> Get();
-        UserEntity Get(int id);
+        UserDtoDown Get(int id);
         bool Get(UserEntity user);
         UserEntity Post(UserEntity user);
         UserEntity Update(UserEntity user);

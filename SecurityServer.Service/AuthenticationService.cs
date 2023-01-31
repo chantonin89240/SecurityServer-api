@@ -44,7 +44,7 @@
            
             if(grant != null)
             {
-                UserEntity user = this.unitOfWork.UserRepository.Get(grant.IdUser);
+                UserDtoDown user = this.unitOfWork.UserRepository.Get(grant.IdUser);
                 //ClaimEntity claim = this.unitOfWork.ClaimRepository
 
                 ClaimEntity claim = new ClaimEntity()
@@ -57,8 +57,8 @@
 
                 TokenSignEntity payload = new TokenSignEntity()
                 {
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
+                    FirstName = user.Firstname,
+                    LastName = user.Lastname,
                     Email = user.Email,
                     DateExpiry = DateTime.Now,
                     Claim = claim
@@ -77,7 +77,7 @@
         #endregion
 
         #region CodeGrant(UserDtoDown user, string clientSecret)
-        string IAuthenticationService.CodeGrant(UserDtoDown user, string clientSecret)
+        string IAuthenticationService.CodeGrant(UserAuthDtoDown user, string clientSecret)
         {
             this.unitOfWork.CreateTransaction();
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

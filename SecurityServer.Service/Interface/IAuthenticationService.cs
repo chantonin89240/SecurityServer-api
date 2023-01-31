@@ -6,6 +6,6 @@
     public interface IAuthenticationService
     {
         public string GenerateJWT(string codeGrant);
-        public string CodeGrant(UserDtoDown user, string clientSecret);
+        public string CodeGrant(UserAuthDtoDown user, string clientSecret);
     }
 }

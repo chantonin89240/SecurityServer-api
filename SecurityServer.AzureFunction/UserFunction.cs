@@ -8,6 +8,7 @@
     using Newtonsoft.Json;
     using SecurityServer.Entities;
     using SecurityServer.Entities.DtoDown;
+    using SecurityServer.Service;
     using SecurityServer.Service.Interface;
     using System.Collections.Generic;
     using System.IO;
@@ -59,6 +60,17 @@
             List<UserAppDtoDown> appli = userService.GetUsers();
             // retour du résultat
             return new OkObjectResult(appli);
+        }
+
+        // function get application
+        [FunctionName("GetUser")]
+        public IActionResult GetApplication(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "user/{id}")] HttpRequest req, int id, ILogger log)
+        {
+            // appel du service get user
+            UserDtoDown user = userService.GetUser(id);
+            // retour du résultat
+            return new OkObjectResult(user);
         }
 
         // function delete user

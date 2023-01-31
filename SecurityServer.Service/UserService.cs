@@ -41,11 +41,11 @@
         #endregion
 
         #region GetAuthUser(string email, string password)
-        UserDtoDown IUserService.GetAuthUser(string email, string password)
+        UserAuthDtoDown IUserService.GetAuthUser(string email, string password)
         {
             var userDto = this.unitOfWork.UserRepository.Get(email);
 
-            UserDtoDown user = new UserDtoDown()
+            UserAuthDtoDown user = new UserAuthDtoDown()
             {
                 Id = userDto.Id,
                 Email = userDto.Email,
@@ -62,7 +62,7 @@
             List<UserEntity> ListUsers = this.unitOfWork.UserRepository.GetAll().ToList();
             List<UserAppDtoDown> usersDto = new List<UserAppDtoDown>();
 
-            foreach (UserEntity user in ListUsers)
+            foreach(UserEntity user in ListUsers)
             {
                 UserAppDtoDown us = new UserAppDtoDown()
                 {
@@ -73,7 +73,7 @@
                 };
                 usersDto.Add(us);
             }
-
+            
             return usersDto;
         }
         #endregion
@@ -95,6 +95,16 @@
                 return false;
             }
         }
+
+        #endregion
+
+        #region GetUser
+        UserDtoDown IUserService.GetUser(int id)
+        {
+            UserDtoDown user = this.unitOfWork.UserRepository.Get(id);
+            return user;
+        }
+
         #endregion
     }
 }
