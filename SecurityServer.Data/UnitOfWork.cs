@@ -41,8 +41,15 @@
             }
         }
 
-        //public ClaimRepository Claim { get; set; }
-        //public RoleRepository Role { get; set; }
+        //public IClaimRepository ClaimRepository
+        //{
+        //    get
+        //    {
+        //        if (!_repositories.ContainsKey(nameof(ClaimRepository))) _repositories.Add(nameof(ClaimRepository), new ClaimRepository(_context));
+        //        return (ClaimRepository)_repositories[nameof(ClaimRepository)];
+        //    }
+        //}
+
 
         // constructeur
         public UnitOfWork(Tcontext tcontext)
