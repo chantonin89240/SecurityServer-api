@@ -60,6 +60,19 @@
             // retour du résultat
             return new OkObjectResult(appli);
         }
+
+        // function delete user
+        [FunctionName("DeleteUser")]
+        public async Task<IActionResult> DeleteUser(
+          [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "user/{id}")] HttpRequest req,
+          int id,
+          ILogger log)
+        {
+            // appel du service delete user
+            bool result = userService.DeleteUser(id);
+            // retour du résultat
+            return new OkObjectResult(result);
+        }
     }
 
 }

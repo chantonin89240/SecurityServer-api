@@ -57,9 +57,9 @@
         {
             throw new NotImplementedException();
         }
-        string IUserRepository.Delete(int id)
+        void IUserRepository.Delete(int id)
         {
-            throw new NotImplementedException();
+            this.Delete(id);
         }
 
         UserEntity IUserRepository.Post(UserEntity user)

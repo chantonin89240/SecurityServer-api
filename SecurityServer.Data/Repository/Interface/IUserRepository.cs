@@ -9,7 +9,7 @@
         bool Get(UserEntity user);
         UserEntity Post(UserEntity user);
         UserEntity Update(UserEntity user);
-        string Delete(int id);
+        void Delete(int id);
         UserEntity Get(string email);
 
 

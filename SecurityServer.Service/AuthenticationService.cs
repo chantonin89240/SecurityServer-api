@@ -6,6 +6,8 @@
     using SecurityServer.Entities;
     using SecurityServer.Entities.DtoDown;
     using SecurityServer.Service.Interface;
+    using Azure.Security.KeyVault.Certificates;
+    using System.Text.Json;
 
     public class AuthenticationService : IAuthenticationService
     {
@@ -13,7 +15,7 @@
         private readonly IJwtAlgorithm _algorythm;
         private readonly IJsonSerializer _serializer;
         private readonly IBase64UrlEncoder _base64UrlEncoder;
-        private readonly IJwtEncoder _jwtEncoder;
+        private readonly IJwtEncoder _jwtEncoder;               
 
         private static Random random = new Random();
         private IUnitOfWork<SecurityServerDbContext>? unitOfWork;
@@ -39,18 +41,32 @@
         string IAuthenticationService.GenerateJWT(string codeGrant)
         {
             CodeGrantEntity grant = this.unitOfWork.CodeGrantRepository.Get(codeGrant);
-            UserEntity user = this.unitOfWork.UserRepository.Get(grant.IdUser);
-
+           
             if(grant != null)
             {
-                Dictionary<string, object> claims = new Dictionary<string, object>
+                UserEntity user = this.unitOfWork.UserRepository.Get(grant.IdUser);
+                //ClaimEntity claim = this.unitOfWork.ClaimRepository
+
+                ClaimEntity claim = new ClaimEntity()
                 {
-                    {
-                        "email",
-                        user.Email
-                    }
+                    Id = 1,
+                    Name = "test",
+                    Description = "test de ouf"
                 };
-                string token = _jwtEncoder.Encode(claims, "your secret security key string");
+
+
+                TokenSignEntity payload = new TokenSignEntity()
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    DateExpiry = DateTime.Now,
+                    Claim = claim
+                };
+
+                string strJson = JsonSerializer.Serialize<TokenSignEntity>(payload);
+
+                string token = _jwtEncoder.Encode(strJson, "");
                 return token;
             }
             else

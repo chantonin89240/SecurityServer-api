@@ -62,7 +62,7 @@
             List<UserEntity> ListUsers = this.unitOfWork.UserRepository.GetAll().ToList();
             List<UserAppDtoDown> usersDto = new List<UserAppDtoDown>();
 
-            foreach(UserEntity user in ListUsers)
+            foreach (UserEntity user in ListUsers)
             {
                 UserAppDtoDown us = new UserAppDtoDown()
                 {
@@ -73,8 +73,27 @@
                 };
                 usersDto.Add(us);
             }
-            
+
             return usersDto;
+        }
+        #endregion
+
+        #region DeleteUser
+        bool IUserService.DeleteUser(int id)
+        {
+            this.unitOfWork.CreateTransaction();
+            this.unitOfWork.UserRepository.Delete(id);
+            this.unitOfWork.Commit();
+            this.unitOfWork.Save();
+            var userOk = this.unitOfWork.UserRepository.Get(id);
+            if (userOk == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         #endregion
     }

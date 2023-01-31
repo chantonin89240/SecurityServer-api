@@ -61,7 +61,7 @@ namespace SecurityServer.AzureFunction
         [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "GetAcces")] HttpRequest req)
         {
             // récupération du code grant passer en paramètre 
-            string codeGrant = req.Query["codeGrant"];
+            string codeGrant = req.Query["CodeGrant"];
 
             string requestBody = String.Empty;
             using (StreamReader streamReader = new StreamReader(req.Body))
