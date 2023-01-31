@@ -33,7 +33,7 @@ namespace SecurityServer.AzureFunction
         [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "auth")] UserDtoUp user)
         {
             // authentification du user et retourne un dto
-            UserDtoDown userAuth = _userService.GetAuthUser(user.Email, user.Password);
+            UserAuthDtoDown userAuth = _userService.GetAuthUser(user.Email, user.Password);
             // récupération de l'url du client grâce au clientSecret
             var redirecteUri = _applicationService.GetSecret(user.ClientSecret);
 

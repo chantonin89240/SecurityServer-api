@@ -2,6 +2,7 @@
 {
     using SecurityServer.Data.Repository.Interface;
     using SecurityServer.Entities;
+    using SecurityServer.Entities.DtoDown;
 
     public class UserRepository : BaseRepository<UserEntity>, IUserRepository
     {
@@ -16,9 +17,24 @@
             return this.GetAll();
         }
 
-        UserEntity IUserRepository.Get(int id)
+        UserDtoDown IUserRepository.Get(int id)
         {
-            return this.Get(id);
+            var user = this.Get(id);
+
+            if (user == null) return null;
+
+            UserDtoDown userDtoDown = new UserDtoDown
+            {
+                Id = id,
+                Firstname = user.FirstName,
+                Lastname = user.LastName,
+                Email = user.Email,
+                Avatar = user.avatar,
+                IsAdmin = user.IsAdmin,
+            };
+
+            return userDtoDown;
+            
         }
 
         bool IUserRepository.Get(UserEntity user)
@@ -66,5 +82,7 @@
         {
             return this.Add(user);
         }
+
+
     }
 }

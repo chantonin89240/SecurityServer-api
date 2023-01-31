@@ -17,24 +17,6 @@
         {
             return this.GetAll();
         }
-        //public ApplicationEntity GetApplicationWithUsers(int applicationId)
-        //{
-        //    List<ApplicationEntity> applicationEntities;
-        //    List<UserApplicationEntity> userApplicationEntities;
-        //    List<UserEntity> userEntities;
-        //    var application = applicationEntities.Where(a => a.Id == applicationId).FirstOrDefault();
-        //    if (application == null)
-        //    {
-        //        return null;
-        //    }
-
-        //    var userApplication = userApplicationEntities.Where(ua => ua.IdApplication == applicationId);
-        //    var users = userApplication.Join(userEntities, ua => ua.IdUser, u => u.Id, (ua, u) => u).ToList();
-
-        //    application.Users = users;
-
-        //    return application;
-        //}
 
         ApplicationDtoDown IApplicationRepository.Get(int id)
         {
