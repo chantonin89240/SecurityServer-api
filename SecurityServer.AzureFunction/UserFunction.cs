@@ -85,6 +85,26 @@
             // retour du résultat
             return new OkObjectResult(result);
         }
+
+        // function update user
+        [FunctionName("UpdateUser")]
+        public async Task<IActionResult> UpdateUser(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "user/update")] HttpRequest req,
+            ILogger log)
+        {
+            // récupération du body 
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            // deserialization du body 
+            var input = JsonConvert.DeserializeObject<UserEntity>(requestBody);
+
+            // création d'un user Entity
+            UserEntity user = new UserEntity() { Id = input.Id, FirstName = input.FirstName, LastName = input.LastName, Password = input.Password, Salt = input.Salt, IsAdmin = input.IsAdmin };
+
+            // appel du service update application
+            //UserEntity appUpdate = userService.UpdateUser(user);
+            // retour du résultat
+            return new OkObjectResult(user);
+        }
     }
 
 }

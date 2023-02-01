@@ -100,7 +100,7 @@
             var input = JsonConvert.DeserializeObject<ApplicationEntity>(requestBody);
 
             // création d'une application Entity
-            var app = new ApplicationEntity() { Id = input.Id, Name = input.Name, Description = input.Description, Url = input.Url };
+            ApplicationEntity app = new ApplicationEntity() { Id = input.Id, Name = input.Name, Description = input.Description, Url = input.Url };
 
             // appel du service update application
             ApplicationEntity appUpdate = applicationService.UpdateApplication(app);
