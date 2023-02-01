@@ -12,7 +12,7 @@
         public DbSet<RoleEntity>? Role { get; set; }
 
         public DbSet<UserEntity>? User { get; set; }
-        public DbSet<UserApplicationEntity>? UserApplication { get; set; }
+        public DbSet<ApplicationUserRole>? ApplicationUserRole { get; set; }
 
         public DbSet<CodeGrantEntity>? CodeGrant { get; set; }
 
@@ -20,7 +20,7 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserApplicationEntity>().HasKey(u => new { u.IdUser, u.IdApplication });
+            modelBuilder.Entity<ApplicationUserRole>().HasKey(u => new { u.IdUser, u.IdApplication });
         }
     }
 }

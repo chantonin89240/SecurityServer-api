@@ -1,4 +1,4 @@
-﻿namespace SecurityServer.Service
+﻿    namespace SecurityServer.Service
 {
     using SecurityServer.Entities;
     using SecurityServer.Data;
