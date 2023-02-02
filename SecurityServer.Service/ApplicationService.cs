@@ -50,7 +50,7 @@
             this.unitOfWork.CreateTransaction();
             application.ClientSecret = _salt.SaltGenerator();
             this.unitOfWork.ApplicationRepository.Post(application);
-            if (application.Url.Trim() == "" || application.Name.Trim() =="")
+            if (string.IsNullOrEmpty(application.Url) || string.IsNullOrEmpty(application.Name))
             {
                 return false;
             }
@@ -71,7 +71,7 @@
             this.unitOfWork.ApplicationRepository.Delete(id);
             this.unitOfWork.Commit();
             this.unitOfWork.Save();
-            var appOk = this.unitOfWork.ApplicationRepository.Get(id);
+            ApplicationDtoDown appOk = this.unitOfWork.ApplicationRepository.Get(id);
             if (appOk == null)
             {
                 return true;

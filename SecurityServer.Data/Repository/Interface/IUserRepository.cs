@@ -9,10 +9,8 @@
         UserDtoDown Get(int id);
         bool Get(UserEntity user);
         UserEntity Post(UserEntity user);
-        UserEntity Update(UserEntity user);
+        UserDtoDown Update(UserEntity user);
         void Delete(int id);
         UserEntity Get(string email);
-
-
     }
 }

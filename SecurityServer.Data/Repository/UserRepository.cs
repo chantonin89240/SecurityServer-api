@@ -19,7 +19,7 @@
 
         UserDtoDown IUserRepository.Get(int id)
         {
-            var user = this.Get(id);
+            UserEntity user = this.Get(id);
 
             if (user == null) return null;
 
@@ -69,9 +69,32 @@
                 return userdto;
             }
         }
-        UserEntity IUserRepository.Update(UserEntity user)
+        UserDtoDown IUserRepository.Update(UserEntity user)
         {
-            throw new NotImplementedException();
+            UserEntity oldUser = this.Get(user.Id);
+            
+            if(user.FirstName != oldUser.FirstName)
+                oldUser.FirstName = user.FirstName;
+            if (user.LastName != oldUser.LastName)
+                oldUser.LastName = user.LastName; 
+            if (user.Email != oldUser.Email)
+                oldUser.Email = user.Email;
+            if (user.Avatar != oldUser.Avatar)
+                oldUser.Avatar = user.Avatar;
+
+            UserEntity userUpdate = this.Update(oldUser);  
+            
+            UserDtoDown userAft = new UserDtoDown()
+            {
+                Id = userUpdate.Id,
+                Email = userUpdate.Email,
+                Firstname = userUpdate.FirstName, 
+                Lastname = userUpdate.LastName,
+                Avatar = userUpdate.Avatar,
+                IsAdmin = userUpdate.IsAdmin,
+            };
+
+            return userAft;
         }
         void IUserRepository.Delete(int id)
         {

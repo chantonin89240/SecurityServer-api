@@ -117,12 +117,12 @@
             var input = JsonConvert.DeserializeObject<UserEntity>(requestBody);
 
             // création d'un user Entity
-            UserEntity user = new UserEntity() { Id = input.Id, FirstName = input.FirstName, LastName = input.LastName, Password = input.Password, Salt = input.Salt, IsAdmin = input.IsAdmin };
+            UserEntity user = new UserEntity() { Id = input.Id, FirstName = input.FirstName, LastName = input.LastName, Email = input.Email, Avatar = input.Avatar, IsAdmin = input.IsAdmin };
 
             // appel du service update application
-            // UserEntity appUpdate = userService.UpdateUser(user);
+            UserDtoDown userUpdate = userService.UpdateUser(user);
             // retour du résultat
-            return new OkObjectResult(user);
+            return new OkObjectResult(userUpdate);
         }
     }
 
