@@ -10,5 +10,6 @@
         public List<UserAppDtoDown> GetUsers();
         public bool DeleteUser(int id);
         public UserDtoDown GetUser(int id);
+        public UserDtoDown UpdateUser(UserEntity user);
     }
 }

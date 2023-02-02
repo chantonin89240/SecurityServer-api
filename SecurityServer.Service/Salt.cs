@@ -24,7 +24,7 @@
         {
             using (SHA256 sha256Hash = SHA256.Create())
             {
-                // ComputeHash - returns byte array  
+                // création d'un tableau 
                 byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password + salt));
 
                 // Convert byte array to a string   
@@ -35,6 +35,23 @@
                 }
                 return builder.ToString();
             }
+        }
+        #endregion
+
+        #region VerifiedPassword(string password, string salt)
+        bool ISalt.VerifiedPassword(string password, string salt, string verifPassword)
+        {
+            //string verifHashPassword = ISalt.HashPassword(verifPassword, salt);
+
+            //if (password == verifHashPassword)
+            //{
+            //    return true;
+            //}
+            //else
+            //{
+            //    return false;
+            //}
+            return false;
         }
         #endregion
     }

@@ -45,14 +45,24 @@
         {
             var userDto = this.unitOfWork.UserRepository.Get(email);
 
-            UserAuthDtoDown user = new UserAuthDtoDown()
-            {
-                Id = userDto.Id,
-                Email = userDto.Email,
-                IsAdmin = userDto.IsAdmin
-            };
+            bool verifPassword = _salt.VerifiedPassword(userDto.Password, userDto.Email, password);
 
-            return user;
+            // vérification du password
+            if (verifPassword)
+            {
+                UserAuthDtoDown user = new UserAuthDtoDown()
+                {
+                    Id = userDto.Id,
+                    Email = userDto.Email,
+                    IsAdmin = userDto.IsAdmin
+                };
+
+                return user;
+            }
+            else
+            {
+                return null;
+            }
         }
         #endregion
 
@@ -85,7 +95,7 @@
             this.unitOfWork.UserRepository.Delete(id);
             this.unitOfWork.Commit();
             this.unitOfWork.Save();
-            var userOk = this.unitOfWork.UserRepository.Get(id);
+            UserDtoDown userOk = this.unitOfWork.UserRepository.Get(id);
             if (userOk == null)
             {
                 return true;
@@ -98,13 +108,28 @@
 
         #endregion
 
-        #region GetUser
+        #region GetUser(int id)
         UserDtoDown IUserService.GetUser(int id)
         {
             UserDtoDown user = this.unitOfWork.UserRepository.Get(id);
             return user;
         }
 
+        #endregion
+
+        #region UpdateUser(UserEntity user)
+        UserDtoDown IUserService.UpdateUser(UserEntity user)
+        {
+            // création d'une transaction
+            this.unitOfWork.CreateTransaction();
+            // appel du repository update
+            UserDtoDown userUpdate = this.unitOfWork.UserRepository.Update(user);
+            // appel du commit et du save de la transaction
+            this.unitOfWork.Commit();
+            this.unitOfWork.Save();
+            // renvoi du user update
+            return userUpdate;
+        }
         #endregion
     }
 }
