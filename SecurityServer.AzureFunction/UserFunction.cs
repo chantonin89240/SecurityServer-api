@@ -15,6 +15,7 @@
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
+    using static System.Net.WebRequestMethods;
 
     public class UserFunction
     {
@@ -55,8 +56,14 @@
             // salt du password
             var nicePassword = _isalt.HashPassword(input.Password, salt);
 
+            // vérification de l'avatar 
+            if(string.IsNullOrEmpty(input.Avatar))
+            {
+                input.Avatar = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.babelio.com%2Fauteur%2FAuteur-Inconnu%2F82549%2Fphotos&psig=AOvVaw0sm87mWgqAQKpOWavUUUNV&ust=1675420146000000&source=images&cd=vfe&ved=0CA0QjRxqFwoTCMjK5crQ9vwCFQAAAAAdAAAAABAD";
+            }
+
             // création de l'user entity
-            var user = new UserEntity() {FirstName = input.FirstName, LastName = input.LastName, Email = input.Email, Password = nicePassword, Salt = salt, avatar = input.avatar };
+            var user = new UserEntity() {FirstName = input.FirstName, LastName = input.LastName, Email = input.Email, Password = nicePassword, Salt = salt, Avatar = input.Avatar };
             // appel du service de création du user 
             bool result = userService.CreateUser(user);
 

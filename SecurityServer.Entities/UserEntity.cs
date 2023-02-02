@@ -10,7 +10,7 @@
         public string Email { get; set; }
         public string Password { get; set; }
         public string Salt { get; set; }
-        public string avatar { get; set; }
+        public string Avatar { get; set; }
         public bool IsAdmin { get; set; }
 
         public List<ApplicationEntity> Applications {  get; set; }
@@ -26,7 +26,7 @@
             this.Email = email;
             this.Password = password;
             this.Salt = salt;
-            this.avatar = avatar;
+            this.Avatar = avatar;
             this.IsAdmin = isAdmin;
             this.Applications = new List<ApplicationEntity>();
         }

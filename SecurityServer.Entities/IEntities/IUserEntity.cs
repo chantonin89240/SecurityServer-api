@@ -8,6 +8,6 @@
         public string Email { get; set; }
         public string Password { get; set; }
         public string Salt { get; set; }
-        public string avatar { get; set; }
+        public string Avatar { get; set; }
     }
 }
