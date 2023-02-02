@@ -1,4 +1,4 @@
-﻿    namespace SecurityServer.Service
+﻿namespace SecurityServer.Service
 {
     using SecurityServer.Entities;
     using SecurityServer.Data;
@@ -20,7 +20,7 @@
         }
         #endregion
 
-        #region GetApplication
+        #region GetApplications
         List<ApplicationEntity> IApplicationService.GetApplications()
         {
             List<ApplicationEntity> ListApplications = this.unitOfWork.ApplicationRepository.GetAll().ToList();
