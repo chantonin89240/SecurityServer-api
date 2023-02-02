@@ -117,7 +117,7 @@
             var input = JsonConvert.DeserializeObject<UserEntity>(requestBody);
 
             // création d'un user Entity
-            UserEntity user = new UserEntity() { Id = input.Id, FirstName = input.FirstName, LastName = input.LastName, Email = input.Email, Avatar = input.Avatar, IsAdmin = input.IsAdmin };
+            UserEntity user = new UserEntity() { Id = input.Id, FirstName = input.FirstName, LastName = input.LastName, Email = input.Email, Avatar = input.Avatar };
 
             // appel du service update application
             UserDtoDown userUpdate = userService.UpdateUser(user);
