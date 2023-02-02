@@ -10,8 +10,10 @@
     using SecurityServer.Entities.DtoDown;
     using SecurityServer.Service;
     using SecurityServer.Service.Interface;
+    using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public class UserFunction
@@ -40,6 +42,16 @@
             
             // génération d'un salt
             var salt = _isalt.SaltGenerator();
+
+            // génération d'un mot de passe aléatoire 
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            Random random = new Random();
+
+            char[] mdp = Enumerable.Repeat(chars, 10)
+                .Select(s => s[random.Next(s.Length)]).ToArray();
+
+            input.Password = new string(mdp);
+
             // salt du password
             var nicePassword = _isalt.HashPassword(input.Password, salt);
 
@@ -101,7 +113,7 @@
             UserEntity user = new UserEntity() { Id = input.Id, FirstName = input.FirstName, LastName = input.LastName, Password = input.Password, Salt = input.Salt, IsAdmin = input.IsAdmin };
 
             // appel du service update application
-            //UserEntity appUpdate = userService.UpdateUser(user);
+            // UserEntity appUpdate = userService.UpdateUser(user);
             // retour du résultat
             return new OkObjectResult(user);
         }

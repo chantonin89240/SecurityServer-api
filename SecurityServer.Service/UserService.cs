@@ -25,7 +25,7 @@
         bool IUserService.CreateUser(UserEntity user)
         {
             this.unitOfWork.CreateTransaction();
-            UserEntity thisUser = this.unitOfWork.UserRepository.Add(user);
+            UserEntity thisUser = this.unitOfWork.UserRepository.Post(user);
             this.unitOfWork.Commit();
             this.unitOfWork.Save();
             var userOk = this.unitOfWork.UserRepository.Get(thisUser);
