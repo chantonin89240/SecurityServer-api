@@ -29,7 +29,7 @@
                 Firstname = user.FirstName,
                 Lastname = user.LastName,
                 Email = user.Email,
-                Avatar = user.avatar,
+                Avatar = user.Avatar,
                 IsAdmin = user.IsAdmin,
             };
 
