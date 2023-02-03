@@ -32,6 +32,7 @@
         ApplicationDtoDown IApplicationService.GetApplication(int id)
         {
             ApplicationDtoDown application = this.unitOfWork.ApplicationRepository.Get(id);
+            application.Roles = this.unitOfWork.RoleRepository.GetAll(application.Id).ToList();
             return application;
         }
         #endregion

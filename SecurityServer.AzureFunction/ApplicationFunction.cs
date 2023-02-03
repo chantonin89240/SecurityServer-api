@@ -11,6 +11,7 @@
     using SecurityServer.Service.Interface;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Http;
 
@@ -100,7 +101,7 @@
             var input = JsonConvert.DeserializeObject<ApplicationEntity>(requestBody);
 
             // création d'une application Entity
-            ApplicationEntity app = new ApplicationEntity() { Id = input.Id, Name = input.Name, Description = input.Description, Url = input.Url };
+            ApplicationEntity app = new ApplicationEntity() { Id = input.Id, Name = input.Name, Description = input.Description, Url = input.Url, Users = input.Users.ToList() };
 
             // appel du service update application
             ApplicationEntity appUpdate = applicationService.UpdateApplication(app);

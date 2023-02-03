@@ -45,7 +45,7 @@
         {
             var userDto = this.unitOfWork.UserRepository.Get(email);
 
-            bool verifPassword = _salt.VerifiedPassword(userDto.Password, userDto.Email, password);
+            bool verifPassword = _salt.VerifiedPassword(userDto.Password, userDto.Salt, password);
 
             // vérification du password
             if (verifPassword)
@@ -129,6 +129,22 @@
             this.unitOfWork.Save();
             // renvoi du user update
             return userUpdate;
+        }
+        #endregion
+
+        #region GetMailNotUse(string mail)
+        public bool GetMailNotUse(string email)
+        {
+            UserEntity userDto = this.unitOfWork.UserRepository.Get(email);
+
+            if(userDto == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         #endregion
     }

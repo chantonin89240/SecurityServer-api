@@ -6,13 +6,14 @@
 
     public class UserRepository : BaseRepository<UserEntity>, IUserRepository
     {
+        SecurityServerDbContext context;
 
         public UserRepository(SecurityServerDbContext context) : base(context)
         {
-
+            this.context = context;
         }
 
-        public IEnumerable<UserEntity> Get()
+        IEnumerable<UserEntity> IUserRepository.Get()
         {
             return this.GetAll();
         }

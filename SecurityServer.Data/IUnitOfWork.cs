@@ -13,7 +13,7 @@
 
         public IApplicationRepository ApplicationRepository { get; }
         //public ClaimRepository Claim { get; set; }
-        //public RoleRepository Role { get; set; }
+        public IRoleRepository RoleRepository { get; }
         public IUserRepository UserRepository { get; }
         public ICodeGrantRepository CodeGrantRepository { get; }
     }

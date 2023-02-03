@@ -20,7 +20,7 @@
         #endregion
 
         #region HashPassword(string password, string salt)
-        string ISalt.HashPassword(string password, string salt)
+        public string HashPassword(string password, string salt)
         {
             using (SHA256 sha256Hash = SHA256.Create())
             {
@@ -39,19 +39,18 @@
         #endregion
 
         #region VerifiedPassword(string password, string salt)
-        bool ISalt.VerifiedPassword(string password, string salt, string verifPassword)
+        public bool VerifiedPassword(string password, string salt, string verifPassword)
         {
-            //string verifHashPassword = ISalt.HashPassword(verifPassword, salt);
+            string verifHashPassword = this.HashPassword(verifPassword, salt);
 
-            //if (password == verifHashPassword)
-            //{
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
-            return false;
+            if (password == verifHashPassword)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         #endregion
     }
