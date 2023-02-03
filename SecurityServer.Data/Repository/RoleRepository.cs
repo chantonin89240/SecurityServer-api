@@ -20,7 +20,7 @@
 
         RoleEntity IRoleRepository.Get(int id)
         {
-            throw new NotImplementedException();
+            return this.Get(id);
         }
 
         RoleEntity IRoleRepository.Post(RoleEntity application)
@@ -30,7 +30,7 @@
 
         void IRoleRepository.Delete(int id)
         {
-            throw new NotImplementedException();
+            this.Delete(id);
         }
 
     }

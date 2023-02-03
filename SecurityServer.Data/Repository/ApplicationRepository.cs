@@ -52,18 +52,18 @@
             return applicationDtoDown;
         }
 
-        public ApplicationEntity Get(string clientSecret)
+        ApplicationEntity IApplicationRepository.Get(string clientSecret)
         {
             ApplicationEntity application = this._dbSet.FirstOrDefault(a => a.ClientSecret == clientSecret);
             return application;
         }
 
-        public ApplicationEntity Post(ApplicationEntity application)
+        ApplicationEntity IApplicationRepository.Post(ApplicationEntity application)
         {
            return this.Add(application);
         }
 
-        public ApplicationEntity Update(ApplicationEntity application)
+        ApplicationEntity IApplicationRepository.Update(ApplicationEntity application)
         {
             var attach = this._dbSet.Attach(application);
 
@@ -74,7 +74,7 @@
             return application;
         }
 
-        public void Delete(int id)
+        void IApplicationRepository.Delete(int id)
         {
             this.Delete(id);
         }
