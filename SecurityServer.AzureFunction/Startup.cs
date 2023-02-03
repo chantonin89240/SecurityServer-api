@@ -39,7 +39,7 @@ namespace SecurityServer.AzureFunction
             // scope des repository
             builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
             builder.Services.AddScoped<ClaimRepository>();
-            builder.Services.AddScoped<RoleRepository>();
+            builder.Services.AddScoped<IRoleRepository, RoleRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<ICodeGrantRepository, CodeGrantRepository>();
 

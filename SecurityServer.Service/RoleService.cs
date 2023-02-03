@@ -2,6 +2,7 @@
 {
     using SecurityServer.Data;
     using SecurityServer.Entities;
+    using SecurityServer.Entities.DtoDown;
     using SecurityServer.Service.Interface;
 
     public class RoleService : IRoleService
@@ -34,9 +35,24 @@
             throw new NotImplementedException();
         }
 
+        #region DeleteRole(int id)
         public bool DeleteRole(int id)
         {
-            throw new NotImplementedException();
+            this.unitOfWork.CreateTransaction();
+            this.unitOfWork.RoleRepository.Delete(id);
+            this.unitOfWork.Commit();
+            this.unitOfWork.Save();
+
+            RoleEntity roleOk = this.unitOfWork.RoleRepository.Get(id);
+            if (roleOk == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
+        #endregion
     }
 }

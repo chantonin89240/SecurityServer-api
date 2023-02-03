@@ -86,7 +86,15 @@
             // appel du service delete application
             bool result = applicationService.DeleteApplication(id);
             // retour du résultat
-            return new OkObjectResult(result);
+            if (result)
+            {
+                return new OkObjectResult("L'application a été supprimé !");
+            }
+            else
+            {
+                return new BadRequestErrorMessageResult("La suppression de l'application à échouer !"); ;
+            }
+            
         }
 
         // function update application
