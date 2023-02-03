@@ -32,9 +32,9 @@ namespace SecurityServer.AzureFunction
             builder.Services.AddScoped<IApplicationService, ApplicationService>();
             builder.Services.AddScoped<ISalt,Salt>();
             builder.Services.AddScoped<ClaimService>();
-            builder.Services.AddScoped<RoleService>();
-            builder.Services.AddScoped<IUserService,UserService >();
-            builder.Services.AddScoped<IAuthenticationService,AuthenticationService>();
+            builder.Services.AddScoped<IRoleService, RoleService>();
+            builder.Services.AddScoped<IUserService, UserService >();
+            builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
             // scope des repository
             builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();

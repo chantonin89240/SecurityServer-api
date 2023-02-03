@@ -8,14 +8,13 @@
     using Newtonsoft.Json;
     using SecurityServer.Entities;
     using SecurityServer.Entities.DtoDown;
-    using SecurityServer.Service;
     using SecurityServer.Service.Interface;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-    using static System.Net.WebRequestMethods;
+    using System.Web.Http;
 
     public class UserFunction
     {
@@ -40,39 +39,48 @@
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             // deserialization du body 
             var input = JsonConvert.DeserializeObject<UserEntity>(requestBody);
-            
-            // génération d'un salt
-            var salt = _isalt.SaltGenerator();
 
-            // génération d'un mot de passe aléatoire 
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            Random random = new Random();
+            bool mailNotUse = userService.GetMailNotUse(input.Email);
 
-            char[] mdp = Enumerable.Repeat(chars, 10)
-                .Select(s => s[random.Next(s.Length)]).ToArray();
-
-            input.Password = new string(mdp);
-
-            // salt du password
-            var nicePassword = _isalt.HashPassword(input.Password, salt);
-
-            // vérification de l'avatar 
-            if(string.IsNullOrEmpty(input.Avatar))
+            if (mailNotUse)
             {
-                input.Avatar = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.babelio.com%2Fauteur%2FAuteur-Inconnu%2F82549%2Fphotos&psig=AOvVaw0sm87mWgqAQKpOWavUUUNV&ust=1675420146000000&source=images&cd=vfe&ved=0CA0QjRxqFwoTCMjK5crQ9vwCFQAAAAAdAAAAABAD";
+                // génération d'un salt
+                var salt = _isalt.SaltGenerator();
+
+                // génération d'un mot de passe aléatoire 
+                const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                Random random = new Random();
+
+                char[] mdp = Enumerable.Repeat(chars, 10)
+                    .Select(s => s[random.Next(s.Length)]).ToArray();
+
+                input.Password = new string(mdp);
+
+                // salt du password
+                var nicePassword = _isalt.HashPassword(input.Password, salt);
+
+                // vérification de l'avatar 
+                if (string.IsNullOrEmpty(input.Avatar))
+                {
+                    input.Avatar = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.babelio.com%2Fauteur%2FAuteur-Inconnu%2F82549%2Fphotos&psig=AOvVaw0sm87mWgqAQKpOWavUUUNV&ust=1675420146000000&source=images&cd=vfe&ved=0CA0QjRxqFwoTCMjK5crQ9vwCFQAAAAAdAAAAABAD";
+                }
+
+                // création de l'user entity
+                var user = new UserEntity() { FirstName = input.FirstName, LastName = input.LastName, Email = input.Email, Password = nicePassword, Salt = salt, Avatar = input.Avatar };
+                // appel du service de création du user 
+                bool result = userService.CreateUser(user);
+
+                return new OkObjectResult(result);
             }
-
-            // création de l'user entity
-            var user = new UserEntity() {FirstName = input.FirstName, LastName = input.LastName, Email = input.Email, Password = nicePassword, Salt = salt, Avatar = input.Avatar };
-            // appel du service de création du user 
-            bool result = userService.CreateUser(user);
-
-            return new OkObjectResult(result);
+            else
+            {
+                return new BadRequestErrorMessageResult("this email is already in use !");
+            }
         }
 
         // function get users
         [FunctionName("GetUsers")]
-        public IActionResult GetApplications(
+        public IActionResult GetUsers(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "users")] HttpRequest req, ILogger log)
         {
             // appel du service get users
@@ -83,7 +91,7 @@
 
         // function get application
         [FunctionName("GetUser")]
-        public IActionResult GetApplication(
+        public IActionResult GetUser(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "user/{id}")] HttpRequest req, int id, ILogger log)
         {
             // appel du service get user

@@ -5,9 +5,11 @@
 
     public class CodeGrantRepository : BaseRepository<CodeGrantEntity>, ICodeGrantRepository
     {
+        SecurityServerDbContext context;
+
         public CodeGrantRepository(SecurityServerDbContext context) : base(context)
         {
-
+            this.context = context;
         }
 
         CodeGrantEntity ICodeGrantRepository.Get(string codeGrant)

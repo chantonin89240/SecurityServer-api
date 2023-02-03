@@ -13,7 +13,7 @@
             this.context = context;
         }
 
-        IEnumerable<ApplicationEntity> IApplicationRepository.Get()
+        public IEnumerable<ApplicationEntity> Get()
         {
             return this.GetAll();
         }
@@ -27,6 +27,7 @@
             var usersapp = context.ApplicationUserRole.Where(ua => ua.IdApplication == application.Id).Select(ua=> ua.IdUser).ToList();
             application.Users = context.User.Where(ua => usersapp.Contains(ua.Id)).ToList();
             var users = context.User.Where(ua => usersapp.Contains(ua.Id)).Select(ua => new { ua.Id, ua.FirstName, ua.LastName, ua.Email }).ToList();
+
             ApplicationDtoDown applicationDtoDown = new ApplicationDtoDown
             {
                 Id = id,
@@ -51,18 +52,18 @@
             return applicationDtoDown;
         }
 
-        ApplicationEntity IApplicationRepository.Get(string clientSecret)
+        public ApplicationEntity Get(string clientSecret)
         {
             ApplicationEntity application = this._dbSet.FirstOrDefault(a => a.ClientSecret == clientSecret);
             return application;
         }
 
-        ApplicationEntity IApplicationRepository.Post(ApplicationEntity application)
+        public ApplicationEntity Post(ApplicationEntity application)
         {
            return this.Add(application);
         }
 
-        ApplicationEntity IApplicationRepository.Update(ApplicationEntity application)
+        public ApplicationEntity Update(ApplicationEntity application)
         {
             var attach = this._dbSet.Attach(application);
 
@@ -73,7 +74,7 @@
             return application;
         }
 
-        void IApplicationRepository.Delete(int id)
+        public void Delete(int id)
         {
             this.Delete(id);
         }

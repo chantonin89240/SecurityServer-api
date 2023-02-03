@@ -32,6 +32,15 @@
             }
         }
 
+        public IRoleRepository RoleRepository
+        {
+            get
+            {
+                if (!_repositories.ContainsKey(nameof(RoleRepository))) _repositories.Add(nameof(RoleRepository), new RoleRepository(_context));
+                return (RoleRepository)_repositories[nameof(RoleRepository)];
+            }
+        }
+
         public ICodeGrantRepository CodeGrantRepository
         {
             get
