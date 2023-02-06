@@ -67,7 +67,7 @@ namespace SecurityServer.AzureFunction
         // function de récupération du token
         [FunctionName("GetToken")]
         public async Task<IActionResult> getToken(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "GetAcces")] HttpRequest req)
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "GetAccess")] HttpRequest req)
         {
             // récupération du code grant passer en paramètre 
             string codeGrant = req.Query["CodeGrant"];

@@ -5,8 +5,9 @@
     public interface IRoleRepository : IBaseRepository<RoleEntity>
     {
         IEnumerable<RoleEntity> GetAll(int id);
+        IEnumerable<RoleEntity> GetAll();
         RoleEntity Get(int id);
-        RoleEntity Post(RoleEntity application);
+        void Post(ApplicationRoleEntity roleApp);
         void Delete(int id);
     }
 }

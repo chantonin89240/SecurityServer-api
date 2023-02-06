@@ -59,7 +59,7 @@
                 {
                     Id = 1,
                     Name = "test",
-                    Description = "test de ouf"
+                    Description = "test de ouf",
                 };
 
                 List<Claim> listeClaims = new List<Claim>() {
@@ -69,6 +69,7 @@
                     new Claim("idClaim", claim.Id.ToString()),
                     new Claim("nameClaim", claim.Name),
                     new Claim("descriptionClaim", claim.Description),
+                    new Claim("IsAdmin", claim.Id.ToString()),
                 };
 
                 ClientSecretCredential credential = new ClientSecretCredential(tenantId: "14bc5219-40ca-4d62-a8e4-7c97c1236349", clientId: "af6cf671-0eb1-4685-a294-97b1a7a73325", clientSecret: "aVs8Q~ffrP.e1.tCMaC_AJuSBOVj1lG7SOq4Hda7");

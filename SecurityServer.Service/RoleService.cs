@@ -1,9 +1,12 @@
 ﻿namespace SecurityServer.Service
 {
+    using SecurityServer.AzureFunction;
     using SecurityServer.Data;
     using SecurityServer.Entities;
     using SecurityServer.Entities.DtoDown;
+    using SecurityServer.Entities.DtoUp;
     using SecurityServer.Service.Interface;
+    using static System.Net.Mime.MediaTypeNames;
 
     public class RoleService : IRoleService
     {
@@ -19,21 +22,46 @@
         }
         #endregion
 
-        public List<RoleEntity> GetRoles(int id)
+        #region GetRolesApp(int id)
+        public List<RoleEntity> GetRolesApp(int id)
         {
             List<RoleEntity> ListRoles = this.unitOfWork.RoleRepository.GetAll(id).ToList();
             return ListRoles;
         }
+        #endregion
 
+        #region GetRoles(int id)
+        public List<RoleEntity> GetRoles()
+        {
+            List<RoleEntity> ListRoles = this.unitOfWork.RoleRepository.GetAll().ToList();
+            return ListRoles;
+        }
+        #endregion
+
+        #region GetRole(int id)
         public RoleEntity GetRole(int id)
         {
             throw new NotImplementedException();
         }
+        #endregion
 
-        public bool CreateRole(RoleEntity role)
+        #region CreateRole(ApplicationRoleEntity role)
+        public bool AddRole(ApplicationRoleEntity role)
         {
-            throw new NotImplementedException();
+            // création de la transaction
+            this.unitOfWork.CreateTransaction();
+            // ajout de l'applicationRole
+            this.unitOfWork.RoleRepository.Post(role);
+
+            try 
+            {
+                this.unitOfWork.Commit();
+                this.unitOfWork.Save();
+                return true;
+            }
+            catch (Exception ex) { return false; }
         }
+        #endregion
 
         #region DeleteRole(int id)
         public bool DeleteRole(int id)
