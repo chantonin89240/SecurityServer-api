@@ -2,6 +2,7 @@
 {
     using SecurityServer.Data.Repository.Interface;
     using SecurityServer.Entities;
+    using static System.Net.Mime.MediaTypeNames;
 
     public class RoleRepository : BaseRepository<RoleEntity>, IRoleRepository
     {
@@ -18,14 +19,20 @@
             return listRoles;
         }
 
+        IEnumerable<RoleEntity> IRoleRepository.GetAll()
+        {
+            List<RoleEntity> listRoles = this.GetAll().ToList();
+            return listRoles;
+        }
+
         RoleEntity IRoleRepository.Get(int id)
         {
             return this.Get(id);
         }
 
-        RoleEntity IRoleRepository.Post(RoleEntity application)
+        void IRoleRepository.Post(ApplicationRoleEntity roleApp)
         {
-            throw new NotImplementedException();
+            this.context.ApplicationRole.Add(roleApp);
         }
 
         void IRoleRepository.Delete(int id)
