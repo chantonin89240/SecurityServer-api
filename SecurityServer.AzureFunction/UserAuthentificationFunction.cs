@@ -2,8 +2,11 @@ namespace SecurityServer.AzureFunction
 {
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Infrastructure;
+    using Microsoft.AspNetCore.Mvc.Routing;
     using Microsoft.Azure.WebJobs;
     using Microsoft.Azure.WebJobs.Extensions.Http;
+    using Microsoft.Extensions.Primitives;
     using Newtonsoft.Json;
     using SecurityServer.Entities.DtoDown;
     using SecurityServer.Entities.DtoUp;
@@ -34,18 +37,24 @@ namespace SecurityServer.AzureFunction
         {
             // authentification du user et retourne un dto
             UserAuthDtoDown userAuth = _userService.GetAuthUser(user.Email, user.Password);
-            // récupération de l'url du client grâce au clientSecret
-            var redirecteUri = _applicationService.GetSecret(user.ClientSecret);
 
             // vérification du user 
             if (userAuth != null)
             {
                 // génération du code grant
                 string codeGrant = _authenticationService.CodeGrant(userAuth, user.ClientSecret);
-                // ajout du code grant à l'url de redirection
-                string url = redirecteUri.Url + "/&code=" + codeGrant; 
-                // redirection avec l'url passer en paramètre
-                return new RedirectResult(url);
+
+                // récupération de l'url du client grâce au clientSecret
+                var redirecteUri = _applicationService.GetSecret(user.ClientSecret);
+
+                CodeGrantDtoDown urlDto = new CodeGrantDtoDown()
+                {
+                    UrlRedirect = redirecteUri.Url,
+                    CodeGrant = codeGrant,
+
+                };
+
+                return new OkObjectResult(urlDto);
             }
             else
             {

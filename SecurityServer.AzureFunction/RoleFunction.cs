@@ -10,6 +10,20 @@
     using SecurityServer.Service.Interface;
     using System.Collections.Generic;
     using System.Web.Http;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Azure.WebJobs;
+    using Microsoft.Azure.WebJobs.Extensions.Http;
+    using Microsoft.Extensions.Logging;
+    using Newtonsoft.Json;
+    using SecurityServer.Entities;
+    using SecurityServer.Entities.DtoDown;
+    using SecurityServer.Service.Interface;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Web.Http;
 
     public class RoleFunction
     {
@@ -48,5 +62,29 @@
                 return new BadRequestErrorMessageResult("La suppression du role à échouer !"); ;
             }
         }
+
+        // function add roles
+        //[FunctionName("AddRole")]
+        //public IActionResult AddRole(
+        //    [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "role/add")] HttpRequest req, ILogger log)
+        //{
+        //    //// récupération du body
+        //    //string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+        //    //// deserialization du body 
+        //    //var input = JsonConvert.DeserializeObject<ApplicationEntity>(requestBody);
+
+        //    //// création d'un 
+        //    //// appel du service get roles
+        //    //bool result = roleService.DeleteRole(id);
+        //    //// retour du résultat
+        //    //if (result)
+        //    //{
+        //    //    return new OkObjectResult("Le role a été supprimé !");
+        //    //}
+        //    //else
+        //    //{
+        //    //    return new BadRequestErrorMessageResult("La suppression du role à échouer !"); ;
+        //    //}
+        //}
     }
 }
