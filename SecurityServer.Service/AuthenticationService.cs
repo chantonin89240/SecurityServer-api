@@ -11,6 +11,7 @@
     using SecurityServer.Entities;
     using SecurityServer.Entities.DtoDown;
     using SecurityServer.Service.Interface;
+    using System;
     using System.Collections;
     using System.IdentityModel.Tokens.Jwt;
     using System.Security.Cryptography;
@@ -124,13 +125,15 @@
         #endregion
 
         #region RefreshToken()
-        //public RefeshToken  
-        //var refreshToken = new RefreshToken
-        //(
-        //        token: _passwordHasher.HashPassword(Guid.NewGuid().ToString()),
-        //        expiration: DateTime.UtcNow.AddSeconds(_tokenOptions.RefreshTokenExpiration).Ticks
-        //);
-        //return refreshToken;
+        //public refeshtoken()
+        //{
+        //    var refreshtoken = new refreshtoken
+        //    (
+        //        token: _passwordhasher.hashpassword(guid.newguid().tostring()),
+        //        expiration: datetime.utcnow.addseconds(_tokenoptions.refreshtokenexpiration).ticks
+        //    );
+        //    return refreshtoken;
+        //}
         #endregion
 
         #region CodeGrant(UserDtoDown user, string clientSecret)

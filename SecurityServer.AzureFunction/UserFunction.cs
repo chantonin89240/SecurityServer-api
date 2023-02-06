@@ -1,5 +1,6 @@
 ﻿namespace SecurityServer.AzureFunction
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Azure.WebJobs;
@@ -17,6 +18,7 @@
     using System.Threading.Tasks;
     using static System.Net.WebRequestMethods;
 
+    [Authorize]
     public class UserFunction
     {
         private IUserService userService;

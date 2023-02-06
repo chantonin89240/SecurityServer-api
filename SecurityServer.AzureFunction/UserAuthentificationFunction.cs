@@ -1,5 +1,6 @@
 namespace SecurityServer.AzureFunction
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Azure.WebJobs;
@@ -77,20 +78,6 @@ namespace SecurityServer.AzureFunction
             // retour du token
             return new OkObjectResult(token);
 
-        }
-
-        [FunctionName(nameof(GetData))]
-        public static async Task<IActionResult> GetData(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "data")] HttpRequest req)
-        {
-            // Check if we have authentication info.
-            ValidateJWTService auth = new ValidateJWTService(req);
-            if (!auth.IsValid)
-            {
-                return new UnauthorizedResult(); // No authentication info.
-            }
-            string postData = await req.ReadAsStringAsync();
-            return new OkObjectResult($"{postData}");
         }
     }
 
