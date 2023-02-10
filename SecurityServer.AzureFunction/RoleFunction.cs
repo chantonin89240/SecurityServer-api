@@ -40,7 +40,7 @@
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "roles/{id}")] HttpRequest req, int id, ILogger log)
         {
             // appel du service get roles
-            List<RoleEntity> roles = roleService.GetRoles(id);
+            List<Role> roles = roleService.GetRoles(id);
             // retour du résultat
             return new OkObjectResult(roles);
         }

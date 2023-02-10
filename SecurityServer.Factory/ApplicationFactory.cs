@@ -6,11 +6,11 @@ namespace SecurityServer.Factory
 {
     public class ApplicationFactory
     {
-        public static IEnumerable<ApplicationEntity> CreateApplication()
+        public static IEnumerable<Application> CreateApplication()
         {
-            return new List<ApplicationEntity>()
+            return new List<Application>()
             {
-                new ApplicationEntity()
+                new Application()
                 {
                     Id = 1,
                     Name = "Caltech",
@@ -18,63 +18,63 @@ namespace SecurityServer.Factory
                     Url = "labelleurl",
                     ClientSecret = "jesuissecret"
                 },
-                new ApplicationEntity()
+                new Application()
                 {
                     Id = 2,
                     Name = "Outlook",
                     Description = "ceci est une application",
                     Url = "labelleurl",
                     ClientSecret = "jesuissecret"
-                },new ApplicationEntity()
+                },new Application()
                 {
                     Id = 3,
                     Name = "Zulip",
                     Description = "ceci est une application",
                     Url = "labelleurl",
                     ClientSecret = "jesuissecret"
-                },new ApplicationEntity()
+                },new Application()
                 {
                     Id = 4,
                     Name = "Teams",
                     Description = "ceci est une application",
                     Url = "labelleurl",
                     ClientSecret = "jesuissecret"
-                },new ApplicationEntity()
+                },new Application()
                 {
                     Id = 5,
                     Name = "Azure",
                     Description = "ceci est une application",
                     Url = "labelleurl",
                     ClientSecret = "jesuissecret"
-                },new ApplicationEntity()
+                },new Application()
                 {
                     Id = 6,
                     Name = "PowerPoint",
                     Description = "ceci est une application",
                     Url = "labelleurl",
                     ClientSecret = "jesuissecret"
-                },new ApplicationEntity()
+                },new Application()
                 {
                     Id = 7,
                     Name = "Azure DevOps",
                     Description = "ceci est une application",
                     Url = "labelleurl",
                     ClientSecret = "jesuissecret"
-                },new ApplicationEntity()
+                },new Application()
                 {
                     Id = 8,
                     Name = "OneNote",
                     Description = "ceci est une application",
                     Url = "labelleurl",
                     ClientSecret = "jesuissecret"
-                },new ApplicationEntity()
+                },new Application()
                 {
                     Id = 9,
                     Name = "Plop",
                     Description = "ceci est une application",
                     Url = "labelleurl",
                     ClientSecret = "jesuissecret"
-                },new ApplicationEntity()
+                },new Application()
                 {
                     Id = 10,
                     Name = "Feur",
@@ -85,9 +85,9 @@ namespace SecurityServer.Factory
             };
         }
 
-        public static List<ApplicationEntity> GetApplications()
+        public static List<Application> GetApplications()
         {
-            List<ApplicationEntity> applications = CreateApplication().ToList();
+            List<Application> applications = CreateApplication().ToList();
             return applications;
         }
     }

@@ -30,7 +30,7 @@
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "applications")] HttpRequest req, ILogger log)
         {
             // appel du service get applications
-            List<ApplicationEntity> appli = applicationService.GetApplications();
+            List<Application> appli = applicationService.GetApplications();
             // retour du résultat
             return new OkObjectResult(appli);
         }
@@ -55,10 +55,10 @@
             // récupération du body
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             // deserialization du body 
-            var input = JsonConvert.DeserializeObject<ApplicationEntity>(requestBody);
+            var input = JsonConvert.DeserializeObject<Application>(requestBody);
 
             // création d'une application Entity
-            var app = new ApplicationEntity() { Name = input.Name, Description = input.Description, Url = input.Url };
+            var app = new Application() { Name = input.Name, Description = input.Description, Url = input.Url };
 
             // appel du service create application
             var verif = applicationService.CreateApplication(app);
@@ -106,15 +106,15 @@
             // récupération du body 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             // deserialization du body 
-            var input = JsonConvert.DeserializeObject<ApplicationEntity>(requestBody);
+            var input = JsonConvert.DeserializeObject<Application>(requestBody);
 
             // création d'une application Entity
-            ApplicationEntity app = new ApplicationEntity() { Id = input.Id, Name = input.Name, Description = input.Description, Url = input.Url, Users = input.Users.ToList() };
+           // ApplicationEntity app = new ApplicationEntity() { Id = input.Id, Name = input.Name, Description = input.Description, Url = input.Url, Users = input.Users.ToList() };
 
             // appel du service update application
-            ApplicationEntity appUpdate = applicationService.UpdateApplication(app);
+            //ApplicationEntity appUpdate = applicationService.UpdateApplication(app);
             // retour du résultat
-            return new OkObjectResult(appUpdate);
+            return new OkObjectResult(input);
         }
     }
 }

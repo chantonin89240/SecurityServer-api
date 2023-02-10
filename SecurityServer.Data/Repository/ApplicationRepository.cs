@@ -1,10 +1,11 @@
 ﻿namespace SecurityServer.Data.Repository
 {
+    using SecurityServer.Data.Context;
     using SecurityServer.Data.Repository.Interface;
     using SecurityServer.Entities;
     using SecurityServer.Entities.DtoDown;
 
-    public class ApplicationRepository : BaseRepository<ApplicationEntity>, IApplicationRepository
+    public class ApplicationRepository : BaseRepository<Application>, IApplicationRepository
     {
 
         SecurityServerDbContext context;
@@ -13,7 +14,7 @@
             this.context = context;
         }
 
-        public IEnumerable<ApplicationEntity> Get()
+        public IEnumerable<Application> Get()
         {
             return this.GetAll();
         }
@@ -25,7 +26,6 @@
             if (application == null) return null;
  
             var usersapp = context.ApplicationUserRole.Where(ua => ua.IdApplication == application.Id).Select(ua=> ua.IdUser).ToList();
-            application.Users = context.User.Where(ua => usersapp.Contains(ua.Id)).ToList();
             var users = context.User.Where(ua => usersapp.Contains(ua.Id)).Select(ua => new { ua.Id, ua.FirstName, ua.LastName, ua.Email }).ToList();
 
             ApplicationDtoDown applicationDtoDown = new ApplicationDtoDown
@@ -52,18 +52,18 @@
             return applicationDtoDown;
         }
 
-        ApplicationEntity IApplicationRepository.Get(string clientSecret)
+        Application IApplicationRepository.Get(string clientSecret)
         {
-            ApplicationEntity application = this._dbSet.FirstOrDefault(a => a.ClientSecret == clientSecret);
+            Application application = this._dbSet.FirstOrDefault(a => a.ClientSecret == clientSecret);
             return application;
         }
 
-        ApplicationEntity IApplicationRepository.Post(ApplicationEntity application)
+        Application IApplicationRepository.Post(Application application)
         {
            return this.Add(application);
         }
 
-        ApplicationEntity IApplicationRepository.Update(ApplicationEntity application)
+        Application IApplicationRepository.Update(Application application)
         {
             var attach = this._dbSet.Attach(application);
 

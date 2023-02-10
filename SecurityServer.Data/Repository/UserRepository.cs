@@ -1,5 +1,6 @@
 ﻿namespace SecurityServer.Data.Repository
 {
+    using SecurityServer.Data.Context;
     using SecurityServer.Data.Repository.Interface;
     using SecurityServer.Entities;
     using SecurityServer.Entities.DtoDown;

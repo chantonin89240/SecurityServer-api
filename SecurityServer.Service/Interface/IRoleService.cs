@@ -4,9 +4,9 @@
 
     public interface IRoleService
     {
-        public List<RoleEntity> GetRoles(int id);
-        public RoleEntity GetRole(int id);
-        public bool CreateRole(RoleEntity role);
+        public List<Role> GetRoles(int id);
+        public Role GetRole(int id);
+        public bool CreateRole(Role role);
         public bool DeleteRole(int id);
     }
 }

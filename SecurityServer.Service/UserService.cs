@@ -1,6 +1,7 @@
 ﻿namespace SecurityServer.Service
 {
     using SecurityServer.Data;
+    using SecurityServer.Data.Context;
     using SecurityServer.Entities;
     using SecurityServer.Entities.DtoDown;
     using SecurityServer.Service.Interface;

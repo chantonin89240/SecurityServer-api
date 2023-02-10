@@ -1,20 +1,33 @@
-﻿namespace SecurityServer.Entities
+﻿
+namespace SecurityServer.Entities
 {
     using SecurityServer.Entities.IEntities;
+    using System.ComponentModel.DataAnnotations;
+    using System.Text.Json.Serialization;
 
     public class UserEntity : IUserEntity
     {
+        [Key]
+        [Required]
         public int Id { get; set; }
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
+        [Required]
         public string Email { get; set; }
+        [Required]
         public string Password { get; set; }
+        [Required]
         public string Salt { get; set; }
+        [Required]
         public string Avatar { get; set; }
+        [Required]
         public bool IsAdmin { get; set; }
-
-        public List<ApplicationEntity> Applications {  get; set; }
-
+        [JsonIgnore]
+        public List<ApplicationUserRole> ApplicationUserRoles { get; set; }
+        [JsonIgnore]
+        public CodeGrantEntity CodeGrantEntity { get; set; }
 
         public UserEntity() { }
 
@@ -28,7 +41,7 @@
             this.Salt = salt;
             this.Avatar = avatar;
             this.IsAdmin = isAdmin;
-            this.Applications = new List<ApplicationEntity>();
+            this.ApplicationUserRoles = new List<ApplicationUserRole>();
         }
     }
 }
