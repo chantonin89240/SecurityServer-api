@@ -16,5 +16,6 @@
         public IRoleRepository RoleRepository { get; }
         public IUserRepository UserRepository { get; }
         public ICodeGrantRepository CodeGrantRepository { get; }
+        public IApplicationUserRoleRepository ApplicationUserRoleRepository { get; }
     }
 }

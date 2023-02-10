@@ -9,6 +9,7 @@
     using Newtonsoft.Json;
     using SecurityServer.Entities;
     using SecurityServer.Entities.DtoDown;
+    using SecurityServer.Entities.DtoUp;
     using SecurityServer.Service.Interface;
     using System.Collections.Generic;
     using System.IO;
@@ -108,13 +109,10 @@
             // récupération du body 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             // deserialization du body 
-            var input = JsonConvert.DeserializeObject<ApplicationEntity>(requestBody);
-
-            // création d'une application Entity
-            ApplicationEntity app = new ApplicationEntity() { Id = input.Id, Name = input.Name, Description = input.Description, Url = input.Url, Users = input.Users.ToList() };
+            ApplicationUpdateDtoUp input = JsonConvert.DeserializeObject<ApplicationUpdateDtoUp>(requestBody);
 
             // appel du service update application
-            ApplicationEntity appUpdate = applicationService.UpdateApplication(app);
+            ApplicationEntity appUpdate = applicationService.UpdateApplication(input);
             // retour du résultat
             return new OkObjectResult(appUpdate);
         }

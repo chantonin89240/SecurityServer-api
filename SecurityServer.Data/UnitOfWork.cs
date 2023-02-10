@@ -50,6 +50,15 @@
             }
         }
 
+        public IApplicationUserRoleRepository ApplicationUserRoleRepository
+        {
+            get
+            {
+                if (!_repositories.ContainsKey(nameof(ApplicationUserRoleRepository))) _repositories.Add(nameof(ApplicationUserRoleRepository), new ApplicationUserRoleRepository(_context));
+                return (ApplicationUserRoleRepository)_repositories[nameof(ApplicationUserRoleRepository)];
+            }
+        }
+
         //public IClaimRepository ClaimRepository
         //{
         //    get

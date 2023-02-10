@@ -42,7 +42,7 @@ namespace SecurityServer.AzureFunction
             builder.Services.AddScoped<IRoleRepository, RoleRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<ICodeGrantRepository, CodeGrantRepository>();
-
+            builder.Services.AddScoped<IApplicationUserRoleRepository, ApplicationUserRoleRepository>();
         }
 
     }
