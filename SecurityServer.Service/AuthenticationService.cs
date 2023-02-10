@@ -8,6 +8,7 @@
     using JWT.Algorithms;
     using JWT.Serializers;
     using Microsoft.IdentityModel.Tokens;
+    using SecurityServer.Data.Context;
     using SecurityServer.Entities;
     using SecurityServer.Entities.DtoDown;
     using SecurityServer.Service.Interface;

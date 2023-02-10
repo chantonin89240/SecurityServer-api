@@ -2,12 +2,13 @@
 {
     using SecurityServer.Entities;
 
-    public interface IRoleRepository : IBaseRepository<RoleEntity>
+    public interface IRoleRepository : IBaseRepository<Role>
     {
-        IEnumerable<RoleEntity> GetAll(int id);
-        IEnumerable<RoleEntity> GetAll();
-        RoleEntity Get(int id);
-        void Post(ApplicationRoleEntity roleApp);
+        IEnumerable<Role> GetAll();
+        //void Post(ApplicationRoleEntity roleApp);
+        IEnumerable<Role> GetAll(int id);
+        Role Get(int id);
+        Role Post(Role application);
         void Delete(int id);
     }
 }

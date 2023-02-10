@@ -2,15 +2,14 @@
 {
     using SecurityServer.Entities;
     using SecurityServer.Entities.DtoDown;
-    using SecurityServer.Entities.DtoUp;
 
     public interface IApplicationService
     {
-        public List<ApplicationEntity> GetApplications();
+        public List<Application> GetApplications();
         public ApplicationDtoDown GetApplication(int id);
-        public ApplicationEntity GetSecret(string clientSecret);
-        bool CreateApplication(ApplicationEntity application);
+        public Application GetSecret(string clientSecret);
+        bool CreateApplication(Application application);
         public bool DeleteApplication(int id);
-        ApplicationEntity UpdateApplication(ApplicationUpdateDtoUp app);
+        Application UpdateApplication(Application app);
     }
 }

@@ -2,6 +2,7 @@
 {
     using SecurityServer.AzureFunction;
     using SecurityServer.Data;
+    using SecurityServer.Data.Context;
     using SecurityServer.Entities;
     using SecurityServer.Entities.DtoDown;
     using SecurityServer.Entities.DtoUp;
@@ -24,9 +25,10 @@
 
         #region GetRolesApp(int id)
         public List<RoleEntity> GetRolesApp(int id)
+        public List<Role> GetRoles(int id)
         {
-            List<RoleEntity> ListRoles = this.unitOfWork.RoleRepository.GetAll(id).ToList();
-            return ListRoles;
+           // List<Role> ListRoles = this.unitOfWork.RoleRepository.GetAll(id).ToList();
+            return null;
         }
         #endregion
 
@@ -40,9 +42,12 @@
 
         #region GetRole(int id)
         public RoleEntity GetRole(int id)
+
+        public Role GetRole(int id)
         {
             throw new NotImplementedException();
         }
+
         #endregion
 
         #region CreateRole(ApplicationRoleEntity role)
@@ -54,6 +59,7 @@
             this.unitOfWork.RoleRepository.Post(role);
 
             try 
+        public bool CreateRole(Role role)
             {
                 this.unitOfWork.Commit();
                 this.unitOfWork.Save();
@@ -71,7 +77,7 @@
             this.unitOfWork.Commit();
             this.unitOfWork.Save();
 
-            RoleEntity roleOk = this.unitOfWork.RoleRepository.Get(id);
+            Role roleOk = this.unitOfWork.RoleRepository.Get(id);
             if (roleOk == null)
             {
                 return true;

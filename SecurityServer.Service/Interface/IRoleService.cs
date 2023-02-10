@@ -5,10 +5,13 @@
 
     public interface IRoleService
     {
-        public List<RoleEntity> GetRolesApp(int id);
-        public List<RoleEntity> GetRoles();
-        public RoleEntity GetRole(int id);
-        public bool AddRole(ApplicationRoleEntity role);
+        public List<Role> GetRolesApp(int id);
+        public List<Role> GetRoles();
+        public Role GetRole(int id);
+       // public bool AddRole(ApplicationRoleEntity role);
+       // public List<Role> GetRoles(int id);
+        //public Role GetRole(int id);
+        public bool CreateRole(Role role);
         public bool DeleteRole(int id);
     }
 }

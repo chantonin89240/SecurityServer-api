@@ -6,6 +6,7 @@
     using SecurityServer.Entities.DtoDown;
     using SecurityServer.Entities.DtoUp;
     using SecurityServer.Service.Comparer;
+    using SecurityServer.Data.Context;
 
     public class ApplicationService : IApplicationService
     {
@@ -23,9 +24,9 @@
         #endregion
 
         #region GetApplications
-        List<ApplicationEntity> IApplicationService.GetApplications()
+        List<Application> IApplicationService.GetApplications()
         {
-            List<ApplicationEntity> ListApplications = this.unitOfWork.ApplicationRepository.GetAll().ToList();
+            List<Application> ListApplications = this.unitOfWork.ApplicationRepository.GetAll().ToList();
             return ListApplications;
         }
         #endregion
@@ -34,21 +35,21 @@
         ApplicationDtoDown IApplicationService.GetApplication(int id)
         {
             ApplicationDtoDown application = this.unitOfWork.ApplicationRepository.Get(id);
-            application.Roles = this.unitOfWork.RoleRepository.GetAll(application.Id).ToList();
+           application.Roles = this.unitOfWork.RoleRepository.GetAll(application.Id).ToList();
             return application;
         }
         #endregion
 
         #region GetSecret(string clientSecret)
-        ApplicationEntity IApplicationService.GetSecret(string clientSecret)
+        Application IApplicationService.GetSecret(string clientSecret)
         {
-            ApplicationEntity application = this.unitOfWork.ApplicationRepository.Get(clientSecret);
+            Application application = this.unitOfWork.ApplicationRepository.Get(clientSecret);
             return application;
         }
         #endregion
 
         #region CreateApplication(ApplicationEntity application)
-        bool IApplicationService.CreateApplication(ApplicationEntity application)
+        bool IApplicationService.CreateApplication(Application application)
         {
             this.unitOfWork.CreateTransaction();
             application.ClientSecret = _salt.SaltGenerator();
@@ -89,6 +90,7 @@
         #region UpdateApplication(ApplicationEntity app)
         // service update application
         ApplicationEntity IApplicationService.UpdateApplication(ApplicationUpdateDtoUp app)
+        Application IApplicationService.UpdateApplication(Application app)
         {
             // création d'une application Entity
             ApplicationEntity appUp = new ApplicationEntity() { Id = app.Id, Name = app.Name, Description = app.Description, Url = app.Url };
@@ -167,6 +169,7 @@
                     this.unitOfWork.ApplicationUserRoleRepository.Post(usApp);
                 }
             }
+            Application appUpdate = this.unitOfWork.ApplicationRepository.Update(app);
            
             // appel du commit et du save de la transaction
             this.unitOfWork.Commit();

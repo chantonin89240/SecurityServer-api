@@ -1,6 +1,7 @@
 ﻿namespace SecurityServer.Data
 {
     using Microsoft.EntityFrameworkCore.Storage;
+    using SecurityServer.Data.Context;
     using SecurityServer.Data.Repository;
     using SecurityServer.Data.Repository.Interface;
 

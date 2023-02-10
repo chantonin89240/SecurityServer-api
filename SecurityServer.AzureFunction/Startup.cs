@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SecurityServer.Data;
+using SecurityServer.Data.Context;
 using SecurityServer.Data.Repository;
 using SecurityServer.Data.Repository.Interface;
 using SecurityServer.Service;
@@ -23,7 +24,7 @@ namespace SecurityServer.AzureFunction
                .Build();
 
 
-            string connectionString = "Server=bdd-p2-g5.database.windows.net;Initial Catalog=BDD-DIIAGE-P2-G5;Persist Security Info=False;User ID=diiage2bg;Password=Diiage_G5_P2;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"; //config.GetConnectionStringOrSetting("SqlConnectionString");
+            string connectionString = "Server=securityserverbdd.database.windows.net;Initial Catalog=securityserverbdd;Persist Security Info=False;User ID=DiiageG5test;Password=6ix9ine6ix9ine!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"; //config.GetConnectionStringOrSetting("SqlConnectionString");
             builder.Services.AddDbContext<SecurityServerDbContext>(
               options => SqlServerDbContextOptionsExtensions.UseSqlServer(options, connectionString));
             builder.Services.AddScoped<IUnitOfWork<SecurityServerDbContext>, UnitOfWork<SecurityServerDbContext>>();

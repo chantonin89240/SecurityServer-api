@@ -10,12 +10,12 @@
         public string Url { get; set; }
         public string ClientSecret { get; set; }
         public List<UserAppDtoDown> Users { get; set; }
-        public List<RoleEntity> Roles { get; set; }
+        public List<Role> Roles { get; set; }
 
         public ApplicationDtoDown()
         {
             Users = new List<UserAppDtoDown>();
-            Roles = new List<RoleEntity>();
+            Roles = new List<Role>();
         }
     }
 }

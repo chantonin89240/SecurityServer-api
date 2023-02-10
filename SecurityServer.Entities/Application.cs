@@ -4,27 +4,32 @@
     using System.ComponentModel.DataAnnotations;
     using System.Text.Json.Serialization;
 
-    public class ClaimEntity : IClaimEntity
+    public class Application : IApplicationEntity
     {
         [Key]
         [Required]
         public int Id { get; set; }
-
         [Required]
         public string Name { get; set; }
-
-        [Required]
         public string Description { get; set; }
+        [Required]
+        public string Url { get; set; }
+        [Required]
+        public string ClientSecret { get; set; }
+        [JsonIgnore]
+        public List<Role> Roles { get; set; }
         [JsonIgnore]
         public List<ApplicationUserRole> ApplicationUserRoles { get; set; }
 
-        public ClaimEntity() { }
+        public Application() { }
 
-        public ClaimEntity(int id, string name, string description)
+        public Application(string name, string description, string url, string clientSecret)
         {
-            this.Id = id;
             this.Name = name;
             this.Description = description;
+            this.Url = url;
+            this.ClientSecret = clientSecret;
+            this.Roles = new List<Role>();
             this.ApplicationUserRoles = new List<ApplicationUserRole>();
         }
     }

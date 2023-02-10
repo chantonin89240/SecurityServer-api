@@ -3,13 +3,13 @@
     using SecurityServer.Entities;
     using SecurityServer.Entities.DtoDown;
 
-    public interface IApplicationRepository : IBaseRepository<ApplicationEntity>
+    public interface IApplicationRepository : IBaseRepository<Application>
     {
-        IEnumerable<ApplicationEntity> Get();
+        IEnumerable<Application> Get();
         ApplicationDtoDown Get(int id);
-        ApplicationEntity Get(string clientSecret);
-        ApplicationEntity Post(ApplicationEntity application);
-        ApplicationEntity Update(ApplicationEntity application);
+        Application Get(string clientSecret);
+        Application Post(Application application);
+        Application Update(Application application);
         void Delete(int id);
     }
 }

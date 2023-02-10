@@ -1,11 +1,12 @@
 ﻿namespace SecurityServer.Data
 {
+    using SecurityServer.Data.Context;
     using SecurityServer.Entities;
     using SecurityServer.Factory;
 
     public class SeedDataLocal
     {
-        private static IEnumerable<ApplicationEntity> Applications;
+        private static IEnumerable<Application> Applications;
 
         public static void Initialisation(SecurityServerDbContext dbContext)
         {
