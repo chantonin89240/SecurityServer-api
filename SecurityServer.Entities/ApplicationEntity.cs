@@ -9,7 +9,6 @@
         public string Description { get; set; }
         public string Url { get; set; }
         public string ClientSecret { get; set; }
-        public List<UserEntity> Users {  get; set; }
 
         public ApplicationEntity() { }
 
@@ -19,7 +18,6 @@
             this.Description = description;
             this.Url = url;
             this.ClientSecret = clientSecret;
-            this.Users = new List<UserEntity>();
         }
     }
 }

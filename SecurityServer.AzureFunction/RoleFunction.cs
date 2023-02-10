@@ -6,25 +6,13 @@
     using Microsoft.Azure.WebJobs;
     using Microsoft.Azure.WebJobs.Extensions.Http;
     using Microsoft.Extensions.Logging;
-    using SecurityServer.Entities;
-    using SecurityServer.Service.Interface;
-    using System.Collections.Generic;
-    using System.Web.Http;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Azure.WebJobs;
-    using Microsoft.Azure.WebJobs.Extensions.Http;
-    using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
     using SecurityServer.Entities;
-    using SecurityServer.Entities.DtoDown;
     using SecurityServer.Service.Interface;
     using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Http;
-    using SecurityServer.Entities.DtoUp;
 
     [Authorize]
     public class RoleFunction

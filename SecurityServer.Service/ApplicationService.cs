@@ -4,6 +4,8 @@
     using SecurityServer.Data;
     using SecurityServer.Service.Interface;
     using SecurityServer.Entities.DtoDown;
+    using SecurityServer.Entities.DtoUp;
+    using SecurityServer.Service.Comparer;
 
     public class ApplicationService : IApplicationService
     {
@@ -86,17 +88,91 @@
 
         #region UpdateApplication(ApplicationEntity app)
         // service update application
-        ApplicationEntity IApplicationService.UpdateApplication(ApplicationEntity app)
+        ApplicationEntity IApplicationService.UpdateApplication(ApplicationUpdateDtoUp app)
         {
+            // création d'une application Entity
+            ApplicationEntity appUp = new ApplicationEntity() { Id = app.Id, Name = app.Name, Description = app.Description, Url = app.Url };
+            // création de la liste des users avec les roles
+            List<UserAppUpdateDtoUp> users = new List<UserAppUpdateDtoUp>(app.Users.ToList());
+           
             // création d'une transaction
             this.unitOfWork.CreateTransaction();
-            // appel du repository update
-            ApplicationEntity appUpdate = this.unitOfWork.ApplicationRepository.Update(app);
+
+            // update de l'application
+            if (app != null)
+            {
+                // appel du repository update
+                appUp = this.unitOfWork.ApplicationRepository.Update(appUp);
+            }
+            else
+            {
+                return appUp;
+            }
+
+            // récupération de la liste des users de l'application
+            List<ApplicationUserRoleEntity> appUsers = this.unitOfWork.ApplicationUserRoleRepository.GetUser(appUp.Id).ToList();
+
+            // update de la table ApplicationUserRole
+            if (appUsers != null) 
+            {
+                // création d'une liste ApplicationUserRoleEntity avec la liste des nouvelle 
+                List<ApplicationUserRoleEntity> newUsers = new List<ApplicationUserRoleEntity>();
+                
+                foreach (UserAppUpdateDtoUp user in users)
+                {
+                    ApplicationUserRoleEntity add = new ApplicationUserRoleEntity() { IdUser = user.IdUser };
+                    newUsers.Add(add);
+                }
+
+                // comparaison des liste pour suppression
+                List<ApplicationUserRoleEntity> listDelete = appUsers.Except(newUsers, new UserAppComparer()).ToList();
+
+                // delete des users
+                if (listDelete.Count() != 0)
+                {
+                    foreach (ApplicationUserRoleEntity userDelete in listDelete)
+                    {
+                        this.unitOfWork.ApplicationUserRoleRepository.DeleteUser(appUp.Id, userDelete.IdUser);
+                    }
+                }
+
+                // comparaison des liste pour ajout
+                List<ApplicationUserRoleEntity> listAdd = newUsers.Except(appUsers, new UserAppComparer()).ToList();
+                
+                // ajout des users 
+                if (listAdd.Count() != 0)
+                {
+                    foreach (ApplicationUserRoleEntity userAdd in listAdd)
+                    {
+                        this.unitOfWork.ApplicationUserRoleRepository.Post(userAdd);
+                    }
+                }
+
+
+
+
+            }
+            else
+            {
+                // la liste est null donc on ajoute tous
+                foreach(UserAppUpdateDtoUp us in users)
+                {
+                    ApplicationUserRoleEntity usApp = new ApplicationUserRoleEntity()
+                    { 
+                        IdApplication = appUp.Id,
+                        IdUser = us.IdUser,
+                        IdRole = us.IdRole,
+                    };
+
+                    this.unitOfWork.ApplicationUserRoleRepository.Post(usApp);
+                }
+            }
+           
             // appel du commit et du save de la transaction
             this.unitOfWork.Commit();
             this.unitOfWork.Save();
             // renvoi de l'application update
-            return appUpdate;
+            return appUp;
         }
         #endregion
     }

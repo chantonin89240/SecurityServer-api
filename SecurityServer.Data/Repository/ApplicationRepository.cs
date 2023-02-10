@@ -6,7 +6,6 @@
 
     public class ApplicationRepository : BaseRepository<ApplicationEntity>, IApplicationRepository
     {
-
         SecurityServerDbContext context;
         public ApplicationRepository(SecurityServerDbContext context) : base (context) 
         {
