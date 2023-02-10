@@ -50,14 +50,14 @@
         #region GenerateJWT(string codeGrant)
         AccessToken IAuthenticationService.GenerateJWT(string codeGrant)
         {
-            CodeGrantEntity grant = this.unitOfWork.CodeGrantRepository.Get(codeGrant);
+            CodeGrant grant = this.unitOfWork.CodeGrantRepository.Get(codeGrant);
 
             if (grant != null)
             {
                 UserDtoDown user = this.unitOfWork.UserRepository.Get(grant.IdUser);
                 //ClaimEntity claim = this.unitOfWork.ClaimRepository
 
-                ClaimEntity claim = new ClaimEntity()
+                Entities.Claim claim = new Entities.Claim()
                 {
                     Id = 1,
                     Name = "test",
@@ -145,11 +145,11 @@
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             var codegrant = $@"{new string(Enumerable.Repeat(chars, 32)
                 .Select(s => s[random.Next(s.Length)]).ToArray())}FEUR";
-            CodeGrantEntity codeGrant = new CodeGrantEntity
+            CodeGrant codeGrant = new CodeGrant
             {
                 ClientSecret = clientSecret,
                 IdUser = user.Id,
-                CodeGrant = codegrant
+                Codegrant = codegrant
 
             };
             this.unitOfWork.CodeGrantRepository.Post(codeGrant);

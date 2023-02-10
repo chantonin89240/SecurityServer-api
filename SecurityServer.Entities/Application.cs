@@ -4,7 +4,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Text.Json.Serialization;
 
-    public class Application : IApplicationEntity
+    public class Application : IApplication
     {
         [Key]
         [Required]

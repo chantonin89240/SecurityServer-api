@@ -10,6 +10,6 @@ namespace SecurityServer.Data.Repository.Interface
 {
     public interface IClaimRepository
     {
-        IEnumerable<ClaimEntity> Get();
+        IEnumerable<Claim> Get();
     }
 }

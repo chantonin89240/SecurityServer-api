@@ -3,9 +3,7 @@
     using SecurityServer.Data.Context;
     using SecurityServer.Data.Repository.Interface;
     using SecurityServer.Entities;
-    using static System.Net.Mime.MediaTypeNames;
-
-    public class RoleRepository : BaseRepository<RoleEntity>, IRoleRepository
+    using SecurityServer.Entities.DtoUp;
 
     public class RoleRepository : BaseRepository<Role>, IRoleRepository
     {
@@ -34,9 +32,10 @@
             return this.Get(id);
         }
 
-        Role IRoleRepository.Post(Role application)
+        Role IRoleRepository.Post(ApplicationRoleDtoUp application)
         {
-            this.context.ApplicationRole.Add(roleApp);
+            //this.context.ApplicationRole.Add(roleApp);
+            throw new NotImplementedException();
         }
 
         void IRoleRepository.Delete(int id)

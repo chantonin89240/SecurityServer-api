@@ -40,7 +40,7 @@
             // récupération du body 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             // deserialization du body 
-            var input = JsonConvert.DeserializeObject<UserEntity>(requestBody);
+            var input = JsonConvert.DeserializeObject<User>(requestBody);
 
             bool mailNotUse = userService.GetMailNotUse(input.Email);
 
@@ -68,7 +68,7 @@
                 }
 
                 // création de l'user entity
-                var user = new UserEntity() { FirstName = input.FirstName, LastName = input.LastName, Email = input.Email, Password = nicePassword, Salt = salt, Avatar = input.Avatar };
+                var user = new User() { FirstName = input.FirstName, LastName = input.LastName, Email = input.Email, Password = nicePassword, Salt = salt, Avatar = input.Avatar };
                 // appel du service de création du user 
                 bool result = userService.CreateUser(user);
 
@@ -124,10 +124,10 @@
             // récupération du body 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             // deserialization du body 
-            var input = JsonConvert.DeserializeObject<UserEntity>(requestBody);
+            var input = JsonConvert.DeserializeObject<User>(requestBody);
 
             // création d'un user Entity
-            UserEntity user = new UserEntity() { Id = input.Id, FirstName = input.FirstName, LastName = input.LastName, Email = input.Email, Avatar = input.Avatar };
+            User user = new User() { Id = input.Id, FirstName = input.FirstName, LastName = input.LastName, Email = input.Email, Avatar = input.Avatar };
 
             // appel du service update application
             UserDtoDown userUpdate = userService.UpdateUser(user);

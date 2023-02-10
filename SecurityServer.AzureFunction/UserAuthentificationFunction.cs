@@ -1,17 +1,12 @@
 namespace SecurityServer.AzureFunction
 {
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Infrastructure;
-    using Microsoft.AspNetCore.Mvc.Routing;
     using Microsoft.Azure.WebJobs;
     using Microsoft.Azure.WebJobs.Extensions.Http;
-    using Microsoft.Extensions.Primitives;
     using Newtonsoft.Json;
     using SecurityServer.Entities.DtoDown;
     using SecurityServer.Entities.DtoUp;
-    using SecurityServer.Service;
     using SecurityServer.Service.Interface;
     using System;
     using System.IO;
@@ -86,21 +81,6 @@ namespace SecurityServer.AzureFunction
 
             // retour du token
             return new OkObjectResult(token);
-
-        }
-    }
-
-    public class UserCredentials
-    {
-        public string User
-        {
-            get;
-            set;
-        }
-        public string Password
-        {
-            get;
-            set;
         }
     }
 }

@@ -4,7 +4,7 @@
     using SecurityServer.Data.Repository.Interface;
     using SecurityServer.Entities;
 
-    public class CodeGrantRepository : BaseRepository<CodeGrantEntity>, ICodeGrantRepository
+    public class CodeGrantRepository : BaseRepository<CodeGrant>, ICodeGrantRepository
     {
         SecurityServerDbContext context;
 
@@ -13,9 +13,9 @@
             this.context = context;
         }
 
-        CodeGrantEntity ICodeGrantRepository.Get(string codeGrant)
+        CodeGrant ICodeGrantRepository.Get(string codeGrant)
         {
-            CodeGrantEntity grant = this._dbSet.FirstOrDefault(code => code.CodeGrant == codeGrant);
+            CodeGrant grant = this._dbSet.FirstOrDefault(code => code.Codegrant == codeGrant);
             return grant;
         }
 
@@ -24,7 +24,7 @@
 
         }
 
-        CodeGrantEntity ICodeGrantRepository.Post(CodeGrantEntity codegrant)
+        CodeGrant ICodeGrantRepository.Post(CodeGrant codegrant)
         {
             return this.Add(codegrant);
         }

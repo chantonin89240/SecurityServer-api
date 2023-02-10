@@ -1,6 +1,6 @@
 ﻿namespace SecurityServer.Entities.IEntities
 {
-    public interface IClaimEntity
+    public interface IClaim
     {
         public int Id { get; set; }
         public string Name { get; set; }

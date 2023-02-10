@@ -8,6 +8,7 @@
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
     using SecurityServer.Entities;
+    using SecurityServer.Entities.DtoUp;
     using SecurityServer.Service.Interface;
     using System.Collections.Generic;
     using System.IO;
@@ -30,7 +31,7 @@
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "rolesApp/{id}")] HttpRequest req, int id, ILogger log)
         {
             // appel du service get roles
-            List<RoleEntity> roles = roleService.GetRolesApp(id);
+            List<Role> roles = roleService.GetRolesApp(id);
             // retour du résultat
             return new OkObjectResult(roles);
         }
@@ -41,7 +42,7 @@
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "roles/")] HttpRequest req, ILogger log)
         {
             // appel du service get roles
-            List<RoleEntity> roles = roleService.GetRoles();
+            List<Role> roles = roleService.GetRoles();
             // retour du résultat
             return new OkObjectResult(roles);
         }
@@ -72,7 +73,7 @@
             // récupération du body
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             // deserialization du body 
-            ApplicationRoleEntity input = JsonConvert.DeserializeObject<ApplicationRoleEntity>(requestBody);
+            ApplicationRoleDtoUp input = JsonConvert.DeserializeObject<ApplicationRoleDtoUp>(requestBody);
 
             // appel du service add role
             bool result = roleService.AddRole(input);

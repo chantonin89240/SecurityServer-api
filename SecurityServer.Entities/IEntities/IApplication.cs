@@ -1,6 +1,6 @@
 ﻿namespace SecurityServer.Entities.IEntities
 {
-    public interface IApplicationEntity
+    public interface IApplication
     {
         public int Id { get; set; }
         public string? Name { get; set; }

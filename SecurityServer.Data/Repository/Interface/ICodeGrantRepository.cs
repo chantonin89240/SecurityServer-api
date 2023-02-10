@@ -2,10 +2,10 @@
 {
     using SecurityServer.Entities;
 
-    public interface ICodeGrantRepository : IBaseRepository<CodeGrantEntity>
+    public interface ICodeGrantRepository : IBaseRepository<CodeGrant>
     {
-        public CodeGrantEntity Post(CodeGrantEntity codegrant);
-        public CodeGrantEntity Get(string codeGrant);
+        public CodeGrant Post(CodeGrant codegrant);
+        public CodeGrant Get(string codeGrant);
         public void Delete(int clientId);
     }
 }

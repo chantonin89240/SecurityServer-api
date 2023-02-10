@@ -5,7 +5,7 @@ namespace SecurityServer.Entities
     using System.ComponentModel.DataAnnotations;
     using System.Text.Json.Serialization;
 
-    public class UserEntity : IUserEntity
+    public class User : IUser
     {
         [Key]
         [Required]
@@ -27,11 +27,11 @@ namespace SecurityServer.Entities
         [JsonIgnore]
         public List<ApplicationUserRole> ApplicationUserRoles { get; set; }
         [JsonIgnore]
-        public CodeGrantEntity CodeGrantEntity { get; set; }
+        public CodeGrant CodeGrantEntity { get; set; }
 
-        public UserEntity() { }
+        public User() { }
 
-        public UserEntity(int idrole, string firstname, string lastname, string email, string password, string salt, string avatar, bool isAdmin)
+        public User(int idrole, string firstname, string lastname, string email, string password, string salt, string avatar, bool isAdmin)
         {
             this.Id = idrole;
             this.FirstName = firstname;

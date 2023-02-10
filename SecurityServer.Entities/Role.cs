@@ -4,7 +4,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Text.Json.Serialization;
 
-    public class Role : IRoleEntity
+    public class Role : IRole
     {
         [Key]
         [Required]

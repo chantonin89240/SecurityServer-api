@@ -90,7 +90,7 @@ namespace SecurityServer.Data.Migrations
                     b.ToTable("ApplicationUserRole");
                 });
 
-            modelBuilder.Entity("SecurityServer.Entities.ClaimEntity", b =>
+            modelBuilder.Entity("SecurityServer.Entities.Claim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -111,7 +111,7 @@ namespace SecurityServer.Data.Migrations
                     b.ToTable("Claim");
                 });
 
-            modelBuilder.Entity("SecurityServer.Entities.CodeGrantEntity", b =>
+            modelBuilder.Entity("SecurityServer.Entities.CodeGrant", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -123,7 +123,7 @@ namespace SecurityServer.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CodeGrant")
+                    b.Property<string>("Codegrant")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -155,7 +155,7 @@ namespace SecurityServer.Data.Migrations
                     b.ToTable("Role");
                 });
 
-            modelBuilder.Entity("SecurityServer.Entities.UserEntity", b =>
+            modelBuilder.Entity("SecurityServer.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -218,7 +218,7 @@ namespace SecurityServer.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SecurityServer.Entities.ClaimEntity", "Claim")
+                    b.HasOne("SecurityServer.Entities.Claim", "Claim")
                         .WithMany("ApplicationUserRoles")
                         .HasForeignKey("IdClaim")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -230,7 +230,7 @@ namespace SecurityServer.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SecurityServer.Entities.UserEntity", "User")
+                    b.HasOne("SecurityServer.Entities.User", "User")
                         .WithMany("ApplicationUserRoles")
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -245,11 +245,11 @@ namespace SecurityServer.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SecurityServer.Entities.CodeGrantEntity", b =>
+            modelBuilder.Entity("SecurityServer.Entities.CodeGrant", b =>
                 {
-                    b.HasOne("SecurityServer.Entities.UserEntity", "User")
+                    b.HasOne("SecurityServer.Entities.User", "User")
                         .WithOne("CodeGrantEntity")
-                        .HasForeignKey("SecurityServer.Entities.CodeGrantEntity", "IdUser")
+                        .HasForeignKey("SecurityServer.Entities.CodeGrant", "IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -261,7 +261,7 @@ namespace SecurityServer.Data.Migrations
                     b.Navigation("ApplicationUserRoles");
                 });
 
-            modelBuilder.Entity("SecurityServer.Entities.ClaimEntity", b =>
+            modelBuilder.Entity("SecurityServer.Entities.Claim", b =>
                 {
                     b.Navigation("ApplicationUserRoles");
                 });
@@ -271,7 +271,7 @@ namespace SecurityServer.Data.Migrations
                     b.Navigation("ApplicationUserRoles");
                 });
 
-            modelBuilder.Entity("SecurityServer.Entities.UserEntity", b =>
+            modelBuilder.Entity("SecurityServer.Entities.User", b =>
                 {
                     b.Navigation("ApplicationUserRoles");
 
