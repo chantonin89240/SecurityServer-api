@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SecurityServer.Entities.IEntities
 {
-    public interface IApplicationUserRoleEntity
+    public interface IApplicationUserRole
     {
         public int IdUser { get; set; }
         public int IdApplication { get; set; }

@@ -140,7 +140,7 @@ namespace SecurityServer.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ClientSecret = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IdUser = table.Column<int>(type: "int", nullable: false),
-                    CodeGrant = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Codegrant = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

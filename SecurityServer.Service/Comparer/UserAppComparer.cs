@@ -3,14 +3,14 @@
     using SecurityServer.Entities;
     using System.Diagnostics.CodeAnalysis;
 
-    public class UserAppComparer : IEqualityComparer<ApplicationUserRoleEntity>
+    public class UserAppComparer : IEqualityComparer<ApplicationUserRole>
     {
-        public bool Equals(ApplicationUserRoleEntity? x, ApplicationUserRoleEntity? y)
+        public bool Equals(ApplicationUserRole? x, ApplicationUserRole? y)
         {
             return x.IdUser == y.IdUser;
         }
 
-        public int GetHashCode([DisallowNull] ApplicationUserRoleEntity obj)
+        public int GetHashCode([DisallowNull] ApplicationUserRole obj)
         {
             return obj.IdUser!.GetHashCode();
         }

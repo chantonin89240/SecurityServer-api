@@ -3,14 +3,14 @@
     using SecurityServer.Entities;
     using SecurityServer.Entities.DtoDown;
 
-    public  interface IUserRepository : IBaseRepository<UserEntity>
+    public  interface IUserRepository : IBaseRepository<User>
     {
-        IEnumerable<UserEntity> Get();
+        IEnumerable<User> Get();
         UserDtoDown Get(int id);
-        bool Get(UserEntity user);
-        UserEntity Post(UserEntity user);
-        UserDtoDown Update(UserEntity user);
+        bool Get(User user);
+        User Post(User user);
+        UserDtoDown Update(User user);
         void Delete(int id);
-        UserEntity Get(string email);
+        User Get(string email);
     }
 }

@@ -2,6 +2,7 @@
 {
     using SecurityServer.Entities;
     using SecurityServer.Entities.DtoDown;
+    using SecurityServer.Entities.DtoUp;
 
     public interface IApplicationService
     {
@@ -10,6 +11,6 @@
         public Application GetSecret(string clientSecret);
         bool CreateApplication(Application application);
         public bool DeleteApplication(int id);
-        Application UpdateApplication(Application app);
+        Application UpdateApplication(ApplicationUpdateDtoUp app);
     }
 }

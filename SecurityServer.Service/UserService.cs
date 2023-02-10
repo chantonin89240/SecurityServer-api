@@ -23,10 +23,10 @@
         #endregion
 
         #region CreateUser(UserEntity user)
-        bool IUserService.CreateUser(UserEntity user)
+        bool IUserService.CreateUser(User user)
         {
             this.unitOfWork.CreateTransaction();
-            UserEntity thisUser = this.unitOfWork.UserRepository.Post(user);
+            User thisUser = this.unitOfWork.UserRepository.Post(user);
             this.unitOfWork.Commit();
             this.unitOfWork.Save();
             var userOk = this.unitOfWork.UserRepository.Get(thisUser);
@@ -70,10 +70,10 @@
         #region GetUsers
         List<UserAppDtoDown> IUserService.GetUsers()
         {
-            List<UserEntity> ListUsers = this.unitOfWork.UserRepository.GetAll().ToList();
+            List<User> ListUsers = this.unitOfWork.UserRepository.GetAll().ToList();
             List<UserAppDtoDown> usersDto = new List<UserAppDtoDown>();
 
-            foreach(UserEntity user in ListUsers)
+            foreach(User user in ListUsers)
             {
                 UserAppDtoDown us = new UserAppDtoDown()
                 {
@@ -119,7 +119,7 @@
         #endregion
 
         #region UpdateUser(UserEntity user)
-        UserDtoDown IUserService.UpdateUser(UserEntity user)
+        UserDtoDown IUserService.UpdateUser(User user)
         {
             // création d'une transaction
             this.unitOfWork.CreateTransaction();
@@ -136,7 +136,7 @@
         #region GetMailNotUse(string mail)
         public bool GetMailNotUse(string email)
         {
-            UserEntity userDto = this.unitOfWork.UserRepository.Get(email);
+            User userDto = this.unitOfWork.UserRepository.Get(email);
 
             if(userDto == null)
             {

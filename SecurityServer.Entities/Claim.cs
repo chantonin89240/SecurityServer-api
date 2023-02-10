@@ -4,7 +4,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Text.Json.Serialization;
 
-    public class ClaimEntity : IClaimEntity
+    public class Claim : IClaim
     {
         [Key]
         [Required]
@@ -18,9 +18,9 @@
         [JsonIgnore]
         public List<ApplicationUserRole> ApplicationUserRoles { get; set; }
 
-        public ClaimEntity() { }
+        public Claim() { }
 
-        public ClaimEntity(int id, string name, string description)
+        public Claim(int id, string name, string description)
         {
             this.Id = id;
             this.Name = name;

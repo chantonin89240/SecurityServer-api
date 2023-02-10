@@ -5,7 +5,7 @@
     using SecurityServer.Entities;
     using SecurityServer.Entities.DtoDown;
 
-    public class UserRepository : BaseRepository<UserEntity>, IUserRepository
+    public class UserRepository : BaseRepository<User>, IUserRepository
     {
         SecurityServerDbContext context;
 
@@ -14,14 +14,14 @@
             this.context = context;
         }
 
-        IEnumerable<UserEntity> IUserRepository.Get()
+        IEnumerable<User> IUserRepository.Get()
         {
             return this.GetAll();
         }
 
         UserDtoDown IUserRepository.Get(int id)
         {
-            UserEntity user = this.Get(id);
+            User user = this.Get(id);
 
             if (user == null) return null;
 
@@ -39,7 +39,7 @@
             
         }
 
-        bool IUserRepository.Get(UserEntity user)
+        bool IUserRepository.Get(User user)
         {
             if (this._dbSet.Find(user.Id) != null)
             {
@@ -51,7 +51,7 @@
             }
         }
 
-        UserEntity IUserRepository.Get(string email)
+        User IUserRepository.Get(string email)
         {
             var user = this._dbSet.FirstOrDefault(u => u.Email == email);
 
@@ -61,7 +61,7 @@
             }
             else
             {
-                UserEntity userdto = new UserEntity()
+                User userdto = new User()
                 {
                     Id = user.Id,
                     Email = user.Email,
@@ -71,9 +71,9 @@
                 return userdto;
             }
         }
-        UserDtoDown IUserRepository.Update(UserEntity user)
+        UserDtoDown IUserRepository.Update(User user)
         {
-            UserEntity oldUser = this.Get(user.Id);
+            User oldUser = this.Get(user.Id);
             
             if(user.FirstName != oldUser.FirstName)
                 oldUser.FirstName = user.FirstName;
@@ -84,7 +84,7 @@
             if (user.Avatar != oldUser.Avatar)
                 oldUser.Avatar = user.Avatar;
 
-            UserEntity userUpdate = this.Update(oldUser);  
+            User userUpdate = this.Update(oldUser);  
             
             UserDtoDown userAft = new UserDtoDown()
             {
@@ -103,7 +103,7 @@
             this.Delete(id);
         }
 
-        UserEntity IUserRepository.Post(UserEntity user)
+        User IUserRepository.Post(User user)
         {
             return this.Add(user);
         }

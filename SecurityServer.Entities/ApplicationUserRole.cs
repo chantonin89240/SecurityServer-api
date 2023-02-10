@@ -1,9 +1,9 @@
-﻿using SecurityServer.Entities.IEntities;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
-
-namespace SecurityServer.Entities
+﻿namespace SecurityServer.Entities
 {
+    using SecurityServer.Entities.IEntities;
+    using System.ComponentModel.DataAnnotations;
+    using System.Text.Json.Serialization;
+
     public class ApplicationUserRole : IApplicationUserRole
     {
         [Required]
@@ -15,13 +15,13 @@ namespace SecurityServer.Entities
         [Required]
         public int IdClaim { get; set; }
         [JsonIgnore]
-        public UserEntity User { get; set; }
+        public User User { get; set; }
         [JsonIgnore]
         public Application Application { get; set; }
         [JsonIgnore]
         public Role Role { get; set; }
         [JsonIgnore]
-        public ClaimEntity Claim { get; set; }
+        public Claim Claim { get; set; }
 
         public ApplicationUserRole() { }
 

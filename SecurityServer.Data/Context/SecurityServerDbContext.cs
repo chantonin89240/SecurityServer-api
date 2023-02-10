@@ -7,17 +7,15 @@
     {
         public DbSet<Application>? Application { get; set; }
 
-        public DbSet<ClaimEntity>? Claim { get; set; }
+        public DbSet<Claim>? Claim { get; set; }
 
         public DbSet<Role>? Role { get; set; }
 
-        public DbSet<UserEntity>? User { get; set; }
+        public DbSet<User>? User { get; set; }
 
         public DbSet<ApplicationUserRole>? ApplicationUserRole { get; set; }
 
-        //public DbSet<ApplicationRoleEntity>? ApplicationRole { get; set; }
-
-        public DbSet<CodeGrantEntity>? CodeGrant { get; set; }
+        public DbSet<CodeGrant>? CodeGrant { get; set; }
 
         public SecurityServerDbContext(DbContextOptions<SecurityServerDbContext> options) : base(options) { }
 
@@ -30,7 +28,7 @@
             modelBuilder.Entity<ApplicationUserRole>().HasOne(a => a.Application).WithMany(a => a.ApplicationUserRoles).HasForeignKey(a => a.IdApplication);
             modelBuilder.Entity<ApplicationUserRole>().HasOne(a => a.Claim).WithMany(a => a.ApplicationUserRoles).HasForeignKey(a => a.IdClaim);
             modelBuilder.Entity<ApplicationUserRole>().HasOne(a => a.User).WithMany(a => a.ApplicationUserRoles).HasForeignKey(a => a.IdUser);
-            modelBuilder.Entity<CodeGrantEntity>().HasOne(c => c.User).WithOne(u => u.CodeGrantEntity).HasForeignKey<CodeGrantEntity>(c => c.IdUser);
+            modelBuilder.Entity<CodeGrant>().HasOne(c => c.User).WithOne(u => u.CodeGrantEntity).HasForeignKey<CodeGrant>(c => c.IdUser);
         }
     }
 }

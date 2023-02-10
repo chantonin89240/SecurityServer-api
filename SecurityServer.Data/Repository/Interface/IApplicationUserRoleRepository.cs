@@ -9,11 +9,11 @@ using SecurityServer.Entities.DtoUp;
 
 namespace SecurityServer.Data.Repository.Interface
 {
-    public interface IApplicationUserRoleRepository : IBaseRepository<ApplicationUserRoleEntity>
+    public interface IApplicationUserRoleRepository : IBaseRepository<ApplicationUserRole>
     {
-        IEnumerable<ApplicationUserRoleEntity> GetUser(int idApp);
+        IEnumerable<ApplicationUserRole> GetUser(int idApp);
         UserAppUpdateDtoUp Get(int idApp, int idUser);
-        void Post(ApplicationUserRoleEntity userRole);
+        void Post(ApplicationUserRole userRole);
         void DeleteApp(int idApp);
         void DeleteUser(int idApp, int idUser);
     }

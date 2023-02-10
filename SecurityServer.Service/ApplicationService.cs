@@ -89,11 +89,10 @@
 
         #region UpdateApplication(ApplicationEntity app)
         // service update application
-        ApplicationEntity IApplicationService.UpdateApplication(ApplicationUpdateDtoUp app)
-        Application IApplicationService.UpdateApplication(Application app)
+        Application IApplicationService.UpdateApplication(ApplicationUpdateDtoUp app)
         {
             // création d'une application Entity
-            ApplicationEntity appUp = new ApplicationEntity() { Id = app.Id, Name = app.Name, Description = app.Description, Url = app.Url };
+            Application appUp = new Application() { Id = app.Id, Name = app.Name, Description = app.Description, Url = app.Url };
             // création de la liste des users avec les roles
             List<UserAppUpdateDtoUp> users = new List<UserAppUpdateDtoUp>(app.Users.ToList());
            
@@ -112,46 +111,43 @@
             }
 
             // récupération de la liste des users de l'application
-            List<ApplicationUserRoleEntity> appUsers = this.unitOfWork.ApplicationUserRoleRepository.GetUser(appUp.Id).ToList();
+            List<ApplicationUserRole> appUsers = this.unitOfWork.ApplicationUserRoleRepository.GetUser(appUp.Id).ToList();
 
             // update de la table ApplicationUserRole
             if (appUsers != null) 
             {
-                // création d'une liste ApplicationUserRoleEntity avec la liste des nouvelle 
-                List<ApplicationUserRoleEntity> newUsers = new List<ApplicationUserRoleEntity>();
+                // création d'une liste ApplicationUserRole avec la liste des nouvelle 
+                List<ApplicationUserRole> newUsers = new List<ApplicationUserRole>();
                 
                 foreach (UserAppUpdateDtoUp user in users)
                 {
-                    ApplicationUserRoleEntity add = new ApplicationUserRoleEntity() { IdUser = user.IdUser };
+                    ApplicationUserRole add = new ApplicationUserRole() { IdUser = user.IdUser };
                     newUsers.Add(add);
                 }
 
                 // comparaison des liste pour suppression
-                List<ApplicationUserRoleEntity> listDelete = appUsers.Except(newUsers, new UserAppComparer()).ToList();
+                List<ApplicationUserRole> listDelete = appUsers.Except(newUsers, new UserAppComparer()).ToList();
 
                 // delete des users
                 if (listDelete.Count() != 0)
                 {
-                    foreach (ApplicationUserRoleEntity userDelete in listDelete)
+                    foreach (ApplicationUserRole userDelete in listDelete)
                     {
                         this.unitOfWork.ApplicationUserRoleRepository.DeleteUser(appUp.Id, userDelete.IdUser);
                     }
                 }
 
                 // comparaison des liste pour ajout
-                List<ApplicationUserRoleEntity> listAdd = newUsers.Except(appUsers, new UserAppComparer()).ToList();
+                List<ApplicationUserRole> listAdd = newUsers.Except(appUsers, new UserAppComparer()).ToList();
                 
                 // ajout des users 
                 if (listAdd.Count() != 0)
                 {
-                    foreach (ApplicationUserRoleEntity userAdd in listAdd)
+                    foreach (ApplicationUserRole userAdd in listAdd)
                     {
                         this.unitOfWork.ApplicationUserRoleRepository.Post(userAdd);
                     }
                 }
-
-
-
 
             }
             else
@@ -159,7 +155,7 @@
                 // la liste est null donc on ajoute tous
                 foreach(UserAppUpdateDtoUp us in users)
                 {
-                    ApplicationUserRoleEntity usApp = new ApplicationUserRoleEntity()
+                    ApplicationUserRole usApp = new ApplicationUserRole()
                     { 
                         IdApplication = appUp.Id,
                         IdUser = us.IdUser,
@@ -169,7 +165,7 @@
                     this.unitOfWork.ApplicationUserRoleRepository.Post(usApp);
                 }
             }
-            Application appUpdate = this.unitOfWork.ApplicationRepository.Update(app);
+           // Application appUpdate = this.unitOfWork.ApplicationRepository.Update(app);
            
             // appel du commit et du save de la transaction
             this.unitOfWork.Commit();

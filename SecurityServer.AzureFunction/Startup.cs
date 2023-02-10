@@ -23,8 +23,7 @@ namespace SecurityServer.AzureFunction
                .AddEnvironmentVariables()
                .Build();
 
-
-            string connectionString = "Server=securityserverbdd.database.windows.net;Initial Catalog=securityserverbdd;Persist Security Info=False;User ID=DiiageG5test;Password=6ix9ine6ix9ine!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"; //config.GetConnectionStringOrSetting("SqlConnectionString");
+            string connectionString = "Server=serverbddsecurityg5caltest.database.windows.net;Initial Catalog=securityserverbdd;Persist Security Info=False;User ID=CloudSA9ba4e899;Password=Diiage_P2_G5_Test;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             builder.Services.AddDbContext<SecurityServerDbContext>(
               options => SqlServerDbContextOptionsExtensions.UseSqlServer(options, connectionString));
             builder.Services.AddScoped<IUnitOfWork<SecurityServerDbContext>, UnitOfWork<SecurityServerDbContext>>();

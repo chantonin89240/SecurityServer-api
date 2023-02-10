@@ -1,4 +1,5 @@
-﻿using SecurityServer.Data.Repository.Interface;
+﻿using SecurityServer.Data.Context;
+using SecurityServer.Data.Repository.Interface;
 using SecurityServer.Entities;
 using SecurityServer.Entities.DtoUp;
 using SecurityServer.Entities.IEntities;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SecurityServer.Data.Repository
 {
-    public class ApplicationUserRoleRepository : BaseRepository<ApplicationUserRoleEntity>, IApplicationUserRoleRepository
+    public class ApplicationUserRoleRepository : BaseRepository<ApplicationUserRole>, IApplicationUserRoleRepository
     {
 
         SecurityServerDbContext context;
@@ -19,7 +20,7 @@ namespace SecurityServer.Data.Repository
             this.context = context;
         }
 
-        public IEnumerable<ApplicationUserRoleEntity> GetUser(int idApp)
+        public IEnumerable<ApplicationUserRole> GetUser(int idApp)
         {
             return this.context.ApplicationUserRole.Where(app => app.IdApplication == idApp);
         }
@@ -29,7 +30,7 @@ namespace SecurityServer.Data.Repository
             throw new NotImplementedException();
         }
 
-        public void Post(ApplicationUserRoleEntity userRole)
+        public void Post(ApplicationUserRole userRole)
         {
             this.Add(userRole);
         }
@@ -39,9 +40,10 @@ namespace SecurityServer.Data.Repository
             throw new NotImplementedException();
         }
 
-        public void DeleteUser(ApplicationUserRoleEntity truc, int idApp, int idUser)
+        public void DeleteUser(int idApp, int idUser)
         {
-            context.ApplicationUserRole.(a => a.IdApplication == idApp).Where(u => u.IdUser == idUser);
+            //context.ApplicationUserRole.(a => a.IdApplication == idApp).Where(u => u.IdUser == idUser);
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace SecurityServer.Entities.IEntities
 {
-    public interface IUserEntity
+    public interface IUser
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

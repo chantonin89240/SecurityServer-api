@@ -24,8 +24,7 @@
         #endregion
 
         #region GetRolesApp(int id)
-        public List<RoleEntity> GetRolesApp(int id)
-        public List<Role> GetRoles(int id)
+        public List<Role> GetRolesApp(int id)
         {
            // List<Role> ListRoles = this.unitOfWork.RoleRepository.GetAll(id).ToList();
             return null;
@@ -33,16 +32,14 @@
         #endregion
 
         #region GetRoles(int id)
-        public List<RoleEntity> GetRoles()
+        public List<Role> GetRoles()
         {
-            List<RoleEntity> ListRoles = this.unitOfWork.RoleRepository.GetAll().ToList();
+            List<Role> ListRoles = this.unitOfWork.RoleRepository.GetAll().ToList();
             return ListRoles;
         }
         #endregion
 
         #region GetRole(int id)
-        public RoleEntity GetRole(int id)
-
         public Role GetRole(int id)
         {
             throw new NotImplementedException();
@@ -50,16 +47,15 @@
 
         #endregion
 
-        #region CreateRole(ApplicationRoleEntity role)
-        public bool AddRole(ApplicationRoleEntity role)
+        #region CreateRole(ApplicationRoleDtoUp role)
+        public bool AddRole(ApplicationRoleDtoUp role)
         {
             // création de la transaction
             this.unitOfWork.CreateTransaction();
             // ajout de l'applicationRole
             this.unitOfWork.RoleRepository.Post(role);
 
-            try 
-        public bool CreateRole(Role role)
+            try
             {
                 this.unitOfWork.Commit();
                 this.unitOfWork.Save();
@@ -67,6 +63,19 @@
             }
             catch (Exception ex) { return false; }
         }
+        #endregion
+
+        #region CreateRole
+        //public bool CreateRole(Role role)
+        //{ 
+        //    try
+        //    {
+        //        this.unitOfWork.Commit();
+        //        this.unitOfWork.Save();
+        //        return true;
+        //    }
+        //    catch (Exception ex) { return false; }
+        //}
         #endregion
 
         #region DeleteRole(int id)

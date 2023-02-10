@@ -4,7 +4,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Text.Json.Serialization;
 
-    public class CodeGrantEntity : ICodeGrantEntity
+    public class CodeGrant : ICodeGrant
     {
         [Key]
         [Required]
@@ -17,17 +17,18 @@
         public int IdUser { get; set; }
 
         [Required]
-        public string CodeGrant { get; set; }
-        [JsonIgnore]
-        public UserEntity User { get; set; }
-        public CodeGrantEntity() { }
+        public string Codegrant { get; set; }
 
-        public CodeGrantEntity(int id, string clientId, int idUser, string codeGrant)
+        [JsonIgnore]
+        public User User { get; set; }
+        public CodeGrant() { }
+
+        public CodeGrant(int id, string clientId, int idUser, string codeGrant)
         {
             this.Id = id;
             this.ClientSecret = clientId;
             this.IdUser = idUser;
-            this.CodeGrant = codeGrant;
+            this.Codegrant = codeGrant;
         }
     }
 }
