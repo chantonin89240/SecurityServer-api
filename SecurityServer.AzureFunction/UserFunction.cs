@@ -42,9 +42,9 @@
             // deserialization du body 
             var input = JsonConvert.DeserializeObject<User>(requestBody);
 
-            bool mailNotUse = userService.GetMailNotUse(input.Email);
+            //bool mailNotUse = userService.GetMailNotUse(input.Email);
 
-            if (mailNotUse)
+            if (true)
             {
                 // génération d'un salt
                 var salt = _isalt.SaltGenerator();
